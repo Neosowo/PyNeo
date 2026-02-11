@@ -1,5 +1,5 @@
 // ============================================
-// Neo.py - Sistema de Aprendizaje Python
+// PyNeo - Sistema de Aprendizaje Python
 // ============================================
 
 const CONFIG = {
