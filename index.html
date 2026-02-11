@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo.py</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000000;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Nav Fixed */
+        .nav-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+        /* Neon Box Styles */
+        .neon-box {
+            background: rgba(20, 25, 50, 0.6);
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .neon-box:hover {
+            border-color: #50f4a8;
+        }
+
+        .neon-box-secondary {
+            background: rgba(20, 25, 50, 0.6);
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+        }
+
+        .neon-box-dark {
+            background: rgba(10, 15, 30, 0.8);
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+        }
+
+        .code-editor {
+            background: #1a1f3a;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+        }
+
+        .code-output {
+            background: #0d1117;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+        }
+
+        /* Button Styles */
+        .btn-neon {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #0a0e27;
+            font-weight: 700;
+            border: none;
+            box-shadow:
+                0 0 20px rgba(0, 255, 136, 0.5),
+                0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-neon:hover {
+            box-shadow:
+                0 0 30px rgba(0, 255, 136, 0.8),
+                0 6px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Text Styles */
+        .text-neon-green {
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .text-neon-light {
+            color: #55ff00;
+            text-shadow: 0 0 10px rgba(85, 255, 0, 0.5);
+        }
+
+        .text-neon-bright {
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Progress Ring */
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* Module Cards */
+        .module-card {
+            background: rgba(20, 25, 50, 0.6);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .module-card:hover {
+            border-color: #60ff38;
+            transform: translateY(-5px);
+        }
+
+        .module-card.locked {
+            border-color: #4b5563;
+            box-shadow:
+                0 0 10px rgba(75, 85, 99, 0.2),
+                inset 0 0 10px rgba(75, 85, 99, 0.1);
+            opacity: 0.5;
+        }
+
+        /* Animations */
+        @keyframes glow-pulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 20px rgba(0, 255, 136, 0.3),
+                    inset 0 0 20px rgba(0, 255, 136, 0.1);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 30px rgba(0, 255, 136, 0.5),
+                    inset 0 0 25px rgba(0, 255, 136, 0.15);
+            }
+        }
+
+        .glow-animate {
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0e27;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ff88 0%, #00cc6a 100%);
+            border-radius: 6px;
+            border: 2px solid #0a0e27;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00ffff 0%, #00cccc 100%);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Terminal Cursor */
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .cursor-blink::after {
+            content: '▊';
+            animation: blink 1s infinite;
+            color: #00ff88;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #00ff88;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 9999;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Badge */
+        .badge-neon {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #0a0e27;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Input/Textarea */
+        textarea,
+        input {
+            background: rgba(10, 14, 39, 0.8);
+            color: #e0e0e0;
+            border: 1px solid #00ff88;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none;
+            border-color: #0fcc74;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Syntax Highlighting Colors */
+        .syntax-keyword {
+            color: #00ff88;
+        }
+
+        .syntax-string {
+            color: #55ff00;
+        }
+
+        .syntax-number {
+            color: #00cc6a;
+        }
+
+        .syntax-comment {
+            color: #4a5568;
+        }
+
+        .syntax-function {
+            color: #00ff88;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Fixed -->
+    <header class="nav-fixed" id="main-nav">
+        <div class="container mx-auto px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="text-3xl">
+                        <i class="fas fa-terminal text-neon-green"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-neon-green">Neo.py</h1>
+                        <p class="text-xs text-gray-400">Python desde Cero</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="hidden md:flex items-center gap-3 neon-box px-5 py-2">
+                        <span class="text-xs font-semibold text-gray-400">PROGRESO</span>
+                        <span class="text-lg font-bold text-neon-green" id="overall-progress">0%</span>
+                    </div>
+
+                    <button onclick="resetProgress()" class="neon-box px-4 py-2 hover:neon-box-blue transition-all">
+                        <i class="fas fa-redo text-sm text-gray-300 mr-2"></i>
+                        <span class="text-sm font-semibold text-gray-300">RESET</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center" id="hero-section"
+        style="padding-top: 100px;">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="mb-8">
+                <div class="inline-block neon-box px-6 py-3 mb-6">
+                    <span class="text-sm font-semibold text-neon-green">PROGRAMACIÓN DESDE CERO</span>
+                </div>
+            </div>
+
+            <h1 class="text-6xl md:text-7xl font-black mb-6 leading-tight">
+                <span class="text-neon-green">APRENDE PYTHON</span><br>
+                <span class="text-white">PASO A PASO</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                Domina la programación con ejercicios prácticos y compilador integrado
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                <button onclick="scrollToModules()"
+                    class="btn-neon px-10 py-4 rounded-lg font-bold text-lg flex items-center gap-3">
+                    <i class="fas fa-rocket"></i>
+                    COMENZAR AHORA
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+                <div class="neon-box p-6">
+                    <div class="text-4xl font-black text-neon-green mb-2">7</div>
+                    <div class="text-sm text-gray-400">UNIDADES</div>
+                </div>
+                <div class="neon-box p-6">
+                    <div class="text-4xl font-black text-neon-green mb-2">40+</div>
+                    <div class="text-sm text-gray-400">EJERCICIOS</div>
+                </div>
+                <div class="neon-box p-6">
+                    <div class="text-4xl font-black text-neon-green mb-2">IDE</div>
+                    <div class="text-sm text-gray-400">INTEGRADO</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path Section -->
+    <section class="py-20 relative" id="modules-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-block neon-box px-6 py-3 mb-6">
+                    <span class="text-sm font-semibold text-neon-green">RUTA DE APRENDIZAJE</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black mb-6 text-white">
+                    UNIDADES DE ESTUDIO
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                    Desde los fundamentos hasta análisis de datos con Pandas
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 relative" id="modules-grid">
+                <!-- Modules loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Content (Hidden by default) -->
+    <section class="hidden py-20 relative" id="module-content" style="padding-top: 100px;">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="mb-8">
+                <button onclick="closeModule()" class="neon-box px-4 py-2 mb-4 hover:neon-box-blue transition-all">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    <span class="font-semibold">VOLVER</span>
+                </button>
+                <h2 class="text-3xl font-black text-white mb-2" id="module-title"></h2>
+                <p class="text-gray-400" id="module-description"></p>
+            </div>
+
+            <div class="neon-box p-8 mb-8" id="lesson-content">
+                <!-- Lesson content loaded by JavaScript -->
+            </div>
+
+            <div class="flex justify-between items-center">
+                <button onclick="previousLesson()" id="prev-lesson"
+                    class="neon-box px-6 py-3 font-semibold hover:neon-box-blue transition-all">
+                    <i class="fas fa-chevron-left mr-2"></i>ANTERIOR
+                </button>
+                <button onclick="nextLesson()" id="next-lesson" class="btn-neon px-6 py-3 font-semibold">
+                    SIGUIENTE<i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="fixed inset-0 modal-overlay hidden items-center justify-center z-50" id="success-modal">
+        <div class="neon-box p-8 max-w-md mx-4 text-center glow-animate">
+            <div class="text-6xl mb-4">
+                <i class="fas fa-trophy text-neon-green"></i>
+            </div>
+            <h3 class="text-2xl font-black text-white mb-4" id="success-message"></h3>
+            <button onclick="closeSuccessModal()" class="btn-neon px-8 py-3 font-semibold mt-4">
+                CONTINUAR
+            </button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
