@@ -146,7 +146,10 @@ function checkLessonValidation(code, output) {
 // ============================================
 // FUNCIONES DE INTERFAZ Y NAVEGACIÓN
 // ============================================
-function init() { loadModules(); updateOverallProgress(); }
+function init() {
+    loadModules();
+    updateOverallProgress();
+}
 
 function loadModules() {
     const grid = document.getElementById('modules-grid');
@@ -159,6 +162,9 @@ function loadModules() {
     }
 
     modules.forEach((module, index) => {
+        // Ocultar el módulo introductorio (id: 0) del grid para coincidir con la imagen
+        if (module.id === 0) return;
+
         // BLOQUEO DESACTIVADO TEMPORALMENTE PARA PRUEBAS
         const isLocked = false; // index > 0 && !progress[modules[index - 1].id];
         const isCompleted = progress[module.id];
@@ -184,8 +190,10 @@ function loadModules() {
             <div class="flex items-start justify-between mb-6">
                 <div class="relative">
                     <svg class="progress-ring w-20 h-20" viewBox="0 0 80 80">
-                        <circle cx="40" cy="40" r="36" stroke="rgba(69,0,249,0.2)" stroke-width="4" fill="none"/>
-                        <circle class="progress-ring-circle" cx="40" cy="40" r="36" stroke="#4500F9" stroke-width="4" fill="none" stroke-dasharray="${2 * Math.PI * 36}" stroke-dashoffset="${2 * Math.PI * 36 - (percent / 100) * 2 * Math.PI * 36}" stroke-linecap="round"/>
+                        <circle cx="40" cy="40" r="36" stroke="rgba(99, 102, 241, 0.1)" stroke-width="4" fill="none"/>
+                        <circle class="progress-ring-circle" cx="40" cy="40" r="36" stroke="#6366f1" stroke-width="4" fill="none" 
+                                style="transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.5));"
+                                stroke-dasharray="${2 * Math.PI * 36}" stroke-dashoffset="${2 * Math.PI * 36 - (percent / 100) * 2 * Math.PI * 36}" stroke-linecap="round"/>
                     </svg>
                     <div class="absolute inset-0 flex items-center justify-center"><i class="fas ${module.icon} text-3xl text-neon-green"></i></div>
                 </div>
@@ -229,12 +237,18 @@ function openModule(id) {
     // Recuperar progreso de lección
     const savedLesson = lessonProgress[currentModule.id];
     if (savedLesson !== undefined) {
-        currentLesson = savedLesson;
+        // Validación de seguridad para lecciones eliminadas o fuera de rango
+        if (savedLesson >= currentModule.lessons.length) {
+            currentLesson = currentModule.lessons.length > 0 ? currentModule.lessons.length - 1 : (currentModule.intro ? -1 : 0);
+        } else {
+            currentLesson = savedLesson;
+        }
     } else {
         currentLesson = currentModule.intro ? -1 : 0;
     }
 
     document.getElementById('modules-section').classList.add('hidden');
+    document.getElementById('exercises-section').classList.add('hidden');
     document.getElementById('module-content').classList.remove('hidden');
     document.getElementById('hero-section').classList.add('hidden');
     document.getElementById('main-nav').style.display = 'none';
@@ -243,6 +257,7 @@ function openModule(id) {
 
 function closeModule() {
     document.getElementById('modules-section').classList.remove('hidden');
+    document.getElementById('exercises-section').classList.remove('hidden');
     document.getElementById('module-content').classList.add('hidden');
     document.getElementById('hero-section').classList.remove('hidden');
     document.getElementById('main-nav').style.display = 'block';

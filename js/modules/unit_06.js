@@ -1,7 +1,7 @@
 window.modules.push({
     id: 6,
     title: "Funciones",
-    icon: "fa-boxes",
+    icon: "fa-cubes",
     description: "Crea tus propias herramientas reutilizables.",
     intro: `
         <div class="neon-box p-8 mb-8">
@@ -74,53 +74,7 @@ saludar()  # Puedes llamarla cuantas veces quieras</textarea>
                 <div id="output-func-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Crea tu Funcion",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Funcion de Motivacion</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos las Funciones</h4>
-                    <p class="text-gray-300 mb-4">Ya viste como crear una funcion simple que imprime mensajes.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea una funcion que:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Se llame <code class="text-neon-green">motivar</code></li>
-                        <li>Imprima el mensaje: "Tu puedes lograrlo!"</li>
-                        <li>Llamala 3 veces</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> def motivar(): luego print(), y finalmente llamala: motivar()
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej1-unit6" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="7"># Define y llama la funcion motivar
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej1-unit6').value, 'output-ej1-unit6')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej1-unit6" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Tu puedes lograrlo!",
-                matchType: "include",
-                requiredCode: "def motivar",
-                hint: 'def motivar(): print("Tu puedes lograrlo!"); motivar(); motivar(); motivar()'
-            }
-        },
+            `},
         {
             title: "Parametros",
             content: `
@@ -163,54 +117,7 @@ presentar("Carlos", 30)</textarea>
                 <div id="output-func-2" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Calculadora Personalizada",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Funcion con Parametros</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos Parametros</h4>
-                    <p class="text-gray-300 mb-4">Los parametros permiten que una funcion trabaje con diferentes valores.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea una funcion llamada <code class="text-neon-green">sumar</code> que:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Reciba dos parametros: a y b</li>
-                        <li>Calcule la suma: a + b</li>
-                        <li>Imprima el resultado con un mensaje</li>
-                        <li>Llamala con los valores 10 y 20</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> def sumar(a, b): print(f"La suma es: {a + b}")
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej2-unit6" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Crea la funcion sumar con dos parametros
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej2-unit6').value, 'output-ej2-unit6')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej2-unit6" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Deberia mostrar 30...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "30",
-                matchType: "include",
-                requiredCode: "def sumar",
-                hint: 'def sumar(a, b): print(f"La suma es: {a + b}"); sumar(10, 20)'
-            }
-        },
+            `},
         {
             title: "Return (Devolver Valores)",
             content: `

@@ -75,53 +75,8 @@ print(oferta)</textarea>
                 <div id="output-fstr-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Tarjeta de Presentacion",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: F-String Personalizado</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos F-Strings</h4>
-                    <p class="text-gray-300 mb-4">Ya viste como los f-strings facilitan la insercion de variables en textos.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea una tarjeta de presentacion:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Define variables: nombre = "Carlos", profesion = "Ingeniero", experiencia = 5</li>
-                        <li>Usa un f-string para imprimir: "Soy Carlos, trabajo como Ingeniero con 5 años de experiencia"</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> print(f"Soy {nombre}, trabajo como {profesion}...")
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej1-unit8" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Crea la tarjeta con f-string
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej1-unit8').value, 'output-ej1-unit8')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej1-unit8" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Carlos",
-                matchType: "include",
-                hint: 'nombre = "Carlos"; profesion = "Ingeniero"; experiencia = 5; print(f"Soy {nombre}, trabajo como {profesion} con {experiencia} años de experiencia")'
-            }
-        },
-        {
-            title: "Slicing (Cortar Secuencias)",
+            `},
+        {title: "Slicing (Cortar Secuencias)",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Extrae Fragmentos</h3>
                 
@@ -174,59 +129,8 @@ print("Primeras 3 letras:", texto[:3])  # Pyt</textarea>
                 <div id="output-slice-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Extractor de Nombres",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Slicing en Accion</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos Slicing</h4>
-                    <p class="text-gray-300 mb-4">El slicing extrae fragmentos usando [inicio:fin].</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Dada esta lista de nombres:
-                    </p>
-                    <div class="bg-black/30 p-3 rounded mb-4">
-                        <code class="text-neon-green">nombres = ["Ana", "Bruno", "Carlos", "Diana", "Elena"]</code>
-                    </div>
-                    <p class="text-gray-300 mb-4">Extrae y muestra:</p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Los primeros 3 nombres</li>
-                        <li>Los ultimos 2 nombres</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> nombres[:3] y nombres[3:]
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej2-unit8" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">nombres = ["Ana", "Bruno", "Carlos", "Diana", "Elena"]
-
-# Extrae los fragmentos solicitados
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej2-unit8').value, 'output-ej2-unit8')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej2-unit8" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Ana",
-                matchType: "include",
-                hint: 'print(nombres[:3]); print(nombres[3:])'
-            }
-        },
-        {
-            title: "Slicing Avanzado",
+            `},
+        {title: "Slicing Avanzado",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Mas Control</h3>
                 

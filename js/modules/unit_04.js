@@ -24,7 +24,7 @@ window.modules.push({
         </div>
     `,
     lessons: [
-    {
+        {
         title: "La Sentencia If",
         content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Si pasa esto... haz aquello</h3>
@@ -63,60 +63,8 @@ print("Fin del programa")</textarea>
                 <div id="output-if-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Prueba cambiando los puntos a 50...</p>
                 </div>
-            `
-    },
-    {
-        title: "[EJERCICIO] Ejercicio: Tu Primera Condición",
-        content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tú: Control de Edad</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white"> Repasemos If</h4>
-                    <p class="text-gray-300 mb-4">Ya viste cómo funciona if:</p>
-                    
-                    <div class="neon-box-dark p-6 mb-6">
-                        <code class="text-white block">
-                            if puntos == 100:<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;print("¡Ganaste!")
-                        </code>
-                    </div>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">[EJERCICIO] Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea un programa que verifique si una persona es mayor de edad:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>• Crea una variable <code class="text-neon-green">edad = 20</code></li>
-                        <li>• Si edad es mayor o igual a 18, imprime "Eres mayor de edad"</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            [PISTA] <strong>Pista:</strong> Usa >= para "mayor o igual que"
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej1-unit4" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># Verifica si es mayor de edad
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej1-unit4').value, 'output-ej1-unit4')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej1-unit4" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-        validation: {
-            expectedOutput: "Eres mayor de edad",
-            matchType: "include",
-            hint: 'edad = 20; if edad >= 18: print("Eres mayor de edad")'
-        }
-    },
-    {
-        title: "Si No... (Else)",
+            `},
+        {title: "Si No... (Else)",
         content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Dos Caminos</h3>
                 
@@ -156,55 +104,8 @@ else:
                 <div id="output-if-2" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-    },
-    {
-        title: "[EJERCICIO] Ejercicio: Par o Impar",
-        content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tú: Detector de Números</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white"> Repasemos If-Else</h4>
-                    <p class="text-gray-300 mb-4">Con if-else puedes tomar dos caminos diferentes.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">[EJERCICIO] Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea un programa que detecte si un número es par o impar:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>• Crea una variable <code class="text-neon-green">numero = 7</code></li>
-                        <li>• Si el número dividido entre 2 da residuo 0, es par</li>
-                        <li>• Sino, es impar</li>
-                        <li>• Imprime "Es par" o "Es impar" según corresponda</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            [PISTA] <strong>Pista:</strong> Usa el operador % (módulo) para obtener el residuo: numero % 2
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej2-unit4" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Detecta si es par o impar
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej2-unit4').value, 'output-ej2-unit4')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej2-unit4" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-        validation: {
-            expectedOutput: "Es impar",
-            matchType: "include",
-            hint: 'numero = 7; if numero % 2 == 0: print("Es par"); else: print("Es impar")'
-        }
-    },
-    {
-        title: "Múltiples Opciones (Elif)",
+            `},
+        {title: "Múltiples Opciones (Elif)",
         content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Mas de dos opciones</h3>
                 
@@ -243,5 +144,5 @@ else:
                 </div>
             `
     }
-]
+    ]
 });

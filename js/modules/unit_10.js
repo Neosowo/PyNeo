@@ -78,10 +78,8 @@ print(tabla)</textarea>
                 <div id="output-pd-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Nota: Si usas Skulpt básico, esto podría no ejecutarse, pero así se ve el código real.</p>
                 </div>
-            `
-        },
-        {
-            title: "Explorando Datos",
+            `},
+        {title: "Explorando Datos",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Leyendo la Información</h3>
                 

@@ -80,8 +80,8 @@ window.modules.push({
                         <span class="text-sm text-gray-400">Ejercicio de Clasificación</span>
                     </div>
                     <p class="text-gray-300 text-sm mb-4">
-                        Vamos a usar el comando <code>print()</code> para clasificar componentes. <br>
-                        El Monitor es un componente físico. Escribe un código que imprima la palabra "Te amo" en la pantalla.
+                        Vamos a usar el comando <code>print()</code> para mostrar mensajes en pantalla. <br>
+                        Escribe un código que imprima la palabra "Hola Mundo" en la pantalla.
                     </p>
                     <textarea id="code-hw-sw" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="3"># Escribe aqui tu respuesta
 print("...")</textarea>
@@ -94,63 +94,9 @@ print("...")</textarea>
                 </div>
             `,
             validation: {
-                expectedOutput: "Te amo",
+                expectedOutput: "Hola Mundo",
                 matchType: "exact",
-                hint: "Simplemente escribe: print(\"Te amo\")"
-            }
-        },
-        {
-            title: "[EJERCICIO] Ejercicio: Tu Primer Mensaje",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tú: Crea tu Propio Mensaje</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white"> Repasemos lo Aprendido</h4>
-                    <p class="text-gray-300 mb-4">En la lección anterior viste este código:</p>
-                    
-                    <div class="neon-box-dark p-6 mb-6">
-                        <code class="text-white block">
-                            print("Te amo")
-                        </code>
-                        <div class="mt-3 text-sm text-gray-400">
-                             Salida: Te amo
-                        </div>
-                    </div>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">[EJERCICIO] Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Ahora crea tu propio mensaje. Imprime en pantalla:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>• <code class="text-neon-green">"Hola Python"</code></li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            [PISTA] <strong>Pista:</strong> Usa el comando print() con el texto entre comillas.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Escribe tu código aquí</span>
-                    </div>
-                    <textarea id="code-ej1-unit1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="3"># Imprime "Hola Python"
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej1-unit1').value, 'output-ej1-unit1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej1-unit1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Intenta resolver el ejercicio...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Hola Python",
-                matchType: "exact",
-                hint: 'Escribe: print("Hola Python")'
+                hint: "Simplemente escribe: print(\"Hola Mundo\")"
             }
         },
         {
@@ -208,54 +154,6 @@ print("...")</textarea>
                 expectedOutput: "Abrir puerta\nSentarse\nEncender motor",
                 matchType: "exact",
                 hint: "Debes escribir 3 prints, uno debajo del otro, en el orden exacto solicitado."
-            }
-        },
-        {
-            title: "[EJERCICIO] Ejercicio: Secuencia de Pasos",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tú: Algoritmo para Hacer Café</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white"> Repasemos los Algoritmos</h4>
-                    <p class="text-gray-300 mb-4">Ya viste cómo ordenar pasos para encender un auto. Ahora harás lo mismo para preparar café.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">[EJERCICIO] Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Escribe un algoritmo (secuencia de prints) para preparar café:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>1. "Calentar agua"</li>
-                        <li>2. "Agregar café"</li>
-                        <li>3. "Servir en taza"</li>
-                        <li>4. "Disfrutar"</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            [PISTA] <strong>Pista:</strong> Son 4 líneas de código, cada una con un print().
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Escribe tu código aquí</span>
-                    </div>
-                    <textarea id="code-ej2-unit1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Escribe los 4 pasos para hacer café
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej2-unit1').value, 'output-ej2-unit1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar
-                    </button>
-                </div>
-                <div id="output-ej2-unit1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">¿Puedes escribir la secuencia correcta?</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Calentar agua\nAgregar café\nServir en taza\nDisfrutar",
-                matchType: "exact",
-                hint: "Escribe 4 prints en el orden correcto: Calentar agua, Agregar café, Servir en taza, Disfrutar"
             }
         },
         {
@@ -401,7 +299,7 @@ print(10 / 0)</textarea>
 
                 <div class="code-editor p-6 mb-4">
                      <p class="text-gray-300 text-sm mb-4">
-                        Para finalizar la Unidad 1, confirma que has entendido los conceptos básicos imprimiendo "Amo mucho a mi novio".
+                        Para finalizar la Unidad 1, confirma que has entendido los conceptos básicos imprimiendo "Unidad 1 Completada".
                     </p>
                     <textarea id="code-env" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="2">print("...")</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-env').value, 'output-env')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
@@ -413,7 +311,7 @@ print(10 / 0)</textarea>
                 </div>
             `,
             validation: {
-                expectedOutput: "Amo mucho a mi novio",
+                expectedOutput: "Unidad 1 Completada",
                 matchType: "exact"
             }
         }

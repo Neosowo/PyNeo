@@ -79,56 +79,8 @@ print("Edad:", usuario["edad"])</textarea>
                 <div id="output-dict-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Tu Primer Diccionario",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Ficha de Producto</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos Diccionarios</h4>
-                    <p class="text-gray-300 mb-4">Ya viste como crear un diccionario con datos de un usuario.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea un diccionario llamado <code class="text-neon-green">producto</code> con:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Clave "nombre" con valor "Laptop"</li>
-                        <li>Clave "precio" con valor 800</li>
-                        <li>Clave "disponible" con valor True</li>
-                        <li>Imprime el nombre y el precio</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> producto = {"nombre": "Laptop", ...}
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej1-unit7" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="7"># Crea el diccionario producto
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej1-unit7').value, 'output-ej1-unit7')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej1-unit7" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Laptop",
-                matchType: "include",
-                requiredCode: "producto",
-                hint: 'producto = {"nombre": "Laptop", "precio": 800, "disponible": True}; print(producto["nombre"]); print(producto["precio"])'
-            }
-        },
-        {
-            title: "Modificar y Agregar",
+            `},
+        {title: "Modificar y Agregar",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Diccionarios Dinamicos</h3>
                 
@@ -173,60 +125,8 @@ print("Estado final:", coche)</textarea>
                 <div id="output-dict-2" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Actualizar Inventario",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Sistema de Stock</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos Modificaciones</h4>
-                    <p class="text-gray-300 mb-4">Ya aprendiste a cambiar valores y agregar nuevas claves.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Dado este diccionario de inventario:
-                    </p>
-                    <div class="bg-black/30 p-3 rounded mb-4">
-                        <code class="text-neon-green">item = {"nombre": "Teclado", "cantidad": 10}</code>
-                    </div>
-                    <p class="text-gray-300 mb-4">Haz lo siguiente:</p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Cambia la cantidad a 5</li>
-                        <li>Agrega una nueva clave "precio" con valor 25</li>
-                        <li>Imprime el diccionario completo</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> item["cantidad"] = 5
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej2-unit7" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">item = {"nombre": "Teclado", "cantidad": 10}
-
-# Modifica y agrega datos
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej2-unit7').value, 'output-ej2-unit7')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej2-unit7" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "5",
-                matchType: "include",
-                hint: 'item["cantidad"] = 5; item["precio"] = 25; print(item)'
-            }
-        },
-        {
-            title: "Metodos Utiles",
+            `},
+        {title: "Metodos Utiles",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Operaciones Avanzadas</h3>
                 

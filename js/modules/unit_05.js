@@ -2,7 +2,7 @@ window.modules.push({
     id: 5,
     title: "Repeticiones (Bucles)",
     icon: "fa-sync",
-    description: "Haz que tu codigo trabaje por ti repitiendo tareas.",
+    description: "Haz que tu código trabaje por ti repitiendo tareas.",
     intro: `
         <div class="neon-box p-8 mb-8">
             <h3 class="text-3xl font-bold mb-6 text-white text-center">El Poder de la Repetición</h3>
@@ -69,62 +69,7 @@ print("¡Despegue!")</textarea>
                 <div id="output-while-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Observa como baja el numero...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Bucle While Personalizado",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Contador Descendente</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos While</h4>
-                    <p class="text-gray-300 mb-4">Ya viste como funciona el bucle while con un contador descendente.</p>
-                    
-                    <div class="neon-box-dark p-6 mb-6">
-                        <code class="text-white block">
-                            contador = 5<br>
-                            while contador > 0:<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;print(contador)<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;contador = contador - 1
-                        </code>
-                    </div>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea un contador que:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Empiece en 10</li>
-                        <li>Imprima cada numero mientras sea mayor que 0</li>
-                        <li>Baje de uno en uno</li>
-                        <li>Al finalizar, imprima "Fin"</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> Usa while contador > 0 y no olvides disminuir el contador
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej1-unit5" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="7"># Crea el contador desde 10 hasta 0
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej1-unit5').value, 'output-ej1-unit5')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej1-unit5" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "10",
-                matchType: "include",
-                hint: 'contador = 10; while contador > 0: print(contador); contador = contador - 1; print("Fin")'
-            }
-        },
+            `},
         {
             title: "Bucle For (Para cada uno)",
             content: `
@@ -160,53 +105,7 @@ for i in range(3):
                 <div id="output-for-1" class="code-output p-4 text-sm">
                     <p class="text-gray-500">Resultado...</p>
                 </div>
-            `
-        },
-        {
-            title: "[EJERCICIO] Tabla de Multiplicar",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Ahora Tu: Genera una Tabla</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Repasemos For</h4>
-                    <p class="text-gray-300 mb-4">El bucle for es ideal para repetir algo un numero especifico de veces.</p>
-                    
-                    <h4 class="font-bold mb-4 text-xl text-neon-green">Tu Turno</h4>
-                    <p class="text-gray-300 mb-4">
-                        Crea la tabla del 5:
-                    </p>
-                    <ul class="text-gray-400 mb-4 ml-6 space-y-2">
-                        <li>Usa un for que repita 10 veces (del 1 al 10)</li>
-                        <li>En cada repeticion, imprime: "5 x N = resultado"</li>
-                        <li>Ejemplo: "5 x 1 = 5", "5 x 2 = 10", etc.</li>
-                    </ul>
-                    
-                    <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                        <p class="text-sm text-gray-300">
-                            <strong>[PISTA]</strong> for i in range(1, 11) genera del 1 al 10
-                        </p>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-ej2-unit5" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># Genera la tabla del 5
-
-</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-ej2-unit5').value, 'output-ej2-unit5')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
-                    </button>
-                </div>
-                <div id="output-ej2-unit5" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "5 x 1 = 5",
-                matchType: "include",
-                requiredCode: "range",
-                hint: 'for i in range(1, 11): print(f"5 x {i} = {5*i}")'
-            }
-        },
+            `},
         {
             title: "For con Listas",
             content: `
