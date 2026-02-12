@@ -72,9 +72,11 @@ function renderEvaluations() {
         if (evalData.difficulty === 'intermedio') colorClass = 'yellow';
         if (evalData.difficulty === 'avanzado') colorClass = 'red';
         if (evalData.difficulty === 'experto') colorClass = 'purple';
+        if (evalData.difficulty === 'máster') colorClass = 'cyan';
 
         card.className = `neon-box p-6 transition-all cursor-pointer hover:scale-105 duration-300 relative overflow-hidden group reveal`;
         if (colorClass === 'purple') card.classList.add('hover:border-purple-500');
+        else if (colorClass === 'cyan') card.classList.add('hover:border-cyan-500');
         else if (colorClass === 'red') card.classList.add('hover:border-red-500');
         else if (colorClass === 'yellow') card.classList.add('hover:border-yellow-500');
         else card.classList.add('hover:border-green-500');
