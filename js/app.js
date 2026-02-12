@@ -10,8 +10,8 @@ const CONFIG = {
 
 let currentModule = null;
 let currentLesson = 0;
-let progress = JSON.parse(localStorage.getItem('neopy-progress')) || {};
-let lessonProgress = JSON.parse(localStorage.getItem('neopy-lesson-progress')) || {};
+let progress = JSON.parse(localStorage.getItem('PyNeo-progress')) || {};
+let lessonProgress = JSON.parse(localStorage.getItem('PyNeo-lesson-progress')) || {};
 
 // ============================================
 // COMPILADOR PYTHON (SKULPT)
@@ -272,7 +272,7 @@ function closeModule() {
 function saveLessonProgress() {
     if (currentModule && currentModule.id) {
         lessonProgress[currentModule.id] = currentLesson;
-        localStorage.setItem('neopy-lesson-progress', JSON.stringify(lessonProgress));
+        localStorage.setItem('PyNeo-lesson-progress', JSON.stringify(lessonProgress));
     }
 }
 
@@ -363,11 +363,11 @@ function previousLesson() {
 
 function completeModule() {
     progress[currentModule.id] = true;
-    localStorage.setItem('neopy-progress', JSON.stringify(progress));
+    localStorage.setItem('PyNeo-progress', JSON.stringify(progress));
 
     // También actualizamos el progreso de lección al máximo
     lessonProgress[currentModule.id] = currentModule.lessons.length - 1;
-    localStorage.setItem('neopy-lesson-progress', JSON.stringify(lessonProgress));
+    localStorage.setItem('PyNeo-lesson-progress', JSON.stringify(lessonProgress));
 
     showSuccessModal(`¡Completaste ${currentModule.title}!`, CONFIG.SUCCESS_IMAGE);
     // No cerramos automáticamente. Esperamos que el usuario haga clic en Continuar.
@@ -420,8 +420,8 @@ function resetProgress() {
     if (confirm('¿Estás seguro de que quieres reiniciar tu progreso?')) {
         progress = {};
         lessonProgress = {};
-        localStorage.removeItem('neopy-progress');
-        localStorage.removeItem('neopy-lesson-progress');
+        localStorage.removeItem('PyNeo-progress');
+        localStorage.removeItem('PyNeo-lesson-progress');
         loadModules();
         updateOverallProgress();
     }
