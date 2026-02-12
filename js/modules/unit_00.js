@@ -31,71 +31,105 @@ window.modules.push({
                 
                 <div class="neon-box p-8 mb-8">
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        La <b>programación</b> es el proceso de proporcionar instrucciones claras y precisas a una computadora para que realice tareas específicas. 
+                        La <strong>programación</strong> es el proceso de dar instrucciones precisas a una computadora. Es como escribir una receta de cocina extremadamente detallada que un robot debe seguir al pie de la letra.
                     </p>
                     
-                    <div class="neon-box-dark p-6 border-l-4 border-yellow-500 mb-6 font-italic">
-                        "Es como escribir una receta de cocina muy detallada para un robot que no sabe nada del mundo."
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Algoritmos</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Un algoritmo es simplemente una serie de pasos ordenados para resolver un problema.
+                            </p>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Lenguajes</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Como las máquinas no hablan español, usamos lenguajes como Python para comunicarnos con ellas.
+                            </p>
+                        </div>
                     </div>
 
-                    <h4 class="text-xl font-bold text-white mb-4">El concepto de Algoritmo</h4>
-                    <p class="text-gray-400 text-sm mb-4">
-                        Un algoritmo es simplemente una <b>secuencia finita y ordenada de pasos</b>. Ejemplos diarios:
-                    </p>
-                    <ul class="text-sm text-gray-500 space-y-2 ml-4">
-                        <li>• Seguir una receta de cocina.</li>
-                        <li>• Las instrucciones para armar un mueble.</li>
-                        <li>• Los pasos para lavarse los dientes.</li>
-                    </ul>
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">La Función print()</h4>
+                        <p class="text-gray-300 text-sm">
+                            Es nuestra herramienta básica para que la computadora nos "hable" mostrándonos mensajes en la pantalla.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Tu primer contacto</span>
+                        <span class="text-sm text-gray-400">Tu Primer Comando</span>
                     </div>
-                    <textarea id="code-intro-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="4"># En programación, el código es el texto que contiene las instrucciones
-print("¡Hola! Estoy aprendiendo a programar")</textarea>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Usa la función <code>print()</code> para mostrar el mensaje "Hola Mundo" en la terminal.
+                    </p>
+                    <textarea id="code-intro-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="3"># Escribe tu código aquí:
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-intro-1').value, 'output-intro-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar Código
+                        <i class="fas fa-play mr-2"></i>Ejecutar Saludo
                     </button>
                 </div>
                 <div id="output-intro-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Haz clic en Ejecutar para ver el resultado...</p>
+                    <p class="text-gray-500">Esperando tu primer código...</p>
                 </div>
-            `},
+            `,
+            validation: {
+                expectedOutput: "Hola Mundo",
+                matchType: "exact",
+                hint: "Escribe print(\"Hola Mundo\") exactamente así."
+            }
+        },
         {
             title: "¿Por qué Python?",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">El Lenguaje del Futuro</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">El Lenguaje de Moda</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Python es el lenguaje más popular del mundo para principiantes y profesionales por varias razones:
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Python es actualmente el lenguaje más popular del mundo. Su sintaxis es clara y se parece mucho al lenguaje humano, lo que lo hace ideal para principiantes.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="neon-box-secondary p-4">
-                            <h5 class="font-bold text-white mb-2">Fácil de Leer</h5>
-                            <p class="text-xs text-gray-400">Su sintaxis es muy parecida al lenguaje humano (inglés).</p>
-                        </div>
-                        <div class="neon-box-secondary p-4">
-                            <h5 class="font-bold text-white mb-2">Versátil</h5>
-                            <p class="text-xs text-gray-400">Se usa en IA, Ciencia de Datos, Web y Automatización.</p>
-                        </div>
-                        <div class="neon-box-secondary p-4">
-                            <h5 class="font-bold text-white mb-2">Interpretado</h5>
-                            <p class="text-xs text-gray-400">Puedes probar tu código línea por línea de forma rápida.</p>
-                        </div>
-                        <div class="neon-box-secondary p-4">
-                            <h5 class="font-bold text-white mb-2">Gran Comunidad</h5>
-                            <p class="text-xs text-gray-400">Hay miles de librerías listas para que las uses.</p>
-                        </div>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
+                        <h5 class="text-white font-bold text-sm mb-2">Versatilidad Total</h5>
+                        <p class="text-sm text-gray-400 mb-2">Con Python puedes crear:</p>
+                        <ul class="text-xs text-gray-500 space-y-1 ml-4 list-disc">
+                            <li>Páginas Web (Instagram, Netflix)</li>
+                            <li>Inteligencia Artificial (ChatGPT)</li>
+                            <li>Ciencia de Datos y Análisis Espacial</li>
+                        </ul>
+                    </div>
+
+                    <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Símbolos Matemáticos</h4>
+                        <p class="text-gray-300 text-sm">
+                            Python usa los símbolos estándar: <code>+</code> (suma), <code>-</code> (resta), <code>*</code> (multiplicación) y <code>/</code> (división).
+                        </p>
                     </div>
                 </div>
 
-                <div class="neon-box-dark p-6 text-center">
-                    <p class="text-neon-green font-bold">"Python permite concentrarse en resolver problemas, no en las reglas complejas del lenguaje."</p>
+                <div class="code-editor p-6 mb-4">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Python como Calculadora</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Prueba la potencia de Python resolviendo una suma. Escribe <code>print(2025 + 5)</code> para ver el resultado en la terminal.
+                    </p>
+                    <textarea id="code-intro-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="3"></textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-intro-2').value, 'output-intro-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Calcular Ahora
+                    </button>
                 </div>
-            `}
+                <div id="output-intro-2" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Realizando operación...</p>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "2030",
+                matchType: "include",
+                hint: "Escribe print(2025 + 5) y pulsa Ejecutar."
+            }
+        }
     ]
 });

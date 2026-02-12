@@ -25,124 +25,177 @@ window.modules.push({
     `,
     lessons: [
         {
-        title: "La Sentencia If",
-        content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Si pasa esto... haz aquello</h3>
+            title: "La Sentencia If",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Lógica Condicional</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Condiciones</h4>
-                    <p class="text-gray-300 mb-6">
-                        Los programas inteligentes toman decisiones. Usamos la palabra reservada <code class="text-neon-green">if</code> (que significa "si" condicional).
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Los programas inteligentes toman decisiones basándose en condiciones. La herramienta fundamental para esto es la sentencia <code>if</code> (si condicional).
                     </p>
                     
-                    <div class="neon-box-dark p-6 border-l-4 border-green-500">
-                        <h5 class="font-bold text-white mb-2">Importante: La Identación</h5>
-                        <p class="text-sm text-gray-300 mb-3">
-                            Python necesita saber qué código es parte del "if". Para eso usamos espacios (sangría) a la izquierda.
-                        </p>
-                        <div class="bg-black/30 p-3 rounded font-mono text-sm">
-                            <div class="text-white">if edad > 18:</div>
-                            <div class="text-neon-green ml-4">print("Eres mayor") # Esto tiene sangria</div>
-                            <div class="text-gray-400">print("Fin") # Esto esta fuera</div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-yellow-500">
+                            <h4 class="text-xl font-bold text-white mb-3">La Estructura</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Un <code>if</code> evalúa una expresión. Si es <strong>True</strong> (Verdadera), el código indentado se ejecuta.
+                            </p>
+                            <code class="text-xs text-neon-green block">if condicion:</code>
                         </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-red-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Indentación</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Python usa espacios para saber qué líneas pertenecen al <code>if</code>. Se llama bloque de código.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Operadores de Comparación</h4>
+                        <ul class="text-sm text-gray-400 grid grid-cols-2 gap-2">
+                            <li><code>></code> Mayor que</li>
+                            <li><code><</code> Menor que</li>
+                            <li><code>==</code> Igual a</li>
+                            <li><code>!=</code> Diferente de</li>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-if-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">puntos = 100
-
-if puntos == 100:
-    print("¡Felicidades!")
-    print("Has ganado el juego")
-
-print("Fin del programa")</textarea>
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Verificando Edad</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea una condición que verifique si la variable <code>edad</code> es mayor o igual a 18. Si es así, imprime "Mayor de edad".
+                    </p>
+                    <textarea id="code-if-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">edad = 20
+# Tu código aquí:
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-if-1').value, 'output-if-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar
+                        <i class="fas fa-play mr-2"></i>Ejecutar Condición
                     </button>
                 </div>
                 <div id="output-if-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Prueba cambiando los puntos a 50...</p>
+                    <p class="text-gray-500">Analizando condición...</p>
                 </div>
-            `},
-        {title: "Si No... (Else)",
-        content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Dos Caminos</h3>
+            `,
+            validation: {
+                expectedOutput: "Mayor de edad",
+                matchType: "exact",
+                hint: "Usa if edad >= 18: y no olvides los dos puntos y la sangría."
+            }
+        },
+        {
+            title: "Si No... (Else)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Caminos Alternativos</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        ¿Que pasa si la condicion NO se cumple? Usamos <code class="text-neon-green">else</code> (que significa "si no" o "en caso contrario").
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        ¿Qué pasa si la condición del <code>if</code> es falsa? Para manejar el "caso contrario", usamos la sentencia <code>else</code>.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-secondary p-6">
-                            <h5 class="font-bold text-white mb-2">Camino A (Verdadero)</h5>
-                            <p class="text-sm text-gray-400">Se ejecuta si el if es cierto.</p>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-6">
+                        <h5 class="text-white font-bold text-sm mb-2">Flujo de Decisión</h5>
+                        <p class="text-sm text-gray-400">
+                            Si la condición es verdadera → Se ejecuta el bloque <strong>if</strong>.<br>
+                            Si la condición es falsa → Se ejecuta el bloque <strong>else</strong>.
+                        </p>
+                    </div>
+
+                    <div class="neon-box-secondary p-6 border-l-2 border-neon-green">
+                        <h4 class="text-lg font-bold text-white mb-2">Regla de Oro</h4>
+                        <p class="text-gray-300 text-sm">
+                            El <code>else</code> no lleva condición propia y siempre debe ir alineado con su respectivo <code>if</code>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Control de Clima</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Completa el código: si la <code>temperatura</code> es mayor a 30 imprime "Calor", de lo contrario imprime "Fresco".
+                    </p>
+                    <textarea id="code-else-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">temperatura = 25
+
+if temperatura > 30:
+    print("Calor")
+# Agrega el else aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-else-1').value, 'output-else-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Verificar Clima
+                    </button>
+                </div>
+                <div id="output-else-1" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Tomando una decisión...</p>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "Fresco",
+                matchType: "exact",
+                hint: "Escribe else: (con dos puntos) y debajo print(\"Fresco\") con sangría."
+            }
+        },
+        {
+            title: "Múltiples Opciones (Elif)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Encadenando Condiciones</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Cuando hay más de dos posibilidades, usamos <code>elif</code> (abreviatura de 'else if'). Permite evaluar múltiples pruebas en cadena.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="neon-box-dark p-4 border border-blue-900/50">
+                            <h5 class="font-bold text-blue-400 mb-1">Orden de Evaluación</h5>
+                            <p class="text-sm text-gray-400">
+                                Python revisa las condiciones de arriba hacia abajo. En cuanto encuentra una verdadera, ejecuta su código e ignora el resto.
+                            </p>
                         </div>
-                        <div class="neon-box-secondary p-6">
-                            <h5 class="font-bold text-white mb-2">Camino B (Falso)</h5>
-                            <p class="text-sm text-gray-400">Se ejecuta si el if falla (else).</p>
+                        
+                        <div class="neon-box-dark p-4 border border-purple-900/50">
+                            <h5 class="font-bold text-purple-400 mb-1">Estructura Completa</h5>
+                            <p class="text-sm text-gray-400 font-mono text-xs">
+                                if condicion1: ... <br>
+                                elif condicion2: ... <br>
+                                else: ...
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Sistema de Acceso</span>
+                        <span class="text-sm text-gray-400">Sistema de Calificación</span>
                     </div>
-                    <textarea id="code-if-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="7">password = "secreto123"
-ingreso = "12345" # Prueba cambiando esto
-
-if ingreso == password:
-    print("Acceso Concedido")
-else:
-    print("Acceso Denegado")
-    print("Intente de nuevo")</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-if-2').value, 'output-if-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Entrar
-                    </button>
-                </div>
-                <div id="output-if-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
-                </div>
-            `},
-        {title: "Múltiples Opciones (Elif)",
-        content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Mas de dos opciones</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        A veces necesitamos mas de dos caminos. Para eso usamos <code class="text-neon-green">elif</code> (abreviatura de "else if").
+                    <p class="text-gray-300 text-sm mb-4">
+                        Si la <code>puntuacion</code> es 100 imprime "Perfecto". <br>
+                        Si es mayor a 80 imprime "Genial". <br>
+                        Para cualquier otro caso imprime "Sigue intentando".
                     </p>
-                    
-                    <div class="neon-box-dark p-6">
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li><b class="text-neon-green">if:</b> Primera condición</li>
-                            <li><b class="text-neon-green">elif:</b> Segunda condición (si la primera falla)</li>
-                            <li><b class="text-neon-green">elif:</b> Tercera condición...</li>
-                            <li><b class="text-neon-green">else:</b> Si nada de lo anterior funcionó</li>
-                        </ul>
-                    </div>
-                </div>
+                    <textarea id="code-elif-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">puntuacion = 85
 
-                <div class="code-editor p-6 mb-4">
-                    <textarea id="code-if-3" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="9">nota = 85
-
-if nota >= 90:
-    print("Calificacion: A (Excelente)")
-elif nota >= 80:
-    print("Calificacion: B (Muy bien)")
-elif nota >= 70:
-    print("Calificacion: C (Regular)")
-else:
-    print("Calificacion: F (Reprobado)")</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-if-3').value, 'output-if-3')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+if puntuacion == 100:
+    print("Perfecto")
+# Tu código aquí (usa elif y else):
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-elif-1').value, 'output-elif-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Calificar
                     </button>
                 </div>
-                <div id="output-if-3" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Prueba cambi ando la nota...</p>
+                <div id="output-elif-1" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Evaluando múltiples vías...</p>
                 </div>
-            `
-    }
+            `,
+            validation: {
+                expectedOutput: "Genial",
+                matchType: "exact",
+                hint: "Usa elif puntuacion > 80: para el segundo caso y finaliza con else:."
+            }
+        }
     ]
 });

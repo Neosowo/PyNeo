@@ -17,6 +17,7 @@ window.modules.push({
                 </div>
                 <div class="neon-box-dark p-4 text-xs font-mono text-gray-300">
                     import pandas as pd<br><br>
+                    # Carga miles de filas al instante
                     datos = pd.read_csv("ventas.csv")<br>
                     print(datos.describe())
                 </div>
@@ -27,107 +28,113 @@ window.modules.push({
         {
             title: "Tablas Inteligentes",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Excel en Código</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Estructuras de Datos</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">La librería Pandas </h4>
-                    <p class="text-gray-300 mb-6">
-                        En el mundo real, los datos no vienen en variables sueltas, vienen en tablas (como en Excel).
-                        Python usa una librería llamada <b>pandas</b> para manejar esto.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        En el análisis profesional, los datos se organizan en <strong>DataFrames</strong> (tablas de filas y columnas). Antes de usar Pandas, solemos estructurar la información usando diccionarios de listas.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-secondary p-6">
-                            <h5 class="font-bold text-white mb-2">DataFrame</h5>
-                            <p class="text-sm text-gray-400">
-                                Es el nombre técnico de una "Tabla". Tiene filas y columnas.
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Claves como Columnas</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Cada clave del diccionario representa el nombre de una columna.
                             </p>
                         </div>
-                        <div class="neon-box-dark p-6 border-l-4 border-blue-500">
-                            <h5 class="font-bold text-white mb-2">Importar</h5>
-                            <code class="text-neon-green">import pandas as pd</code>
-                            <p class="text-xs text-gray-400 mt-2">
-                                Los programadores son vagos, así que le ponemos el apodo "pd".
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Listas como Filas</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                El valor asociado es una lista con los datos de cada fila.
                             </p>
                         </div>
+                    </div>
+
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Simulación de Pandas</h4>
+                        <p class="text-gray-300 text-sm">
+                            Aunque aquí usamos Python puro, esta es exactamente la lógica que usa Pandas para crear tablas desde cero.
+                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Creando tu primera tabla</span>
+                        <span class="text-sm text-gray-400">Tu Primer Dataset</span>
                     </div>
-                    <textarea id="code-pd-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">import pandas as pd
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea un diccionario llamado <code>datos</code> donde las claves sean "Nombres" y "Notas", y los valores sean listas con 3 elementos cada una (ej: ["Ana", "Neo", "Leo"] y [10, 9, 8]).
+                    </p>
+                    <textarea id="code-pd-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Crea el diccionario datos con Nombres y Notas:
 
-# Datos en forma de Diccionario
-datos = {
-    "Nombre": ["Ana", "Bob", "Charlie"],
-    "Edad": [25, 30, 35],
-    "Ciudad": ["Madrid", "Lima", "Bogota"]
-}
-
-# Crear la tabla (DataFrame)
-tabla = pd.DataFrame(datos)
-
-print(tabla)</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pd-1').value, 'output-pd-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ver Tabla
+                        <i class="fas fa-play mr-2"></i>Estructurar Tabla
                     </button>
                 </div>
-                
                 <div id="output-pd-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Nota: Si usas Skulpt básico, esto podría no ejecutarse, pero así se ve el código real.</p>
+                    <p class="text-gray-500">Generando matriz de datos...</p>
                 </div>
-            `},
-        {title: "Explorando Datos",
+            `,
+            validation: {
+                expectedOutput: "'Nombres': ['Ana', 'Neo', 'Leo']",
+                matchType: "include",
+                hint: "Usa datos = {'Nombres': ['Ana', 'Neo', 'Leo'], 'Notas': [10, 9, 8]} y luego print(datos)."
+            }
+        },
+        {
+            title: "Explorando Datos",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Leyendo la Información</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Extracción de Series</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Una vez que tienes tu tabla, puedes sacar columnas específicas o ver estadísticas rápidas.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Acceder a la información es el primer paso del análisis. Si queremos analizar una "columna" específica, simplemente consultamos la clave correspondiente en nuestro dataset.
                     </p>
                     
-                    <div class="grid md:grid-cols-3 gap-4 text-sm">
-                        <div class="neon-box-secondary p-4">
-                            <code class="text-neon-green block mb-2">tabla["Edad"]</code>
-                            <span class="text-gray-400">Selecciona solo una columna.</span>
-                        </div>
-                        <div class="neon-box-secondary p-4">
-                            <code class="text-neon-green block mb-2">tabla.head(5)</code>
-                            <span class="text-gray-400">Muestra las primeras 5 filas.</span>
-                        </div>
-                        <div class="neon-box-secondary p-4">
-                            <code class="text-neon-green block mb-2">tabla.describe()</code>
-                            <span class="text-gray-400">Calcula promedio, max, min, etc.</span>
-                        </div>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
+                        <h5 class="text-white font-bold text-sm mb-2">Acceso a Columnas</h5>
+                        <p class="text-sm text-gray-400 mb-2">Obtener todos los valores de una categoría:</p>
+                        <code class="text-xs text-neon-green block">columna_precios = tienda["Precios"]</code>
+                    </div>
+
+                    <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Indexación Doble</h4>
+                        <p class="text-gray-300 text-sm">
+                            Puedes acceder a un dato exacto combinando la clave y el índice: <code>tienda["Precios"][0]</code>.
+                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-pd-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="10">import pandas as pd
-
-datos = {
-    "Producto": ["Manzana", "Pera", "Uva", "Sandia"],
-    "Precio": [1.50, 2.00, 3.50, 5.00],
-    "Stock": [100, 50, 20, 10]
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Filtrado de Columna</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dada la <code>tienda</code>, imprime primero la lista completa de "Precios" y luego imprime únicamente el <strong>primer precio</strong> de esa lista.
+                    </p>
+                    <textarea id="code-pd-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">tienda = {
+    "Productos": ["Pan", "Agua"],
+    "Precios": [1.50, 0.80]
 }
 
-df = pd.DataFrame(datos)
-
-print("--- Columna Precios ---")
-print(df["Precio"])
-
-print("\n--- Estadísticas ---")
-print(df["Precio"].describe())</textarea>
+# 1. Imprime la columna Precios
+# 2. Imprime el primer precio (índice 0)
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pd-2').value, 'output-pd-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Analizar
+                        <i class="fas fa-play mr-2"></i>Analizar Precios
                     </button>
                 </div>
                 <div id="output-pd-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado del análisis...</p>
+                    <p class="text-gray-500">Consultando dataset...</p>
                 </div>
-            `
+            `,
+            validation: {
+                expectedOutput: "1.5",
+                matchType: "include",
+                hint: "Primero print(tienda['Precios']) y luego print(tienda['Precios'][0])."
+            }
         }
     ]
 });

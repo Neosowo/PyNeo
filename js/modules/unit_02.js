@@ -5,8 +5,8 @@ window.modules.push({
     description: "Aprende a guardar información y usar los tipos de datos básicos.",
     intro: `
         <div class="neon-box p-8 mb-8 text-center">
-            <h3 class="text-3xl font-bold mb-6 text-white">La Memoria de la Computadora</h3>
-            <p class="text-gray-300 mb-8 text-lg">
+            <h3 class="text-3xl font-bold mb-6 text-white text-center">La Memoria de la Computadora</h3>
+            <p class="text-gray-300 mb-8 text-lg text-center">
                 Imagina que tienes miles de cajitas vacías. En programación, usamos esas cajitas para guardar información:
                 nombres, puntuaciones, contraseñas, ¡de todo!
             </p>
@@ -21,104 +21,105 @@ window.modules.push({
                     <div class="absolute -bottom-8 text-white font-mono">valor</div>
                 </div>
             </div>
-            <p class="text-sm text-gray-400">
-                En esta unidad aprenderás a crear estas cajas (Variables) y qué puedes guardar en ellas (Tipos de Datos).
-            </p>
         </div>
     `,
     lessons: [
         {
             title: "¿Qué es una Variable?",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Tu Memoria Digital</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Etiquetando Información</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Una variable es una caja 📦</h4>
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        Imagina que tienes una caja vacía. Le pegas una etiqueta con un nombre (por ejemplo "puntos") y guardas un valor dentro. Eso es una variable.
+                        Una <strong>variable</strong> es un nombre que apunta a un valor guardado en la memoria. Es como una caja etiquetada donde puedes meter, sacar o cambiar contenido.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-secondary p-6">
-                            <h5 class="font-bold text-white mb-3">En la vida real</h5>
-                            <p class="text-gray-300 text-sm">
-                                Tienes una caja etiquetada <b>"zapatos"</b> y guardas unos tenis dentro.
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Asignación</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Usamos el signo <code>=</code> para guardar el valor de la derecha en el nombre de la izquierda.
                             </p>
                         </div>
                         
-                        <div class="neon-box-dark p-6">
-                            <h5 class="font-bold text-neon-green mb-3">En Python</h5>
-                            <code class="text-white text-lg">publico = "Neo"</code>
-                            <p class="text-gray-400 text-xs mt-2">El signo <b>=</b> se usa para GUARDAR.</p>
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Sintaxis</h4>
+                            <code class="text-xs text-neon-green block">puntos = 100</code>
                         </div>
+                    </div>
+
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Reglas de Oro</h4>
+                        <ul class="text-sm text-gray-400 space-y-1">
+                            <li>- No pueden empezar con números.</li>
+                            <li>- No pueden tener espacios (usa_guiones_bajos).</li>
+                            <li>- Diferencian entre MAYÚSCULAS y minúsculas.</li>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400 ml-2">Desafío: Variables</span>
+                        <span class="text-sm text-gray-400">Desafío: Identidad</span>
                     </div>
-                    <textarea id="code-var-intro" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># DESAFÍO:
-# 1. Crea una variable llamada 'heroe' con el valor "Batman"
-# 2. Imprime la variable usando print()
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea una variable llamada <code>heroe</code> con el valor "Batman" y luego imprímela usando <code>print()</code>.
+                    </p>
+                    <textarea id="code-var-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># Crea tu variable aquí:
+
 </textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-var-intro').value, 'output-var-intro')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Verificar Reto
+                    <button onclick="runPythonCode(document.getElementById('code-var-1').value, 'output-var-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Verificar Variable
                     </button>
                 </div>
-                <div id="output-var-intro" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Ejecuta tu código...</p>
+                <div id="output-var-1" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Esperando asignación...</p>
                 </div>
             `,
             validation: {
                 expectedOutput: "Batman",
                 matchType: "include",
-                hint: "Crea variable heroe=\"Batman\" y print(heroe)."
+                hint: "Escribe heroe = \"Batman\" y luego print(heroe)."
             }
         },
         {
             title: "Los 4 Tipos Básicos",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">No todo son números</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Diversidad de Datos</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        En Python existen 4 tipos de datos fundamentales. Piensa en ellos como "sabores" de información.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Python reconoce automáticamente qué tipo de dato estás usando. Estos son los cuatro "sabores" fundamentales de la información:
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="neon-box-secondary p-4 border-l-4 border-blue-500">
-                            <h5 class="font-bold text-white">1. Enteros (int)</h5>
-                            <p class="text-sm text-gray-400 mb-2">Números sin decimales.</p>
-                            <code class="text-neon-green bg-black/30 px-2 py-1 rounded">vidas = 3</code>
+                        <div class="neon-box-dark p-4 border-l-4 border-blue-500">
+                            <h5 class="font-bold text-white">Enteros (int)</h5>
+                            <p class="text-[11px] text-gray-400">Números sin decimales: <code>10, -5, 0</code></p>
                         </div>
-
-                        <div class="neon-box-secondary p-4 border-l-4 border-purple-500">
-                            <h5 class="font-bold text-white">2. Flotantes (float)</h5>
-                            <p class="text-sm text-gray-400 mb-2">Números con punto decimal.</p>
-                            <code class="text-neon-green bg-black/30 px-2 py-1 rounded">precio = 9.99</code>
+                        <div class="neon-box-dark p-4 border-l-4 border-purple-500">
+                            <h5 class="font-bold text-white">Flotantes (float)</h5>
+                            <p class="text-[11px] text-gray-400">Números con decimales: <code>3.14, 9.99</code></p>
                         </div>
-
-                        <div class="neon-box-secondary p-4 border-l-4 border-yellow-500">
-                            <h5 class="font-bold text-white">3. Cadenas (str)</h5>
-                            <p class="text-sm text-gray-400 mb-2">Texto entre comillas.</p>
-                            <code class="text-neon-green bg-black/30 px-2 py-1 rounded">nombre = "Neo"</code>
+                        <div class="neon-box-dark p-4 border-l-4 border-yellow-500">
+                            <h5 class="font-bold text-white">Cadenas (str)</h5>
+                            <p class="text-[11px] text-gray-400">Texto entre comillas: <code>"Hola", 'Neo'</code></p>
                         </div>
-
-                        <div class="neon-box-secondary p-4 border-l-4 border-red-500">
-                            <h5 class="font-bold text-white">4. Booleanos (bool)</h5>
-                            <p class="text-sm text-gray-400 mb-2">Verdadero o Falso.</p>
-                            <code class="text-neon-green bg-black/30 px-2 py-1 rounded">es_robot = True</code>
+                        <div class="neon-box-dark p-4 border-l-4 border-red-500">
+                            <h5 class="font-bold text-white">Booleanos (bool)</h5>
+                            <p class="text-[11px] text-gray-400">Solo dos valores: <code>True, False</code></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Investigando tipos con type()</span>
+                        <span class="text-sm text-gray-400">Detectando Tipos</span>
                     </div>
-                    <textarea id="code-types" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Python nos dice qué tipo es cada cosa
-texto = "Fundamentos"
+                    <p class="text-gray-300 text-sm mb-4">
+                        Ejecuta este código para ver cómo Python identifica cada variable usando la función <code>type()</code>.
+                    </p>
+                    <textarea id="code-types" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">texto = "Fundamentos"
 numero = 100
 decimal = 3.14
 
@@ -126,278 +127,65 @@ print(type(texto))
 print(type(numero))
 print(type(decimal))</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-types').value, 'output-types')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar
+                        <i class="fas fa-play mr-2"></i>Analizar Tipos
                     </button>
                 </div>
                 <div id="output-types" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Observa la salida...</p>
+                    <p class="text-gray-500">Observa las clases...</p>
                 </div>
             `,
             validation: {
-                expectedOutput: "class 'str'",
+                expectedOutput: "str",
                 matchType: "include",
                 requiredCode: "type",
-                hint: "Asegúrate de ejecutar el código que usa la función type()."
+                hint: "Presiona el botón Ejecutar para ver el análisis de tipos."
             }
         },
         {
-            title: "Python Calculadora",
+            title: "Operaciones Matemáticas",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Matemáticas Simples</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Calculadora Inteligente</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-4">
-                        Puedes usar Python como una calculadora súper potente. Los símbolos son casi iguales a los de la escuela.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Puedes usar variables para realizar cálculos matemáticos. Python usará los valores guardados en ellas para resolver la operación.
                     </p>
                     
-                    <div class="neon-box-dark p-4 grid grid-cols-2 gap-4 text-sm">
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-white">Suma</span>
-                            <code class="text-neon-green">+</code>
-                        </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-white">Resta</span>
-                            <code class="text-neon-green">-</code>
-                        </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                    <div class="neon-box-dark p-4 grid grid-cols-2 gap-4 text-xs">
+                        <div class="border-b border-gray-700 pb-2 flex justify-between">
                             <span class="text-white">Multiplicación</span>
                             <code class="text-neon-green">*</code>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-white">División</span>
-                            <code class="text-neon-green">/</code>
-                        </div>
-                        <div class="flex justify-between items-center">
+                        <div class="border-b border-gray-700 pb-2 flex justify-between">
                             <span class="text-white">Potencia</span>
                             <code class="text-neon-green">**</code>
                         </div>
                     </div>
                 </div>
 
-                <h4 class="text-xl font-bold mb-4 text-white">Reto: Calcula el Área</h4>
-                <p class="text-gray-400 mb-4 text-sm">
-                    El área de un cuadrado es lado por lado. Si el lado es 5, ¿cuál es el área?
-                </p>
-
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-math" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">lado = 5
-area = lado * lado
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Cálculo de Área</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Si el lado de un cuadrado es 5, calcula el área (lado * lado) y guárdala en una variable llamada <code>area</code>. Luego imprímela.
+                    </p>
+                    <textarea id="code-math-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">lado = 5
+# Calcula el área aquí:
 
-print("El lado es:", lado)
-print("El área es:", area)</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-math').value, 'output-math')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-math-1').value, 'output-math-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Calcular
                     </button>
                 </div>
-                <div id="output-math" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado aquí...</p>
+                <div id="output-math-1" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Esperando resultado...</p>
                 </div>
             `,
             validation: {
                 expectedOutput: "25",
                 matchType: "include",
-                hint: "El área debe ser 25 (5 x 5)."
-            }
-        },
-        {
-            title: "Uniendo Textos",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Pegamento de Palabras</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Concatenación</h4>
-                    <p class="text-gray-300 mb-6">
-                        Suena complicado, pero solo significa "unir". En Python, puedes sumar textos usando el símbolo <code class="text-neon-green">+</code>.
-                    </p>
-
-                    <div class="neon-box-secondary p-6 border-l-4 border-green-500">
-                        <h5 class="font-bold text-white mb-2">¡Cuidado con los espacios!</h5>
-                        <p class="text-sm text-gray-300">
-                            Python no agrega espacios automáticamente. Tienes que ponerlos tú.
-                        </p>
-                        <div class="mt-3 bg-black/30 p-3 rounded font-mono text-sm">
-                            <span class="text-red-400">"Hola" + "Mundo"</span> → "HolaMundo"<br>
-                            <span class="text-neon-green">"Hola" + " " + "Mundo"</span> → "Hola Mundo"
-                        </div>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Crea tu nombre completo</span>
-                    </div>
-                    <textarea id="code-concat" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">nombre = "Juan"
-apellido = "Pérez"
-
-# Unimos las variables con un espacio en medio
-nombre_completo = nombre + " " + apellido
-
-print(nombre_completo)</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-concat').value, 'output-concat')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Unir
-                    </button>
-                </div>
-                <div id="output-concat" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Ver resultado...</p>
-                </div>
-            `,
-            validation: {
-                expectedOutput: "Juan Pérez",
-                matchType: "include",
-                hint: "El resultado debe incluir 'Juan Pérez'."
-            }
-        },
-        {
-            title: "Interactuar con el Usuario",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Tu Programa Escucha</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">La función input()</h4>
-                    <p class="text-gray-300 mb-6">
-                        Hasta ahora, tus programas eran "mudos". Con <code class="text-neon-green">input()</code>, el programa se detiene y espera a que el usuario escriba algo.
-                    </p>
-
-                    <div class="neon-box-secondary p-6 border-l-4 border-yellow-500 mb-6">
-                        <h5 class="font-bold text-white mb-2">⚠️ Regla de Oro</h5>
-                        <p class="text-sm text-gray-300">
-                            Todo lo que el usuario escribe llega como <b>TEXTO</b>. Si escriben "5", Python recibe el texto "5", no el número 5.
-                            <br>Para hacer matemáticas, necesitas convertirlo con <code class="text-neon-green">int()</code>.
-                        </p>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-dark p-4">
-                            <span class="text-gray-400 text-xs">Texto simple</span>
-                            <div class="text-white mt-2">nombre = input("¿Nombre?")</div>
-                        </div>
-                        <div class="neon-box-dark p-4">
-                            <span class="text-gray-400 text-xs">Para números</span>
-                            <div class="text-white mt-2">edad = int(input("¿Edad?"))</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Calculadora de Edad en 2030</span>
-                    </div>
-                    <textarea id="code-input" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Pedimos la edad actual
-texto_edad = input("¿Cuántos años tienes hoy? ")
-
-# Convertimos el texto a número entero
-edad_numero = int(texto_edad)
-
-# Calculamos la edad en el futuro
-futuro = edad_numero + 5
-print("En 5 años tendrás:", futuro)</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-input').value, 'output-input')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Probar
-                    </button>
-                </div>
-                <div id="output-input" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Escribe tu respuesta en el cuadro que aparecerá...</p>
-                </div>
-            `,
-            validation: {
-                requiredCode: "input",
-                hint: "Debes usar la función input() para pedir datos."
-            }
-        },
-        {
-            title: "Trucos con Texto",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Maquillando Palabras</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Python tiene herramientas integradas para transformar texto mágicamente. Se usan poniendo un punto <code class="text-neon-green">.</code> después del texto.
-                    </p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                        <div class="neon-box-secondary p-4 text-center">
-                            <code class="text-neon-green block mb-2">.upper()</code>
-                            <span class="text-gray-400">GRITA TODO (MAYÚSCULAS)</span>
-                        </div>
-                        <div class="neon-box-secondary p-4 text-center">
-                            <code class="text-neon-green block mb-2">.lower()</code>
-                            <span class="text-gray-400">susurra todo (minúsculas)</span>
-                        </div>
-                        <div class="neon-box-secondary p-4 text-center">
-                            <code class="text-neon-green block mb-2">.replace("a", "b")</code>
-                            <span class="text-gray-400">Cambia letras</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="code-editor p-6 mb-4">
-                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Experimentando con .methods()</span>
-                    </div>
-                    <textarea id="code-str" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">mensaje = "Hola Mundo Python"
-
-print(mensaje.upper())
-print(mensaje.lower())
-print(mensaje.replace("o", "X"))
-print(mensaje.replace("Python", "Neo"))</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-str').value, 'output-str')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Transformar
-                    </button>
-                </div>
-                <div id="output-str" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Observa los cambios...</p>
-                </div>
-            `,
-            validation: {
-                requiredCode: ".upper",
-                hint: "Prueba al menos usar .upper()."
-            }
-        },
-        {
-            title: "El Factor Suerte (Random)",
-            content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Dados y Azar 🎲</h3>
-                
-                <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Importar Poderes</h4>
-                    <p class="text-gray-300 mb-6">
-                        Para usar azar, necesitamos traer una librería especial llamada <code class="text-neon-green">random</code>.
-                    </p>
-
-                    <div class="neon-box-dark p-6 border-l-4 border-purple-500">
-                        <div class="text-gray-300 font-mono text-sm space-y-2">
-                            <div><span class="text-purple-400">import</span> random</div>
-                            <div class="text-gray-500"># Genera un número entre 1 y 10</div>
-                            <div>suerte = random.randint(1, 10)</div>
-                        </div>
-                    </div>
-                </div>
-
-                <h4 class="text-2xl font-bold mb-4 text-white">Mini-Juego: El Dado</h4>
-                <div class="code-editor p-6 mb-4">
-                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Simulador de Dado D6</span>
-                    </div>
-                    <textarea id="code-random" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">import random
-
-print("Lanzando los dados...")
-dado1 = random.randint(1, 6)
-dado2 = random.randint(1, 6)
-
-print("Dado 1:", dado1)
-print("Dado 2:", dado2)
-print("Total:", dado1 + dado2)</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-random').value, 'output-random')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Lanzar
-                    </button>
-                </div>
-                <div id="output-random" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">¡Prueba tu suerte varias veces!...</p>
-                </div>
-            `,
-            validation: {
-                requiredCode: "random.randint",
-                hint: "Asegúrate de importar random y usar randint."
+                hint: "Escribe area = lado * lado y luego print(area)."
             }
         }
     ]

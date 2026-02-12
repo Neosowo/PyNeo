@@ -36,135 +36,163 @@ window.modules.push({
                 <h3 class="text-3xl font-bold mb-6 text-white">Tu Primera Herramienta</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Sintaxis Basica</h4>
-                    <p class="text-gray-300 mb-6">
-                        Usamos la palabra clave <code class="text-neon-green">def</code> seguida del nombre de la funcion y parentesis.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Una función es un bloque de código reutilizable que realiza una tarea específica. En lugar de escribir el mismo código muchas veces, lo encerramos en una función y lo invocamos cuando lo necesitemos.
                     </p>
                     
-                    <div class="neon-box-dark p-6 mb-6">
-                        <pre class="text-sm text-white font-mono">def mi_funcion():
-    # Codigo que se ejecuta
-    print("Hola desde la funcion")
-
-# Llamar a la funcion
-mi_funcion()</pre>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Definición (def)</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Usamos la palabra <code>def</code> seguida del nombre de la función y paréntesis.
+                            </p>
+                            <code class="text-xs text-neon-green block">def mi_funcion():</code>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Llamada</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Para que el código dentro de la función se ejecute, debes "llamarla" por su nombre más tarde.
+                            </p>
+                        </div>
                     </div>
-                    
-                    <div class="neon-box-secondary p-6 border-l-4 border-blue-500">
-                        <h5 class="font-bold text-white mb-2">Importante</h5>
-                        <p class="text-sm text-gray-300">
-                            Definir una funcion NO la ejecuta. Debes llamarla por su nombre para que se active.
+
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Orden de Ejecución</h4>
+                        <p class="text-gray-300 text-sm">
+                            Python lee la definición pero no hace nada hasta que la función es llamada explícitamente en el flujo del programa.
                         </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-func-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8"># Definir
-def saludar():
-    print("Hola, bienvenido!")
-    print("Espero que estes bien")
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Creando Herramientas</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea una función llamada <code>neo</code> que imprima "Aprendiendo Python". No olvides llamar a la función al final del script.
+                    </p>
+                    <textarea id="code-func-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Define tu función neo() aquí:
 
-# Usar (llamar)
-saludar()
-saludar()  # Puedes llamarla cuantas veces quieras</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-func-1').value, 'output-func-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar
+                        <i class="fas fa-play mr-2"></i>Activar Función
                     </button>
                 </div>
                 <div id="output-func-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Esperando llamada...</p>
                 </div>
-            `},
+            `,
+            validation: {
+                expectedOutput: "Aprendiendo Python",
+                matchType: "exact",
+                hint: "Escribe def neo(): con su respectivo print indentado, y luego llama neo() fuera de la definición."
+            }
+        },
         {
-            title: "Parametros",
+            title: "Parámetros",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Funciones Flexibles</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Los parametros hacen que las funciones sean dinamicas. Le pasas datos diferentes cada vez que las llamas.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Los parámetros permiten que una función reciba datos del exterior. Esto la hace mucho más potente, ya que puede trabajar con valores diferentes en cada llamada.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-dark p-6">
-                            <h5 class="font-bold text-white mb-3">Sin Parametros</h5>
-                            <pre class="text-xs text-gray-400">def saludo():
-    print("Hola")</pre>
-                            <p class="text-xs text-gray-500 mt-2">Siempre dice lo mismo</p>
-                        </div>
-                        <div class="neon-box-dark p-6 border border-neon-green">
-                            <h5 class="font-bold text-white mb-3">Con Parametros</h5>
-                            <pre class="text-xs text-white">def saludo(nombre):
-    print("Hola " + nombre)</pre>
-                            <p class="text-xs text-neon-green mt-2">Se adapta al nombre</p>
-                        </div>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
+                        <h5 class="text-white font-bold text-sm mb-2">Paso de Datos</h5>
+                        <p class="text-sm text-gray-400 mb-2">Los parámetros van dentro de los paréntesis en la definición:</p>
+                        <code class="text-xs text-blue-400 mt-2">def saludo(nombre):</code>
+                        <p class="text-xs text-gray-500 mt-2">Dentro de la función, 'nombre' actúa como una variable normal.</p>
+                    </div>
+
+                    <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Argumentos</h4>
+                        <p class="text-gray-300 text-sm">
+                            Cuando llamas a la función, el valor que envías (ej: "Neo") se llama <strong>argumento</strong>.
+                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-func-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">def presentar(nombre, edad):
-    print(f"Hola, soy {nombre}")
-    print(f"Tengo {edad} años")
-
-# Llamadas con diferentes datos
-presentar("Ana", 25)
-print("---")
-presentar("Carlos", 30)</textarea>
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Procesando Entradas</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Completa la función <code>doble(x)</code> para que imprima el resultado de multiplicar <code>x</code> por 2. Luego llama a la función pasando el número 5.
+                    </p>
+                    <textarea id="code-func-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">def doble(x):
+    # Imprime x multiplicado por 2:
+    
+# Llama a doble pasando el 5:
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-func-2').value, 'output-func-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar
+                        <i class="fas fa-play mr-2"></i>Verificar Función
                     </button>
                 </div>
                 <div id="output-func-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Calculando con parámetros...</p>
                 </div>
-            `},
+            `,
+            validation: {
+                expectedOutput: "10",
+                matchType: "include",
+                hint: "Dentro haz print(x * 2) y llama a la función con doble(5)."
+            }
+        },
         {
             title: "Return (Devolver Valores)",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">El Verdadero Poder</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Resultados de Salida</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Con <code class="text-neon-green">return</code>, una funcion puede devolver un valor para usarlo en otra parte del codigo.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        A veces no queremos que la función imprima nada, sino que nos "devuelva" un resultado para usarlo más adelante en nuestro programa. Para eso usamos <code>return</code>.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-dark p-6">
-                            <h5 class="font-bold text-red-400 mb-2">Solo Print</h5>
-                            <pre class="text-xs text-gray-400">def suma(a, b):
-    print(a + b)
-
-suma(5, 3)  # Muestra 8
-# No puedes guardar el resultado</pre>
+                    <div class="space-y-4">
+                        <div class="neon-box-dark p-4 border border-neon-green/30">
+                            <h5 class="font-bold text-neon-green mb-1">Finalización</h5>
+                            <p class="text-sm text-gray-400">
+                                Cuando Python encuentra un <code>return</code>, la función termina inmediatamente y expulsa el valor indicado.
+                            </p>
                         </div>
-                        <div class="neon-box-dark p-6 border border-neon-green">
-                            <h5 class="font-bold text-neon-green mb-2">Con Return</h5>
-                            <pre class="text-xs text-white">def suma(a, b):
-    return a + b
-
-resultado = suma(5, 3)
-print(resultado + 10)  # 18</pre>
+                        
+                        <div class="neon-box-dark p-4 border border-purple-900/50">
+                            <h5 class="font-bold text-purple-400 mb-1">Almacenamiento</h5>
+                            <p class="text-sm text-gray-400">
+                                Los valores retornados pueden guardarse en variables: <code>resultado = sumar(5, 3)</code>.
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-func-3" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">def calcular_area(base, altura):
-    area = base * altura
-    return area
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Capturando Resultados</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea una función llamada <code>sumar(a, b)</code> que retorne la suma de ambos. Luego guarda el resultado en una variable <code>total</code> e imprímela.
+                    </p>
+                    <textarea id="code-func-3" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8"># Define sumar con return aquí:
 
-# Guardar el resultado
-mi_area = calcular_area(5, 10)
-print("El area es:", mi_area)
-print("El doble seria:", mi_area * 2)</textarea>
+# Llama a la función y muestra el resultado:
+total = sumar(10, 20)
+print(total)</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-func-3').value, 'output-func-3')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Calcular
+                        <i class="fas fa-play mr-2"></i>Calcular con Retorno
                     </button>
                 </div>
                 <div id="output-func-3" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Recuperando valor...</p>
                 </div>
-            `
+            `,
+            validation: {
+                expectedOutput: "30",
+                matchType: "exact",
+                requiredCode: "return",
+                hint: "Dentro de la función usa return a + b."
+            }
         }
     ]
 });

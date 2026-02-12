@@ -1,100 +1,121 @@
 window.modules.push({
     id: 12,
-    title: "Conjuntos y Tuplas",
-    icon: "fa-layer-group",
-    description: "Aprende a manejar datos únicos e inmutables.",
+    title: "Tuplas y Conjuntos",
+    icon: "fa-lock",
+    description: "Datos inmutables y colecciones únicas.",
     intro: `
         <div class="neon-box p-8 mb-8 text-center">
-            <h3 class="text-3xl font-bold mb-6 text-white">Estructuras Especializadas</h3>
-            <p class="text-gray-300 mb-8 text-lg">
-                No todos los datos deben ser modificables ni estar ordenados. 
-                Python ofrece herramientas para casos específicos.
+            <h3 class="text-3xl font-bold mb-6 text-white text-center">Colecciones Especiales</h3>
+            <p class="text-gray-300 mb-8 text-lg text-center">
+                A veces necesitamos datos que no cambien nunca (Tuplas) o grupos donde nada pueda repetirse (Conjuntos).
             </p>
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="neon-box-dark p-6 border-l-4 border-yellow-500 text-left">
-                    <h4 class="text-yellow-500 font-bold mb-2">Tuplas (tuple)</h4>
-                    <p class="text-sm text-gray-400">Datos que NO cambian. Perfectas para coordenadas o constantes.</p>
+                <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                    <h4 class="text-white font-bold mb-2">Tuplas ( )</h4>
+                    <p class="text-sm text-gray-400">Son constantes. Una vez creadas, no se pueden modificar. Ideales para coordenadas o fechas.</p>
                 </div>
-                <div class="neon-box-dark p-6 border-l-4 border-purple-500 text-left">
-                    <h4 class="text-purple-500 font-bold mb-2">Conjuntos (set)</h4>
-                    <p class="text-sm text-gray-400">Colección de elementos ÚNICOS. Sin duplicados.</p>
+                <div class="neon-box-dark p-6 border-l-2 border-yellow-500">
+                    <h4 class="text-white font-bold mb-2">Sets { }</h4>
+                    <p class="text-sm text-gray-400">Colecciones de elementos únicos. Python borra automáticamente los duplicados.</p>
                 </div>
             </div>
         </div>
     `,
     lessons: [
         {
-            title: "Las Tuplas",
+            title: "Tuplas (Inmutables)",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Listas Inmutables</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Seguridad de Datos</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Una tupla es como una lista, pero usa paréntesis <code class="text-neon-green">( )</code> y NO se puede modificar una vez creada.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Las tuplas se definen con paréntesis <code>( )</code>. A diferencia de las listas, no puedes usar <code>append</code> ni cambiar sus valores. Esto las hace más rápidas y seguras.
                     </p>
                     
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
+                        <h5 class="text-white font-bold text-sm mb-2">¿Cuándo usarlas?</h5>
+                        <p class="text-sm text-gray-400">Datos que deben permanecer fijos durante todo el programa (ej: los meses del año o la ubicación de una oficina).</p>
+                    </div>
+
                     <div class="neon-box-secondary p-6">
-                        <h5 class="font-bold text-white mb-2">¿Por qué usarlas?</h5>
-                        <ul class="text-sm text-gray-400 space-y-2">
-                            <li>• <b>Seguridad:</b> Evitas errores de cambio accidental.</li>
-                            <li>• <b>Velocidad:</b> Son más rápidas que las listas.</li>
-                        </ul>
+                        <h4 class="font-bold text-white mb-2">Sintaxis</h4>
+                        <code class="text-xs text-neon-green block">punto = (10, 20)</code>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-tuple-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">punto = (10, 20)
-print("Coordenadas:", punto)
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Constantes Geográficas</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea una tupla llamada <code>posicion</code> que contenga los números 50 y 100. Imprime el tipo de dato usando <code>print(type(posicion))</code>.
+                    </p>
+                    <textarea id="code-tup-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># Crea tu tupla aquí:
 
-# Intentar cambiarlo daría error:
-# punto[0] = 15  # <--- Esto no funciona
-
-dias = ("Lunes", "Martes", "Miércoles")
-print("Primer día:", dias[0])</textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-tuple-1').value, 'output-tuple-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-tup-1').value, 'output-tup-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Verificar Tupla
                     </button>
                 </div>
-                <div id="output-tuple-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                <div id="output-tup-1" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Analizando estructura constante...</p>
                 </div>
-            `},
+            `,
+            validation: {
+                expectedOutput: "<class 'tuple'>",
+                matchType: "include",
+                hint: "Usa posicion = (50, 100) y luego print(type(posicion))."
+            }
+        },
         {
-            title: "Conjuntos (Sets)",
+            title: "Sets (Valores Únicos)",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Elementos Únicos</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Conjuntos Sin Duplicados</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Un <code class="text-neon-green">set</code> es una colección que no permite duplicados y no tiene un orden fijo.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Los <strong>sets</strong> se definen con llaves <code>{ }</code> (como los diccionarios, pero sin parejas clave-valor). Su característica principal es que no admiten elementos repetidos.
                     </p>
                     
-                    <div class="neon-box-dark p-6">
-                        <h5 class="font-bold text-white mb-3">Operaciones útiles</h5>
-                        <ul class="text-xs text-gray-400 space-y-2">
-                            <li><code class="text-neon-green">.add()</code>: Añade un elemento.</li>
-                            <li><code class="text-neon-green">.remove()</code>: Quita un elemento.</li>
-                            <li>Automáticamente elimina repetidos.</li>
-                        </ul>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-yellow-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Limpieza Automática</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Si intentas meter dos veces el mismo elemento, el set lo ignorará silenciosamente.
+                            </p>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Sintaxis</h4>
+                            <code class="text-xs text-neon-green block">colores = {"rojo", "azul"}</code>
+                        </div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-set-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8"># Creamos un conjunto con repetidos
-frutas = {"Manzana", "Banana", "Uva", "Manzana"}
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Eliminando Duplicados</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea un conjunto llamado <code>id_usuarios</code> que contenga los números: 1, 2, 2, 3. Imprime el conjunto y observa qué sucede con el número repetido.
+                    </p>
+                    <textarea id="code-set-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># Crea tu set aquí:
 
-print("Conjunto de frutas (sin repetidos):")
-print(frutas)
-
-frutas.add("Pera")
-print("Agregamos Pera:", frutas)</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-set-1').value, 'output-set-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ver Conjunto
+                        <i class="fas fa-play mr-2"></i>Verificar Set
                     </button>
                 </div>
                 <div id="output-set-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Filtrando duplicados...</p>
                 </div>
-            `}
+            `,
+            validation: {
+                expectedOutput: "{1, 2, 3}",
+                matchType: "include",
+                requiredCode: "{",
+                hint: "Usa id_usuarios = {1, 2, 2, 3} y luego print(id_usuarios)."
+            }
+        }
     ]
 });

@@ -1,34 +1,21 @@
 window.modules.push({
     id: 11,
-    title: "Matrices y Lógica Espacial",
-    icon: "fa-border-all",
-    description: "Domina las estructuras de datos en 2D y el análisis de cuadrantes.",
+    title: "Matrices y Listas Anidadas",
+    icon: "fa-th",
+    description: "Tablas 2D en Python puro.",
     intro: `
-        <div class="neon-box p-8 mb-8">
+        <div class="neon-box p-8 mb-8 text-center">
             <h3 class="text-3xl font-bold mb-6 text-white text-center">Datos en Dos Dimensiones</h3>
             <p class="text-gray-300 mb-8 text-lg text-center">
-                Una matriz es simplemente una <b>lista de listas</b>. 
-                Es la base para imágenes, mapas, juegos (como el ajedrez) y hojas de cálculo.
+                Una matriz es simplemente una lista que contiene otras listas. 
+                Es la forma perfecta de representar tableros, cuadrículas o imágenes.
             </p>
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="neon-box-dark p-6 text-center">
-                    <div class="grid grid-cols-3 gap-2 max-w-[150px] mx-auto mb-4">
-                        <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs text-blue-400">[0][0]</div>
-                        <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs text-blue-400">[0][1]</div>
-                        <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs text-blue-400">[0][2]</div>
-                        <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs text-blue-400">[1][0]</div>
-                        <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs text-blue-400">[1][1]</div>
-                        <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs text-blue-400">[1][2]</div>
-                    </div>
-                    <p class="text-sm text-gray-400">Filas y Columnas</p>
-                </div>
-                <div class="neon-box-secondary p-6">
-                    <h4 class="text-white font-bold mb-3">Conceptos Clave</h4>
-                    <ul class="text-sm text-gray-500 space-y-2">
-                        <li>• Acceso: <code>matriz[fila][columna]</code></li>
-                        <li>• Recorrido: Bucles anidados</li>
-                        <li>• Slicing 2D: Sub-matrices</li>
-                    </ul>
+            <div class="flex justify-center">
+                <div class="grid grid-cols-2 gap-2 neon-box-dark p-6 border border-neon-green">
+                    <div class="w-12 h-12 bg-white/10 flex items-center justify-center text-white">1</div>
+                    <div class="w-12 h-12 bg-white/10 flex items-center justify-center text-white">2</div>
+                    <div class="w-12 h-12 bg-white/10 flex items-center justify-center text-white">3</div>
+                    <div class="w-12 h-12 bg-white/10 flex items-center justify-center text-white">4</div>
                 </div>
             </div>
         </div>
@@ -37,81 +24,104 @@ window.modules.push({
         {
             title: "Creando Matrices",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Listas Anidadas</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Listas de Listas</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Para crear una matriz, definimos una lista donde cada elemento es otra lista.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        En Python, una matriz se crea anidando listas. Cada lista interna representa una fila de nuestra tabla o cuadrícula.
                     </p>
                     
-                    <div class="neon-box-dark p-6">
-                        <pre class="text-sm text-neon-green">matriz = [
-    [1, 2, 3],  # Fila 0
-    [4, 5, 6],  # Fila 1
-    [7, 8, 9]   # Fila 2
-]</pre>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Sintaxis</h4>
+                            <code class="text-xs text-blue-400 block">m = [[1, 2], [3, 4]]</code>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Visualización</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Fila 0: [1, 2]<br>
+                                Fila 1: [3, 4]
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Accediendo a una posición</span>
+                        <span class="text-sm text-gray-400">Constructor de Cuadrícula</span>
                     </div>
-                    <textarea id="code-mat-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">matriz = [
-    ["A", "B"],
-    ["C", "D"]
-]
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea una matriz llamada <code>tablero</code> que tenga dos filas: la primera con 1 y 2, y la segunda con 3 y 4. Imprime la matriz.
+                    </p>
+                    <textarea id="code-mat-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5"># Crea tu matriz aquí:
 
-print("Toda la matriz:", matriz)
-print("Fila 0:", matriz[0])
-print("Elemento en [1][0] (Fila 1, Col 0):", matriz[1][0])</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-mat-1').value, 'output-mat-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ver Posiciones
+                        <i class="fas fa-play mr-2"></i>Generar Matriz
                     </button>
                 </div>
                 <div id="output-mat-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Dibujando cuadrícula...</p>
                 </div>
-            `},
+            `,
+            validation: {
+                expectedOutput: "[[1, 2], [3, 4]]",
+                matchType: "include",
+                hint: "Usa corchetes dobles: tablero = [[1, 2], [3, 4]]"
+            }
+        },
         {
-            title: "Recorriendo Matrices",
+            title: "Acceso a Coordenadas",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Bucles Anidados</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Coordenadas [Fila][Columna]</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Para procesar toda la matriz, necesitamos un bucle dentro de otro bucle.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Para obtener un elemento, necesitamos dos índices: el primero para la <strong>fila</strong> y el segundo para la <strong>columna</strong>.
                     </p>
                     
-                    <div class="neon-box-dark p-6">
-                        <pre class="text-sm text-gray-400">for fila in matriz:
-    for elemento in fila:
-        print(elemento)</pre>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
+                        <h5 class="text-white font-bold text-sm mb-2">Ejemplo de Acceso</h5>
+                        <p class="text-sm text-gray-400 mb-2">Si <code>m = [[1, 2], [3, 4]]</code>:</p>
+                        <code class="text-xs text-neon-green block">m[0][1] # Esto da el número 2</code>
+                    </div>
+
+                    <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Regla de Oro</h4>
+                        <p class="text-gray-300 text-sm">
+                            El primer corchete elige la lista interna, y el segundo elige el elemento dentro de esa lista.
+                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-mat-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="10">tablero = [
-    [0, 1, 0],
-    [1, 0, 1],
-    [0, 1, 0]
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Extracción Precisa</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dada la matriz <code>datos</code>, imprime únicamente el número <strong>6</strong> accediendo a su posición correcta.
+                    </p>
+                    <textarea id="code-mat-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">datos = [
+    [1, 2, 3],
+    [4, 5, 6]
 ]
 
-print("Dibujando tablero:")
-for fila in tablero:
-    for celda in fila:
-        if celda == 1:
-            print("X", end=" ")
-        else:
-            print(".", end=" ")
-    print() # Salto de línea al terminar la fila</textarea>
+# Imprime el número 6 usando índices:
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-mat-2').value, 'output-mat-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Dibujar Tablero
+                        <i class="fas fa-play mr-2"></i>Extraer Valor
                     </button>
                 </div>
                 <div id="output-mat-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Visualización espacial...</p>
+                    <p class="text-gray-500">Buscando coordenada...</p>
                 </div>
-            `}
+            `,
+            validation: {
+                expectedOutput: "6",
+                matchType: "exact",
+                hint: "El 6 está en la fila 1 (segunda) y columna 2 (tercera). Usa datos[1][2]."
+            }
+        }
     ]
 });

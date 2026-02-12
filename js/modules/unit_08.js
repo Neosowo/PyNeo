@@ -4,10 +4,10 @@ window.modules.push({
     icon: "fa-star",
     description: "F-strings, slicing y trucos avanzados.",
     intro: `
-        <div class="neon-box p-8 mb-8">
+        <div class="neon-box p-8 mb-8 text-center">
             <h3 class="text-3xl font-bold mb-6 text-white text-center">Python Moderno</h3>
             <p class="text-gray-300 mb-8 text-lg text-center">
-                Ya dominas lo basico. Ahora aprende las herramientas que usan los profesionales para escribir codigo limpio y eficiente.
+                Ya dominas lo básico. Ahora aprende las herramientas que usan los profesionales para escribir código limpio, eficiente y elegante.
             </p>
             <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 <div class="neon-box-dark p-6 text-center">
@@ -30,145 +30,161 @@ window.modules.push({
                 <h3 class="text-3xl font-bold mb-6 text-white">La Forma Profesional</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <h4 class="font-bold mb-4 text-2xl text-white">Adios concatenacion, hola f-strings</h4>
-                    <p class="text-gray-300 mb-6">
-                        Los f-strings (formatted strings) son la manera mas limpia de insertar variables en textos. Coloca una <code class="text-neon-green">f</code> antes de las comillas y usa llaves { } para las variables.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Los <strong>f-strings</strong> son la manera más limpia e intuitiva de insertar variables dentro de cadenas de texto. Solo necesitas poner una <code>f</code> antes de las comillas y usar llaves <code>{ }</code>.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="neon-box-dark p-6">
-                            <h5 class="text-red-400 font-bold mb-3">Forma Antigua</h5>
-                            <pre class="text-xs text-gray-400">nombre = "Ana"
-edad = 25
-print("Hola " + nombre + 
-      ", tienes " + str(edad) +
-      " años")</pre>
-                            <p class="text-xs text-gray-500 mt-2">Complejo y propenso a errores</p>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Ventajas</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Evitas errores de tipo (no tienes que convertir números a texto) y el código es mucho más fácil de leer.
+                            </p>
                         </div>
-                        <div class="neon-box-dark p-6 border border-neon-green">
-                            <h5 class="text-neon-green font-bold mb-3">Con F-String</h5>
-                            <pre class="text-xs text-white">nombre = "Ana"
-edad = 25
-print(f"Hola {nombre}, 
-      tienes {edad} años")</pre>
-                            <p class="text-xs text-neon-green mt-2">Claro y simple</p>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Sintaxis</h4>
+                            <code class="text-xs text-blue-400 block">print(f"Valor: {variable}")</code>
                         </div>
+                    </div>
+
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Dato Útil</h4>
+                        <p class="text-gray-300 text-sm">
+                            Dentro de las llaves puedes incluso realizar operaciones matemáticas simples como <code>{edad + 1}</code>.
+                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-fstr-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">
-producto = "Laptop"
-precio = 899.99
-descuento = 15 
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Formateo de Mensajes</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Usa un <strong>f-string</strong> para imprimir exactamente el mensaje: "Tengo 5 manzanas" usando la variable <code>cantidad</code>.
+                    </p>
+                    <textarea id="code-fstr-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">cantidad = 5
+# Imprime con f-string aquí:
 
-# F-string en accion 
-mensaje = f"El {producto} cuesta \${precio}"
-print(mensaje)
-
-oferta = f"Descuento del {descuento}%: \${precio - (precio * descuento / 100):.2f}"
-print(oferta)</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-fstr-1').value, 'output-fstr-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Ejecutar
+                        <i class="fas fa-play mr-2"></i>Verificar Formato
                     </button>
                 </div>
                 <div id="output-fstr-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Componiendo texto...</p>
                 </div>
-            `},
-        {title: "Slicing (Cortar Secuencias)",
+            `,
+            validation: {
+                expectedOutput: "Tengo 5 manzanas",
+                matchType: "exact",
+                requiredCode: "f\"",
+                hint: "Usa print(f\"Tengo {cantidad} manzanas\")"
+            }
+        },
+        {
+            title: "Slicing (Cortar Secuencias)",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Extrae Fragmentos</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Extraer Fragmentos</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        El slicing te permite extraer porciones de listas o textos usando la sintaxis <code class="text-neon-green">[inicio:fin]</code>.
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        El <strong>slicing</strong> te permite "rebanar" o extraer porciones específicas de una lista o un texto usando la sintaxis <code>[inicio:fin]</code>.
                     </p>
                     
-                    <div class="neon-box-secondary p-6 mb-6">
-                        <h5 class="font-bold text-white mb-3">Reglas Importantes</h5>
-                        <ul class="text-sm text-gray-300 space-y-2">
-                            <li>El indice de inicio se INCLUYE</li>
-                            <li>El indice final NO se incluye</li>
-                            <li>Si omites inicio, empieza desde 0</li>
-                            <li>Si omites fin, va hasta el final</li>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
+                        <h5 class="text-white font-bold text-sm mb-2">La Regla del Índice Final</h5>
+                        <p class="text-sm text-gray-400 mb-2">El índice de inicio es inclusivo, pero el de fin es exclusivo (no se incluye):</p>
+                        <ul class="text-xs text-gray-500 space-y-1 ml-4 list-disc">
+                            <li><code>[:4]</code> → Desde el principio hasta la posición 3.</li>
+                            <li><code>[2:]</code> → Desde la posición 2 hasta el final.</li>
                         </ul>
                     </div>
-                    
-                    <div class="grid md:grid-cols-3 gap-4 text-sm">
-                        <div class="neon-box-dark p-4">
-                            <code class="text-neon-green block mb-2">lista[1:4]</code>
-                            <p class="text-gray-400">Desde 1 hasta 3</p>
-                        </div>
-                        <div class="neon-box-dark p-4">
-                            <code class="text-neon-green block mb-2">lista[:3]</code>
-                            <p class="text-gray-400">Primeros 3 elementos</p>
-                        </div>
-                        <div class="neon-box-dark p-4">
-                            <code class="text-neon-green block mb-2">lista[2:]</code>
-                            <p class="text-gray-400">Desde el 2 hasta el final</p>
-                        </div>
+
+                    <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Precisión</h4>
+                        <p class="text-gray-300 text-sm">
+                            Si omites el primer número, Python asume que empiezas desde el principio (0).
+                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-slice-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="10">numeros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Cortando Textos</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Extrae e imprime las primeras 4 letras de la palabra "Programación" usando slicing.
+                    </p>
+                    <textarea id="code-slice-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">palabra = "Programación"
+# Extrae las primeras 4 letras:
 
-print("Lista completa:", numeros)
-print("Del 2 al 5:", numeros[2:6])  # 2, 3, 4, 5
-print("Primeros 4:", numeros[:4])   # 0, 1, 2, 3
-print("Desde el 6:", numeros[6:])   # 6, 7, 8, 9
-
-# Tambien funciona con texto
-texto = "Python"
-print("Primeras 3 letras:", texto[:3])  # Pyt</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-slice-1').value, 'output-slice-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Cortar
+                        <i class="fas fa-play mr-2"></i>Cortar Palabra
                     </button>
                 </div>
                 <div id="output-slice-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Separando caracteres...</p>
                 </div>
-            `},
-        {title: "Slicing Avanzado",
+            `,
+            validation: {
+                expectedOutput: "Prog",
+                matchType: "exact",
+                hint: "Escribe print(palabra[:4])"
+            }
+        },
+        {
+            title: "Slicing Avanzado",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Mas Control</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Inversión y Pasos</h3>
                 
                 <div class="neon-box p-8 mb-8">
-                    <p class="text-gray-300 mb-6">
-                        Puedes agregar un tercer parametro para controlar el salto (step): <code class="text-neon-green">[inicio:fin:salto]</code>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Podemos añadir un tercer valor opcional llamado <strong>paso</strong> o salto: <code>[inicio:fin:paso]</code>. Esto permite saltar elementos o incluso recorrer la lista hacia atrás.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-6 text-sm">
-                        <div class="neon-box-secondary p-4">
-                            <code class="text-neon-green block mb-2">lista[::2]</code>
-                            <p class="text-gray-400">Todos los elementos, saltando de 2 en 2</p>
+                    <div class="space-y-4">
+                        <div class="neon-box-dark p-4 border border-blue-900/50">
+                            <h5 class="font-bold text-blue-400 mb-1">El Truco Pro</h5>
+                            <p class="text-sm text-gray-400">
+                                Usar <code>[::-1]</code> es la forma más rápida en Python de invertir completamente una cadena o lista.
+                            </p>
                         </div>
-                        <div class="neon-box-secondary p-4">
-                            <code class="text-neon-green block mb-2">lista[::-1]</code>
-                            <p class="text-gray-400">Invierte la lista completamente</p>
+                        
+                        <div class="neon-box-dark p-4 border border-purple-900/50">
+                            <h5 class="font-bold text-purple-400 mb-1">Saltos</h5>
+                            <p class="text-sm text-gray-400">
+                                <code>[::2]</code> devolverá solo los elementos en posiciones pares (salta de 2 en 2).
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
-                    <textarea id="code-slice-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="9">letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Efecto Espejo</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Invierte la palabra "Python" usando el truco de slicing negativo e imprímela.
+                    </p>
+                    <textarea id="code-slice-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">txt = "Python"
+# Imprime invertido aquí:
 
-print("Original:", letras)
-print("De 2 en 2:", letras[::2])      # A, C, E, G
-print("Inversa:", letras[::-1])       # H, G, F, E...
-
-# Truco: invertir texto
-palabra = "Python"
-print("Al reves:", palabra[::-1])     # nohtyP</textarea>
+</textarea>
                     <button onclick="runPythonCode(document.getElementById('code-slice-2').value, 'output-slice-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Explorar
+                        <i class="fas fa-play mr-2"></i>Invertir Texto
                     </button>
                 </div>
                 <div id="output-slice-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Resultado...</p>
+                    <p class="text-gray-500">Invirtiendo flujo...</p>
                 </div>
-            `
+            `,
+            validation: {
+                expectedOutput: "nohtyP",
+                matchType: "exact",
+                hint: "Usa el slicing [::-1] dentro del print."
+            }
         }
     ]
 });
