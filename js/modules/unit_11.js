@@ -43,6 +43,9 @@ window.modules.push({
                                 Fila 0: [1, 2]<br>
                                 Fila 1: [3, 4]
                             </p>
+                            <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">
+                                m = [[10, 20], [30, 40]]
+                            </code>
                         </div>
                     </div>
                 </div>
@@ -81,10 +84,16 @@ window.modules.push({
                         Para obtener un elemento, necesitamos dos índices: el primero para la <strong>fila</strong> y el segundo para la <strong>columna</strong>.
                     </p>
                     
-                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
-                        <h5 class="text-white font-bold text-sm mb-2">Ejemplo de Acceso</h5>
-                        <p class="text-sm text-gray-400 mb-2">Si <code>m = [[1, 2], [3, 4]]</code>:</p>
-                        <code class="text-xs text-neon-green block">m[0][1] # Esto da el número 2</code>
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo de Acceso</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Si <code>m = [[1, 2], [3, 4]]</code>, así es como obtienes cada dato:
+                        </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            m = [[1, 2], [3, 4]]<br><br>
+                            print(m[0][0]) # Fila 0, Columna 0 -> 1<br>
+                            print(m[1][1]) # Fila 1, Columna 1 -> 4
+                        </code>
                     </div>
 
                     <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
@@ -121,6 +130,46 @@ window.modules.push({
                 expectedOutput: "6",
                 matchType: "exact",
                 hint: "El 6 está en la fila 1 (segunda) y columna 2 (tercera). Usa datos[1][2]."
+            }
+        },
+        {
+            title: "Recorriendo la Cuadrícula",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Bucles Anidados</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Para ver todos los elementos de una matriz, usamos un bucle dentro de otro: el externo recorre las <strong>filas</strong> y el interno las <strong>columnas</strong>.
+                    </p>
+                    
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo de Escaneo</h4>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            tablero = [[1, 2], [3, 4]]<br><br>
+                            for fila in tablero:<br>
+                            &nbsp;&nbsp;for dato in fila:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print(dato)
+                        </code>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Usa dos bucles <code>for</code> (uno dentro del otro) para imprimir todos los números de la matriz <code>m</code>.
+                    </p>
+                    <textarea id="code-mat-loop" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">m = [[1, 2], [3, 4]]
+
+# Escribe tus bucles anidados aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-mat-loop').value, 'output-mat-loop')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Escanear Matriz
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "1\n2\n3\n4",
+                matchType: "include",
+                hint: "Usa for fila in m: y dentro for item in fila: print(item)"
             }
         }
     ]

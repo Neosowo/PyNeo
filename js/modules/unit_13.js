@@ -45,9 +45,14 @@ window.modules.push({
                     </div>
 
                     <div class="neon-box-secondary p-6 border-l-2 border-neon-green">
-                        <h4 class="text-lg font-bold text-white mb-2">Seguridad</h4>
+                        <h4 class="text-lg font-bold text-white mb-2">Ejemplo Completo</h4>
+                        <code class="text-xs text-neon-green block bg-black/40 p-2 rounded mb-3">
+                            f = open("data.txt", "w")<br>
+                            f.write("Guardando...")<br>
+                            f.close()
+                        </code>
                         <p class="text-gray-300 text-sm">
-                            Si no cierras el archivo, los datos podrían no guardarse correctamente o el archivo podría quedar bloqueado.
+                            Si no cierras el archivo, los datos podrían no guardarse correctamente.
                         </p>
                     </div>
                 </div>
@@ -96,8 +101,14 @@ window.modules.push({
                         <div class="neon-box-dark p-6 border-l-2 border-yellow-500">
                             <h4 class="text-xl font-bold text-white mb-3">Método Read</h4>
                             <p class="text-gray-400 text-sm mb-4">
-                                <code>contenido = f.read()</code>
+                                Recupera el texto:
                             </p>
+                            <code class="text-xs text-yellow-400 block bg-black/40 p-3 rounded">
+                                f = open("info.txt", "r")<br>
+                                texto = f.read()<br>
+                                print(texto)<br>
+                                f.close() # ¡Siempre cerrar!
+                            </code>
                         </div>
                     </div>
                 </div>
@@ -125,6 +136,44 @@ window.modules.push({
                 expectedOutput: "Hecho",
                 matchType: "include",
                 hint: "Usa f = open('test.txt', 'r'), luego data = f.read() y print(data)."
+            }
+        },
+        {
+            title: "El Método 'with' (Pro)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Gestión Automática</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        ¿Recuerdas que siempre hay que cerrar el archivo con <code>.close()</code>? Python tiene una forma mejor: el bloque <code>with</code>. Este cierra el archivo automáticamente por ti, ¡incluso si hay un error!
+                    </p>
+                    
+                    <div class="neon-box-dark p-6 border-l-2 border-neon-green mb-8">
+                        <h4 class="font-bold text-neon-green mb-2">Sintaxis Limpia</h4>
+                        <code class="text-xs text-blue-300 block bg-black/40 p-3 rounded">
+                            with open("notas.txt", "r") as f:<br>
+                            &nbsp;&nbsp;contenido = f.read()<br>
+                            # Aquí el archivo ya se cerró solo.
+                        </code>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Escribe un bloque <code>with</code> para abrir el archivo "temp.txt" en modo escritura ("w") y escribe el texto "Auto-close" usando <code>f.write()</code>.
+                    </p>
+                    <textarea id="code-file-with" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Usa with open(...) as f:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-file-with').value, 'output-file-with')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Probar Gestor
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "",
+                matchType: "custom",
+                requiredCode: "with",
+                hint: "Escribe: with open('temp.txt', 'w') as f: y dentro f.write('Auto-close')"
             }
         }
     ]

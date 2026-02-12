@@ -44,7 +44,10 @@ window.modules.push({
                         
                         <div class="neon-box-dark p-6 border-l-2 border-blue-500">
                             <h4 class="text-xl font-bold text-white mb-3">Sintaxis</h4>
-                            <code class="text-xs text-blue-400 block">print(f"Valor: {variable}")</code>
+                            <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">
+                                n = "Neo"<br>
+                                print(f"Hola {n}")
+                            </code>
                         </div>
                     </div>
 
@@ -94,7 +97,11 @@ window.modules.push({
                     
                     <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
                         <h5 class="text-white font-bold text-sm mb-2">La Regla del Índice Final</h5>
-                        <p class="text-sm text-gray-400 mb-2">El índice de inicio es inclusivo, pero el de fin es exclusivo (no se incluye):</p>
+                        <p class="text-sm text-gray-400 mb-4">El índice de inicio es inclusivo, pero el de fin es exclusivo (no se incluye):</p>
+                        <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded mb-4">
+                            lista = [0, 1, 2, 3, 4]<br>
+                            print(lista[1:3]) # [1, 2]
+                        </code>
                         <ul class="text-xs text-gray-500 space-y-1 ml-4 list-disc">
                             <li><code>[:4]</code> → Desde el principio hasta la posición 3.</li>
                             <li><code>[2:]</code> → Desde la posición 2 hasta el final.</li>
@@ -154,9 +161,10 @@ window.modules.push({
                         
                         <div class="neon-box-dark p-4 border border-purple-900/50">
                             <h5 class="font-bold text-purple-400 mb-1">Saltos</h5>
-                            <p class="text-sm text-gray-400">
-                                <code>[::2]</code> devolverá solo los elementos en posiciones pares (salta de 2 en 2).
+                            <p class="text-sm text-gray-400 mb-2">
+                                <code>[::2]</code> devolverá solo los elementos en posiciones pares.
                             </p>
+                            <code class="text-xs text-purple-400 block bg-black/40 p-2 rounded">"12345"[::2] # "135"</code>
                         </div>
                     </div>
                 </div>
@@ -184,6 +192,149 @@ window.modules.push({
                 expectedOutput: "nohtyP",
                 matchType: "exact",
                 hint: "Usa el slicing [::-1] dentro del print."
+            }
+        },
+        {
+            title: "Join y Split (Textos y Listas)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Conversión de Formatos</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        A menudo necesitas convertir una lista en un texto o viceversa. Para eso usamos <code>split()</code> y <code>join()</code>.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">.split()</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Corta un string y lo convierte en lista. Por defecto corta en los espacios.
+                            </p>
+                            <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                                "A B".split() # ["A", "B"]
+                            </code>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">.join()</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Une una lista en un solo string usando un separador.
+                            </p>
+                            <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">
+                                "-".join(["A", "B"]) # "A-B"
+                            </code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dada la lista <code>tags = ["python", "code", "ai"]</code>, únelos en un solo string separados por una coma y un espacio <code>", "</code> e imprímelo.
+                    </p>
+                    <textarea id="code-join-split" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">tags = ["python", "code", "ai"]
+# Une e imprime aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-join-split').value, 'output-join-split')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Unir Elementos
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "python, code, ai",
+                matchType: "include",
+                requiredCode: "join",
+                hint: "Usa ', '.join(tags)"
+            }
+        },
+        {
+            title: "Manejo de Errores (Try/Except)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Evita que tu App Colapse</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        A veces el código falla por razones externas (un usuario ingresa texto en lugar de números). Con <code>try</code> y <code>except</code>, puedes capturar el error y reaccionar sin que el programa se cierre.
+                    </p>
+                    
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Estructura de Protección</h4>
+                        <code class="text-xs text-red-400 block bg-black/40 p-3 rounded">
+                            try:<br>
+                            &nbsp;&nbsp;num = int(input("Dime un número: "))<br>
+                            except:<br>
+                            &nbsp;&nbsp;print("❌ Eso no era un número")
+                        </code>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Envuelve el código de división en un bloque <code>try/except</code>. Si ocurre un error (como dividir por cero), imprime "Error en el cálculo".
+                    </p>
+                    <textarea id="code-try-except" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8"># Intenta dividir 10 entre 0:
+try:
+    resultado = 10 / 0
+except:
+    # Escribe el mensaje de error aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-try-except').value, 'output-try-except')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Ejecutar Protegido
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "Error en el cálculo",
+                matchType: "include",
+                requiredCode: "except",
+                hint: "Usa except: y debajo print('Error en el cálculo')"
+            }
+        },
+        {
+            title: "List Comprehensions",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Listas en una Línea</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Es la forma más "Pythonica" de crear listas nuevas basadas en otras. Permite transformar o filtrar datos en una sola línea de código elegante.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Forma Tradicional</h4>
+                            <code class="text-xs text-gray-500 block">
+                                nueva = []<br>
+                                for x in lista:<br>
+                                &nbsp;&nbsp;nueva.append(x * 2)
+                            </code>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">List Comprehension</h4>
+                            <code class="text-xs text-blue-400 block p-2 rounded bg-black/40">
+                                nueva = [x * 2 for x in lista]
+                            </code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dada la lista <code>numeros = [1, 2, 3]</code>, usa una List Comprehension para crear una nueva lista con los números elevados al cuadrado (** 2). Imprime la nueva lista.
+                    </p>
+                    <textarea id="code-list-comp" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">numeros = [1, 2, 3]
+# Crea la lista pro aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-list-comp').value, 'output-list-comp')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Generar Lista Pro
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "[1, 4, 9]",
+                matchType: "include",
+                requiredCode: "[",
+                hint: "Escribe: cuadrados = [n**2 for n in numeros]"
             }
         }
     ]

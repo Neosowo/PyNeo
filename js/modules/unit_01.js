@@ -69,9 +69,10 @@ window.modules.push({
 
                     <div class="neon-box-secondary p-6">
                         <h4 class="font-bold text-white mb-2">Interacción</h4>
-                        <p class="text-gray-300 text-sm">
+                        <p class="text-gray-300 text-sm mb-4">
                             El Software envía instrucciones a la CPU. La CPU procesa estas instrucciones usando datos de la RAM y muestra resultados a través de los periféricos.
                         </p>
+                        <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">print("Mi computadora")</code>
                     </div>
                 </div>
 
@@ -124,9 +125,13 @@ print("...")</textarea>
 
                     <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
                         <h4 class="text-xl font-bold text-white mb-2">Secuencia en Código</h4>
-                        <p class="text-gray-300 text-sm">
+                        <p class="text-gray-300 text-sm mb-4">
                             La computadora lee el código de <strong>arriba hacia abajo</strong>. La línea 1 siempre se ejecuta antes que la línea 2.
                         </p>
+                        <code class="text-xs text-yellow-400 block bg-black/40 p-2 rounded">
+                            print("Primero esto")<br>
+                            print("Después esto")
+                        </code>
                     </div>
                 </div>
 
@@ -238,6 +243,7 @@ print("...")</textarea>
                             <p class="text-sm text-gray-400 mb-3">
                                 Traduce y ejecuta el código <strong>línea por línea</strong> en tiempo real.
                             </p>
+                            <code class="text-xs text-neon-green block bg-black/40 p-2 rounded mb-3"># Python lee y ejecuta de inmediato</code>
                             <ul class="text-xs text-gray-500 list-disc ml-4">
                                 <li>Más fácil para aprender y depurar.</li>
                                 <li>Si hay un error en la línea 10, ejecuta las 9 primeras.</li>
@@ -313,6 +319,50 @@ print(10 / 0)</textarea>
             validation: {
                 expectedOutput: "Unidad 1 Completada",
                 matchType: "exact"
+            }
+        },
+        {
+            title: "Comentarios y Legibilidad",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Escribir para Humanos</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        El código lo lee la computadora, pero lo mantienen los humanos. Los <strong>comentarios</strong> son notas que el intérprete de Python ignora totalmente, pero que sirven para explicar qué hace tu código.
+                    </p>
+                    
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Tipos de Notas</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-xs text-blue-400 mb-1"># Comentario de una línea</p>
+                                <p class="text-sm text-gray-400">Usa el símbolo <code>#</code> para notas rápidas.</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-blue-400 mb-1">""" Comentario multilínea """</p>
+                                <p class="text-sm text-gray-400">Usa triples comillas para explicaciones largas o documentación.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Crea un comentario que diga "Hola" y debajo imprime "Mundo".
+                    </p>
+                    <textarea id="code-comments" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="4"># Escribe tu nota aquí:
+
+print("Mundo")</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-comments').value, 'output-comments')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Verificar Limpieza
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "Mundo",
+                matchType: "include",
+                requiredCode: "#",
+                hint: "Usa el símbolo # seguido de cualquier texto."
             }
         }
     ]

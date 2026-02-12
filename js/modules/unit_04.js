@@ -40,7 +40,10 @@ window.modules.push({
                             <p class="text-gray-400 text-sm mb-4">
                                 Un <code>if</code> evalúa una expresión. Si es <strong>True</strong> (Verdadera), el código indentado se ejecuta.
                             </p>
-                            <code class="text-xs text-neon-green block">if condicion:</code>
+                            <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                                if saldo > 0:<br>
+                                &nbsp;&nbsp;print("Tienes dinero")
+                            </code>
                         </div>
                         
                         <div class="neon-box-dark p-6 border-l-2 border-red-500">
@@ -97,11 +100,17 @@ window.modules.push({
                     </p>
                     
                     <div class="bg-black/30 p-4 rounded border border-gray-700 mb-6">
-                        <h5 class="text-white font-bold text-sm mb-2">Flujo de Decisión</h5>
-                        <p class="text-sm text-gray-400">
+                        <h5 class="text-white font-bold text-sm mb-2">Ejemplo Visual</h5>
+                        <p class="text-sm text-gray-400 mb-4">
                             Si la condición es verdadera → Se ejecuta el bloque <strong>if</strong>.<br>
                             Si la condición es falsa → Se ejecuta el bloque <strong>else</strong>.
                         </p>
+                        <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">
+                            if hora < 12:<br>
+                            &nbsp;&nbsp;print("Buen día")<br>
+                            else:<br>
+                            &nbsp;&nbsp;print("Buenas tardes")
+                        </code>
                     </div>
 
                     <div class="neon-box-secondary p-6 border-l-2 border-neon-green">
@@ -149,22 +158,20 @@ if temperatura > 30:
                         Cuando hay más de dos posibilidades, usamos <code>elif</code> (abreviatura de 'else if'). Permite evaluar múltiples pruebas en cadena.
                     </p>
                     
-                    <div class="space-y-4">
-                        <div class="neon-box-dark p-4 border border-blue-900/50">
-                            <h5 class="font-bold text-blue-400 mb-1">Orden de Evaluación</h5>
-                            <p class="text-sm text-gray-400">
-                                Python revisa las condiciones de arriba hacia abajo. En cuanto encuentra una verdadera, ejecuta su código e ignora el resto.
-                            </p>
-                        </div>
-                        
-                        <div class="neon-box-dark p-4 border border-purple-900/50">
-                            <h5 class="font-bold text-purple-400 mb-1">Estructura Completa</h5>
-                            <p class="text-sm text-gray-400 font-mono text-xs">
-                                if condicion1: ... <br>
-                                elif condicion2: ... <br>
-                                else: ...
-                            </p>
-                        </div>
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo de Múltiples Vías</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Es como un semáforo: solo un camino se ejecuta a la vez.
+                        </p>
+                        <code class="text-xs text-yellow-400 block bg-black/40 p-3 rounded">
+                            color = "amarillo"<br><br>
+                            if color == "rojo":<br>
+                            &nbsp;&nbsp;print("Para")<br>
+                            elif color == "amarillo":<br>
+                            &nbsp;&nbsp;print("Precaución")<br>
+                            else:<br>
+                            &nbsp;&nbsp;print("Siga")
+                        </code>
                     </div>
                 </div>
 
@@ -195,6 +202,56 @@ if puntuacion == 100:
                 expectedOutput: "Genial",
                 matchType: "exact",
                 hint: "Usa elif puntuacion > 80: para el segundo caso y finaliza con else:."
+            }
+        },
+        {
+            title: "Condiciones Anidadas",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Un IF dentro de otro IF</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        A veces necesitas cumplir una condición para evaluar otra. Esto se llama <strong>anidación</strong>. Es como entrar a una habitación y luego abrir un armario.
+                    </p>
+                    
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo de Filtro Doble</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Primero revisas si hay conexión, y luego si el usuario tiene permiso:
+                        </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            conectado = True<br>
+                            admin = False<br><br>
+                            if conectado:<br>
+                            &nbsp;&nbsp;if admin:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Acceso Total")<br>
+                            &nbsp;&nbsp;else:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Solo lectura")
+                        </code>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dada la variable <code>edad = 20</code>, crea un IF que revise si es mayor de 18, y DENTRO de ese IF, otro que revise si tiene <code>entrada = True</code>. Si cumple ambos, imprime "Bienvenido".
+                    </p>
+                    <textarea id="code-cond-nested" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">edad = 20
+entrada = True
+
+# Crea tu IF anidado aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-cond-nested').value, 'output-cond-nested')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Verificar Anidación
+                    </button>
+                </div>
+                <div id="output-cond-nested" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Evaluando niveles...</p>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "Bienvenido",
+                matchType: "include",
+                hint: "Escribe un if dentro de otro. ¡No olvides la indentación doble!"
             }
         }
     ]

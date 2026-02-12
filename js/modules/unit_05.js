@@ -59,10 +59,16 @@ window.modules.push({
                     </div>
 
                     <div class="neon-box-secondary p-6">
-                        <h4 class="font-bold text-white mb-2">Contadores</h4>
-                        <p class="text-gray-300 text-sm">
-                            Normalmente usamos una variable 'contador' que incrementamos dentro del bucle para eventualmente romper la condición.
+                        <h4 class="font-bold text-white mb-2">Ejemplo Paso a Paso</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Primero creas la variable, luego el bucle, y <b>siempre</b> incrementas al final:
                         </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            i = 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 1. Inicio<br>
+                            while i <= 5: # 2. Condición<br>
+                            &nbsp;&nbsp;print(i)<br>
+                            &nbsp;&nbsp;i += 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 3. Paso (Incremento)
+                        </code>
                     </div>
                 </div>
 
@@ -100,6 +106,18 @@ window.modules.push({
                         El bucle <code>for</code> se usa para recorrer secuencias o ejecutar una tarea un número definido de veces. En Python es la forma más común y segura de iterar.
                     </p>
                     
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo de Acceso</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Si <code>m = [[1, 2], [3, 4]]</code>, así es como obtienes cada dato:
+                        </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            m = [[1, 2], [3, 4]]<br><br>
+                            print(m[0][0]) # Fila 0, Columna 0 -> 1<br>
+                            print(m[1][1]) # Fila 1, Columna 1 -> 4
+                        </code>
+                    </div>
+
                     <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
                         <h5 class="text-white font-bold text-sm mb-2">La Función range()</h5>
                         <p class="text-sm text-gray-400 mb-2">Genera una secuencia de números automáticamente:</p>
@@ -111,9 +129,13 @@ window.modules.push({
 
                     <div class="neon-box-secondary p-6 border-l-2 border-blue-500">
                         <h4 class="text-lg font-bold text-white mb-2">Simplicidad</h4>
-                        <p class="text-gray-300 text-sm">
-                            A diferencia de <code>while</code>, un <code>for</code> con <code>range</code> sabe exactamente cuándo detenerse, evitando bucles infinitos por error.
+                        <p class="text-gray-300 text-sm mb-4">
+                            A diferencia de <code>while</code>, un <code>for</code> con <code>range</code> sabe exactamente cuándo detenerse.
                         </p>
+                        <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">
+                            for x in range(3):<br>
+                            &nbsp;&nbsp;print("Hacker")
+                        </code>
                     </div>
                 </div>
 
@@ -150,20 +172,17 @@ window.modules.push({
                         El verdadero poder de Python brilla al iterar sobre colecciones. Un bucle <code>for</code> puede extraer cada elemento de una lista de forma automática.
                     </p>
                     
-                    <div class="space-y-4">
-                        <div class="neon-box-dark p-4 border border-blue-900/50">
-                            <h5 class="font-bold text-blue-400 mb-1">Sintaxis Limpia</h5>
-                            <p class="text-sm text-gray-400">
-                                No necesitas índices ni contadores: <code>for elemento in lista:</code>.
-                            </p>
-                        </div>
-                        
-                        <div class="neon-box-dark p-4 border border-green-900/50">
-                            <h5 class="font-bold text-neon-green mb-1">Automatización</h5>
-                            <p class="text-sm text-gray-400">
-                                Es ideal para aplicar una misma operación a miles de datos al mismo tiempo (como cambiar precios o filtrar correos).
-                            </p>
-                        </div>
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo Completo</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Imagina que cada "fruta" de la lista se guarda un momento en la variable para mostrarla:
+                        </p>
+                        <code class="text-xs text-blue-400 block bg-black/40 p-3 rounded">
+                            lista = ["🍎", "🍌", "🍇"]<br><br>
+                            for fruta in lista:<br>
+                            &nbsp;&nbsp;print("Viendo una:")<br>
+                            &nbsp;&nbsp;print(fruta)
+                        </code>
                     </div>
                 </div>
 
@@ -189,6 +208,62 @@ window.modules.push({
                 expectedOutput: "* Ana\n* Luis\n* Neo",
                 matchType: "exact",
                 hint: "Usa for n in nombres: y dentro print(\"* \" + n)"
+            }
+        },
+        {
+            title: "Escape de Bucles (Break)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Control Total</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        A veces necesitas detener un bucle antes de que termine normalmente. Para eso usamos <code>break</code>. Es como el freno de emergencia.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-red-500">
+                            <h4 class="text-xl font-bold text-white mb-3">break</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Detiene el bucle por completo y sale de él inmediatamente.
+                            </p>
+                            <code class="text-xs text-red-400 block bg-black/40 p-2 rounded">
+                                if item == "Bomba":<br>
+                                &nbsp;&nbsp;break
+                            </code>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">continue</h4>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Salta el paso actual y pasa al siguiente ciclo del bucle.
+                            </p>
+                            <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">
+                                if item == "Sal":<br>
+                                &nbsp;&nbsp;continue
+                            </code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Usa un bucle <code>for</code> en el rango de 1 a 10. Si el número es 5, usa <code>break</code> para detenerlo. Imprime cada número.
+                    </p>
+                    <textarea id="code-loop-break" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="7"># Crea el bucle aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-loop-break').value, 'output-loop-break')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Verificar Escape
+                    </button>
+                </div>
+                <div id="output-loop-break" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Buscando el punto de corte...</p>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "1\n2\n3\n4",
+                matchType: "include",
+                requiredCode: "break",
+                hint: "Usa for i in range(1, 11): y dentro un if i == 5: break"
             }
         }
     ]

@@ -39,7 +39,11 @@ window.modules.push({
 
                     <div class="neon-box-secondary p-6">
                         <h4 class="font-bold text-white mb-2">Sintaxis</h4>
-                        <code class="text-xs text-neon-green block">punto = (10, 20)</code>
+                        <p class="text-sm text-gray-300 mb-4">Usa paréntesis para fijar los datos:</p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                            meses = ("Enero", "Febrero")<br>
+                            # meses[0] = "Marzo" # ERROR: No se puede cambiar
+                        </code>
                     </div>
                 </div>
 
@@ -87,7 +91,11 @@ window.modules.push({
                         
                         <div class="neon-box-dark p-6 border-l-2 border-blue-500">
                             <h4 class="text-xl font-bold text-white mb-3">Sintaxis</h4>
-                            <code class="text-xs text-neon-green block">colores = {"rojo", "azul"}</code>
+                            <p class="text-gray-400 text-sm mb-4">Usa llaves sin claves:</p>
+                            <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                                tags = {"python", "code"}<br>
+                                tags.add("python") # No pasa nada
+                            </code>
                         </div>
                     </div>
                 </div>
@@ -115,6 +123,52 @@ window.modules.push({
                 matchType: "include",
                 requiredCode: "{",
                 hint: "Usa id_usuarios = {1, 2, 2, 3} y luego print(id_usuarios)."
+            }
+        },
+        {
+            title: "Operaciones de Conjuntos",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Lógica de Conjuntos</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Los sets brillan cuando queremos comparar grupos de datos. Python nos permite hacer uniones e intersecciones de forma matemática.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
+                            <h4 class="text-xl font-bold text-white mb-3">Unión (|)</h4>
+                            <p class="text-gray-400 text-sm mb-4">Combina todos los elementos (sin repetir).</p>
+                            <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">set_a | set_b</code>
+                        </div>
+                        
+                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                            <h4 class="text-xl font-bold text-white mb-3">Intersección (&)</h4>
+                            <p class="text-gray-400 text-sm mb-4">Solo los elementos que están en AMBOS.</p>
+                            <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded">set_a & set_b</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dados los sets <code>grupo_a = {1, 2, 3}</code> y <code>grupo_b = {3, 4, 5}</code>, imprime la <b>intersección</b> (el elemento que comparten).
+                    </p>
+                    <textarea id="code-set-ops" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">grupo_a = {1, 2, 3}
+grupo_b = {3, 4, 5}
+
+# Imprime la intersección aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-set-ops').value, 'output-set-ops')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Calcular Unión
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "{3}",
+                matchType: "include",
+                requiredCode: "&",
+                hint: "Usa print(grupo_a & grupo_b)"
             }
         }
     ]

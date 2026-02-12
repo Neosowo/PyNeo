@@ -58,9 +58,12 @@ print(persona["nombre"])  # Claro!</pre>
 
                     <div class="neon-box-secondary p-6">
                         <h4 class="font-bold text-white mb-2">Sintaxis</h4>
-                        <p class="text-gray-300 text-sm font-mono">
-                            diccionario = {"clave": valor, "clave2": valor2}
+                        <p class="text-gray-300 text-sm mb-4">
+                            Creamos una estructura mapeada con llaves:
                         </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                            carro = {"marca": "Tesla", "año": 2024}
+                        </code>
                     </div>
                 </div>
 
@@ -101,7 +104,10 @@ print(persona["nombre"])  # Claro!</pre>
                     <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
                         <h5 class="text-white font-bold text-sm mb-2">Acceso y Asignación</h5>
                         <p class="text-sm text-gray-400 mb-2">Usamos corchetes para referirnos a la clave:</p>
-                        <code class="text-xs text-neon-green block">diccionario["mi_clave"] = "nuevo_valor"</code>
+                        <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                            user["edad"] = 26 # Actualiza<br>
+                            user["ID"] = 99 &nbsp;&nbsp;# Crea nuevo
+                        </code>
                     </div>
 
                     <div class="neon-box-secondary p-6 border-l-2 border-neon-green">
@@ -141,7 +147,7 @@ print(app)</textarea>
             }
         },
         {
-            title: "Métodos Útiles",
+            title: "Métodos Avanzados",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Inspeccionando el Diccionario</h3>
                 
@@ -150,43 +156,62 @@ print(app)</textarea>
                         Existen funciones integradas que nos permiten obtener por separado las claves o los valores de nuestro diccionario.
                     </p>
                     
-                    <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                         <div class="neon-box-dark p-4 border border-blue-900/50">
                             <h5 class="font-bold text-blue-400 mb-1">.keys()</h5>
-                            <p class="text-sm text-gray-400">Devuelve una lista con todas las etiquetas o claves.</p>
+                            <p class="text-[10px] text-gray-400 mb-2">Devuelve todas las claves.</p>
+                            <code class="text-[10px] text-blue-300 block">d.keys()</code>
                         </div>
-                        
                         <div class="neon-box-dark p-4 border border-purple-900/50">
                             <h5 class="font-bold text-purple-400 mb-1">.values()</h5>
-                            <p class="text-sm text-gray-400">Devuelve una lista solo con los datos guardados.</p>
+                            <p class="text-[10px] text-gray-400 mb-2">Devuelve todos los valores.</p>
+                            <code class="text-[10px] text-purple-300 block">d.values()</code>
                         </div>
+                        <div class="neon-box-dark p-4 border border-neon-green/50">
+                            <h5 class="font-bold text-neon-green mb-1">.items()</h5>
+                            <p class="text-[10px] text-gray-400 mb-2">Devuelve parejas completas.</p>
+                            <code class="text-[10px] text-neon-green block bg-black/40 p-2 rounded">d.items() # [('a', 1)]</code>
+                        </div>
+                    </div>
+
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Ejemplo Visual de Métodos</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Así es como Python te devuelve los datos cuando usas estas funciones:
+                        </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            d = {"a": 1, "b": 2}<br><br>
+                            print(d.keys()) &nbsp;&nbsp;# dict_keys(['a', 'b'])<br>
+                            print(d.values()) # dict_values([1, 2])<br>
+                            print(d.items()) &nbsp;# dict_items([('a', 1), ('b', 2)])
+                        </code>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Inventario de Stock</span>
+                        <span class="text-sm text-gray-400">Iteración Completa</span>
                     </div>
                     <p class="text-gray-300 text-sm mb-4">
-                        Imprime solo las <strong>claves</strong> del diccionario <code>stock</code> usando el método <code>.keys()</code>.
+                        Usa el método <code>.items()</code> para imprimir todo el contenido del <code>stock</code>.
                     </p>
                     <textarea id="code-dict-3" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="5">stock = {"pan": 10, "leche": 5}
 
-# Imprime solo las claves:
+# Imprime las parejas (items):
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-dict-3').value, 'output-dict-3')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Listar Claves
+                        <i class="fas fa-play mr-2"></i>Listar Items
                     </button>
                 </div>
                 <div id="output-dict-3" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Extrayendo metadatos...</p>
+                    <p class="text-gray-500">Extrayendo datos...</p>
                 </div>
             `,
             validation: {
                 expectedOutput: "pan",
                 matchType: "include",
-                requiredCode: "keys",
-                hint: "El comando es print(stock.keys())"
+                requiredCode: "items",
+                hint: "El comando es print(stock.items())"
             }
         }
     ]

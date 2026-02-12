@@ -52,9 +52,10 @@ window.modules.push({
 
                     <div class="neon-box-secondary p-6">
                         <h4 class="font-bold text-white mb-2">La Función print()</h4>
-                        <p class="text-gray-300 text-sm">
+                        <p class="text-gray-300 text-sm mb-4">
                             Es nuestra herramienta básica para que la computadora nos "hable" mostrándonos mensajes en la pantalla.
                         </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">print("Hola Estudiante")</code>
                     </div>
                 </div>
 
@@ -103,9 +104,10 @@ window.modules.push({
 
                     <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
                         <h4 class="text-lg font-bold text-white mb-2">Símbolos Matemáticos</h4>
-                        <p class="text-gray-300 text-sm">
+                        <p class="text-gray-300 text-sm mb-4">
                             Python usa los símbolos estándar: <code>+</code> (suma), <code>-</code> (resta), <code>*</code> (multiplicación) y <code>/</code> (división).
                         </p>
+                        <code class="text-xs text-yellow-400 block bg-black/40 p-2 rounded">print(10 + 20) # Muestra 30</code>
                     </div>
                 </div>
 
@@ -129,6 +131,49 @@ window.modules.push({
                 expectedOutput: "2030",
                 matchType: "include",
                 hint: "Escribe print(2025 + 5) y pulsa Ejecutar."
+            }
+        },
+        {
+            title: "La Filosofía Python (Zen)",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">El "Zen" de Python</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Python no es solo un lenguaje, tiene una filosofía de diseño. Tim Peters escribió 19 principios llamados el <strong>Zen de Python</strong>. El más importante es:
+                    </p>
+                    
+                    <div class="neon-box-dark p-6 border-l-2 border-neon-green text-center italic mb-8">
+                        "Lo bonito es mejor que lo feo. Lo explícito es mejor que lo implícito. Lo simple es mejor que lo complejo."
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="neon-box-secondary p-4">
+                            <h5 class="text-white font-bold mb-2">Código Legible</h5>
+                            <p class="text-xs text-gray-400">Escribimos código pensando en que otros (uotros nosotros en el futuro) lo entiendan fácilmente.</p>
+                        </div>
+                        <div class="neon-box-secondary p-4">
+                            <h5 class="text-white font-bold mb-2">Una Sola Forma</h5>
+                            <p class="text-xs text-gray-400">Debería haber una —y preferiblemente solo una— manera obvia de hacer las cosas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        ¿Quieres ver todos los principios del Zen de Python? Escribe el comando secreto <code>import this</code> en la terminal.
+                    </p>
+                    <textarea id="code-zen" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="2"></textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-zen').value, 'output-zen')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Revelar Secreto
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "The Zen of Python",
+                matchType: "include",
+                requiredCode: "import this",
+                hint: "Escribe import this para ver el poema de la filosofía Python."
             }
         }
     ]

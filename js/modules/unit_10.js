@@ -1,139 +1,265 @@
 window.modules.push({
     id: 10,
     title: "Datos con Pandas",
-    icon: "fa-chart-line",
-    description: "Introducción al análisis de datos y tablas.",
+    icon: "fa-table",
+    description: "Análisis de datos profesional con la librería Pandas.",
     intro: `
         <div class="neon-box p-8 mb-8">
-            <h3 class="text-3xl font-bold mb-6 text-white text-center">Introducción a la Ciencia de Datos</h3>
+            <h3 class="text-3xl font-bold mb-6 text-white text-center">Data Science con Python</h3>
             <p class="text-gray-300 mb-8 text-lg text-center">
-                Python es el lenguaje número uno en el mundo para Ciencia de Datos e Inteligencia Artificial.
-                ¿El secreto? Una herramienta llamada <b>Pandas</b>.
+                Pandas es la herramienta más usada para manejar tablas de datos (DataFrames). 
+                Olvídate de los bucles complejos; con Pandas, una sola línea de código puede procesar millones de datos.
             </p>
-            <div class="grid md:grid-cols-2 gap-6 items-center">
-                <div class="text-center">
-                    <i class="fas fa-table text-6xl text-blue-500 mb-4"></i>
-                    <p class="text-sm text-gray-400">Maneja tablas gigantes como si nada.</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="neon-box-dark p-6 text-center border-b-2 border-blue-500">
+                    <div class="text-3xl text-blue-400 mb-2"><i class="fas fa-file-csv"></i></div>
+                    <h4 class="text-white font-bold mb-1">Carga</h4>
+                    <p class="text-xs text-gray-500">Lee archivos CSV y Excel.</p>
                 </div>
-                <div class="neon-box-dark p-4 text-xs font-mono text-gray-300">
-                    import pandas as pd<br><br>
-                    # Carga miles de filas al instante
-                    datos = pd.read_csv("ventas.csv")<br>
-                    print(datos.describe())
+                <div class="neon-box-dark p-6 text-center border-b-2 border-neon-green">
+                    <div class="text-3xl text-neon-green mb-2"><i class="fas fa-filter"></i></div>
+                    <h4 class="text-white font-bold mb-1">Filtros</h4>
+                    <p class="text-xs text-gray-500">Busca datos específicos al instante.</p>
+                </div>
+                <div class="neon-box-dark p-6 text-center border-b-2 border-purple-500">
+                    <div class="text-3xl text-purple-400 mb-2"><i class="fas fa-chart-line"></i></div>
+                    <h4 class="text-white font-bold mb-1">Análisis</h4>
+                    <p class="text-xs text-gray-500">Estadísticas y agrupaciones (GroupBy).</p>
                 </div>
             </div>
         </div>
     `,
     lessons: [
         {
-            title: "Tablas Inteligentes",
+            title: "Series y DataFrames",
             content: `
                 <h3 class="text-3xl font-bold mb-6 text-white">Estructuras de Datos</h3>
                 
                 <div class="neon-box p-8 mb-8">
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        En el análisis profesional, los datos se organizan en <strong>DataFrames</strong> (tablas de filas y columnas). Antes de usar Pandas, solemos estructurar la información usando diccionarios de listas.
+                        Pandas tiene dos estructuras principales: <strong>Series</strong> (columnas sueltas) y <strong>DataFrames</strong> (tablas completas).
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div class="neon-box-dark p-6 border-l-2 border-blue-500">
-                            <h4 class="text-xl font-bold text-white mb-3">Claves como Columnas</h4>
-                            <p class="text-gray-400 text-sm mb-4">
-                                Cada clave del diccionario representa el nombre de una columna.
-                            </p>
+                    <div class="neon-box-secondary p-6 mb-8">
+                        <h4 class="font-bold text-white mb-2">Importación Estándar</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Casi todo el mundo importa pandas con el alias <code>pd</code> para escribir menos:
+                        </p>
+                        <code class="text-xs text-neon-green block">import pandas as pd</code>
+                    </div>
+
+                    <div class="neon-box-dark p-6 border-l-2 border-blue-500">
+                        <h4 class="text-xl font-bold text-white mb-3">Creación desde Diccionarios</h4>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Es muy común crear un DataFrame a partir de un diccionario donde las claves son las columnas.
+                        </p>
+                        <code class="text-xs text-blue-400 block bg-black/40 p-3 rounded">
+                            datos = {"Nombre": ["A", "B"], "Puntos": [10, 20]}<br>
+                            df = pd.DataFrame(datos)
+                        </code>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <span class="text-sm text-gray-400">Tu primer DataFrame</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Simulamos Pandas. Crea un diccionario llamado <code>datos</code> con "Nombre" y "Edad", luego usa <code>pd.DataFrame(datos)</code> para convertirlo en tabla e imprímelo.
+                    </p>
+                    <textarea id="code-pan-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">import pandas as pd
+
+datos = {
+    "Nombre": ["Ana", "Luis"],
+    "Edad": [25, 30]
+}
+
+# Crea el DataFrame df aquí:
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-pan-1').value, 'output-pan-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Generar Tabla
+                    </button>
+                </div>
+                <div id="output-pan-1" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Formateando tabla...</p>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "Nombre",
+                matchType: "include",
+                requiredCode: "pd.DataFrame",
+                hint: "Usa df = pd.DataFrame(datos) y luego print(df)"
+            }
+        },
+        {
+            title: "Indexación Profesional",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">loc vs iloc</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Para seleccionar datos específicos en Pandas, usamos dos herramientas clave:
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-8">
+                        <div class="neon-box-dark p-4 border-l-2 border-yellow-500">
+                            <h5 class="font-bold text-white mb-1">.loc[]</h5>
+                            <p class="text-xs text-gray-400 mb-2">Acceso por <b>ETIQUETAS</b> (nombres de filas/columnas).</p>
+                            <code class="text-[10px] text-yellow-400 block">df.loc[0, "Nombre"]</code>
                         </div>
-                        
-                        <div class="neon-box-dark p-6 border-l-2 border-neon-green">
-                            <h4 class="text-xl font-bold text-white mb-3">Listas como Filas</h4>
-                            <p class="text-gray-400 text-sm mb-4">
-                                El valor asociado es una lista con los datos de cada fila.
-                            </p>
+                        <div class="neon-box-dark p-4 border-l-2 border-blue-500">
+                            <h5 class="font-bold text-white mb-1">.iloc[]</h5>
+                            <p class="text-xs text-gray-400 mb-2">Acceso por <b>POSICIÓN</b> (índices numéricos de 0 a n).</p>
+                            <code class="text-[10px] text-blue-400 block">df.iloc[0, 0]</code>
                         </div>
                     </div>
 
                     <div class="neon-box-secondary p-6">
-                        <h4 class="font-bold text-white mb-2">Simulación de Pandas</h4>
-                        <p class="text-gray-300 text-sm">
-                            Aunque aquí usamos Python puro, esta es exactamente la lógica que usa Pandas para crear tablas desde cero.
+                        <h4 class="font-bold text-white mb-2">Selección de Rangos</h4>
+                        <p class="text-gray-300 text-sm mb-3">
+                            Puedes obtener varias filas o columnas a la vez usando slicing:
                         </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-2 rounded">
+                            df.iloc[0:2, :] # Primeras 2 filas, todas las columnas
+                        </code>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Tu Primer Dataset</span>
+                        <span class="text-sm text-gray-400">Filtrado de Edad</span>
                     </div>
                     <p class="text-gray-300 text-sm mb-4">
-                        Crea un diccionario llamado <code>datos</code> donde las claves sean "Nombres" y "Notas", y los valores sean listas con 3 elementos cada una (ej: ["Ana", "Neo", "Leo"] y [10, 9, 8]).
+                        Imprime solo la fila en la posición 0 del DataFrame <code>df</code> usando <code>iloc</code>.
                     </p>
-                    <textarea id="code-pd-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6"># Crea el diccionario datos con Nombres y Notas:
+                    <textarea id="code-pan-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="7">import pandas as pd
+df = pd.DataFrame({"X": [1, 2], "Y": [3, 4]})
 
+# Usa iloc para mostrar la primera fila:
 </textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-pd-1').value, 'output-pd-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Estructurar Tabla
+                    <button onclick="runPythonCode(document.getElementById('code-pan-2').value, 'output-pan-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Filtrar Dato
                     </button>
                 </div>
-                <div id="output-pd-1" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Generando matriz de datos...</p>
+                <div id="output-pan-2" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Localizando dato...</p>
                 </div>
             `,
             validation: {
-                expectedOutput: "'Nombres': ['Ana', 'Neo', 'Leo']",
+                expectedOutput: "1",
                 matchType: "include",
-                hint: "Usa datos = {'Nombres': ['Ana', 'Neo', 'Leo'], 'Notas': [10, 9, 8]} y luego print(datos)."
+                requiredCode: "iloc",
+                hint: "Escribe print(df.iloc[0])"
             }
         },
         {
-            title: "Explorando Datos",
+            title: "Agregación (GroupBy)",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Extracción de Series</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Resumen Estadístico</h3>
                 
                 <div class="neon-box p-8 mb-8">
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        Acceder a la información es el primer paso del análisis. Si queremos analizar una "columna" específica, simplemente consultamos la clave correspondiente en nuestro dataset.
+                        Cuando tienes miles de datos, necesitas agruparlos para entenderlos. <code>groupby()</code> es tu mejor aliado.
                     </p>
                     
-                    <div class="bg-black/30 p-4 rounded border border-gray-700 mb-8">
-                        <h5 class="text-white font-bold text-sm mb-2">Acceso a Columnas</h5>
-                        <p class="text-sm text-gray-400 mb-2">Obtener todos los valores de una categoría:</p>
-                        <code class="text-xs text-neon-green block">columna_precios = tienda["Precios"]</code>
+                    <div class="space-y-4 mb-8">
+                        <div class="neon-box-dark p-6 border border-purple-500/30">
+                            <h5 class="text-white font-bold mb-3">Ejemplo de Resumen</h5>
+                            <code class="text-xs text-purple-300 block bg-black/40 p-3 rounded">
+                                import pandas as pd<br><br>
+                                # Datos de ejemplo:<br>
+                                df = pd.DataFrame({<br>
+                                &nbsp;&nbsp;"Tienda": ["Norte", "Sur", "Norte"],<br>
+                                &nbsp;&nbsp;"Ventas": [100, 200, 150]<br>
+                                })<br><br>
+                                # Agrupar por Tienda y sumar Ventas:<br>
+                                print(df.groupby("Tienda")["Ventas"].sum())
+                            </code>
+                        </div>
                     </div>
 
-                    <div class="neon-box-secondary p-6 border-l-2 border-yellow-500">
-                        <h4 class="text-lg font-bold text-white mb-2">Indexación Doble</h4>
-                        <p class="text-gray-300 text-sm">
-                            Puedes acceder a un dato exacto combinando la clave y el índice: <code>tienda["Precios"][0]</code>.
-                        </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-center">
+                        <div class="neon-box-dark p-2 text-[10px] text-gray-400">.mean() (Media)</div>
+                        <div class="neon-box-dark p-2 text-[10px] text-gray-400">.count() (Contar)</div>
+                        <div class="neon-box-dark p-2 text-[10px] text-gray-400">.max() (Máximo)</div>
+                        <div class="neon-box-dark p-2 text-[10px] text-gray-400">.std() (Desviación)</div>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Filtrado de Columna</span>
+                        <span class="text-sm text-gray-400">Análisis Grupal</span>
                     </div>
                     <p class="text-gray-300 text-sm mb-4">
-                        Dada la <code>tienda</code>, imprime primero la lista completa de "Precios" y luego imprime únicamente el <strong>primer precio</strong> de esa lista.
+                        Usa <code>groupby</code> para agrupar por "Ciudad" y calcular la <b>media</b> (.mean()) de las temperaturas en el DataFrame <code>clima</code>.
                     </p>
-                    <textarea id="code-pd-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">tienda = {
-    "Productos": ["Pan", "Agua"],
-    "Precios": [1.50, 0.80]
-}
+                    <textarea id="code-pan-3" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">import pandas as pd
+clima = pd.DataFrame({
+    "Ciudad": ["A", "B", "A", "B"],
+    "Temp": [20, 30, 22, 28]
+})
 
-# 1. Imprime la columna Precios
-# 2. Imprime el primer precio (índice 0)
+# Agrupa y calcula la media:
 </textarea>
-                    <button onclick="runPythonCode(document.getElementById('code-pd-2').value, 'output-pd-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Analizar Precios
+                    <button onclick="runPythonCode(document.getElementById('code-pan-3').value, 'output-pan-3')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Calcular Media
                     </button>
                 </div>
-                <div id="output-pd-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Consultando dataset...</p>
+                <div id="output-pan-3" class="code-output p-4 text-sm">
+                    <p class="text-gray-500">Agregando resultados...</p>
                 </div>
             `,
             validation: {
-                expectedOutput: "1.5",
+                expectedOutput: "21",
                 matchType: "include",
-                hint: "Primero print(tienda['Precios']) y luego print(tienda['Precios'][0])."
+                requiredCode: "groupby",
+                hint: "Escribe print(clima.groupby('Ciudad')['Temp'].mean())"
+            }
+        },
+        {
+            title: "Filtrado Inteligente",
+            content: `
+                <h3 class="text-3xl font-bold mb-6 text-white">Búsqueda por Condiciones</h3>
+                
+                <div class="neon-box p-8 mb-8">
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Una de las mejores cosas de Pandas es que puedes filtrar filas completas usando condiciones lógicas, igual que harías en Excel o SQL.
+                    </p>
+                    
+                    <div class="neon-box-secondary p-6">
+                        <h4 class="font-bold text-white mb-2">Máscara Booleana</h4>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Pasa la condición dentro de corchetes <code>df[ condición ]</code>:
+                        </p>
+                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
+                            # Solo filas donde la edad sea mayor a 18:<br>
+                            mayores = df[ df["Edad"] > 18 ]
+                        </code>
+                    </div>
+                </div>
+
+                <div class="code-editor p-6 mb-4">
+                    <p class="text-gray-300 text-sm mb-4">
+                        Filtra el DataFrame <code>precios</code> para mostrar solo los productos que cuesten más de 50.
+                    </p>
+                    <textarea id="code-pan-filter" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">import pandas as pd
+precios = pd.DataFrame({
+    "Prod": ["A", "B", "C"],
+    "Precio": [40, 60, 80]
+})
+
+# Filtra y muestra los caros (> 50):
+</textarea>
+                    <button onclick="runPythonCode(document.getElementById('code-pan-filter').value, 'output-pan-filter')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
+                        <i class="fas fa-play mr-2"></i>Filtrar Precios
+                    </button>
+                </div>
+            `,
+            validation: {
+                expectedOutput: "60",
+                matchType: "include",
+                requiredCode: "]",
+                hint: "Usa print(precios[ precios['Precio'] > 50 ])"
             }
         }
     ]
