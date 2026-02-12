@@ -577,4 +577,70 @@ function createConfetti() {
     }
 }
 
+// ============================================
+// GESTIÓN DE DATOS (IMPORT/EXPORT)
+// ============================================
+
+function toggleDataMenu(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById('data-menu');
+    menu.classList.toggle('hidden');
+}
+
+// Cerrar menú al hacer clic fuera
+document.addEventListener('click', () => {
+    const menu = document.getElementById('data-menu');
+    if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+    }
+});
+
+function exportProgress() {
+    const data = {
+        progress: JSON.parse(localStorage.getItem('PyNeo-progress') || '{}'),
+        lessonProgress: JSON.parse(localStorage.getItem('PyNeo-lesson-progress') || '{}'),
+        timestamp: new Date().toISOString(),
+        version: "1.0"
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pyneo_progreso_${new Date().toLocaleDateString().replace(/\//g, '-')}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function importProgressTrigger() {
+    document.getElementById('import-progress-file').click();
+}
+
+document.getElementById('import-progress-file')?.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        try {
+            const data = JSON.parse(e.target.result);
+
+            if (data.progress && data.lessonProgress) {
+                if (confirm('¿Deseas importar este progreso? Se sobrescribirá tu avance actual.')) {
+                    localStorage.setItem('PyNeo-progress', JSON.stringify(data.progress));
+                    localStorage.setItem('PyNeo-lesson-progress', JSON.stringify(data.lessonProgress));
+                    window.location.reload();
+                }
+            } else {
+                alert('Archivo de progreso no válido.');
+            }
+        } catch (err) {
+            alert('Error al leer el archivo. Asegúrate de que es un archivo .json válido.');
+        }
+    };
+    reader.readAsText(file);
+});
+
 init();
