@@ -174,7 +174,6 @@
 
         .code-output {
             background: #09090b;
-
             border: 1px solid #3f3f46;
             border-top: none;
             border-radius: 0 0 12px 12px;
@@ -183,24 +182,47 @@
             color: #cbd5e1;
             font-size: 0.9rem;
             position: relative;
-            min-height: 80px;
+            min-height: 100px;
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #3f3f46 transparent;
+        }
+
+        .code-output::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .code-output::-webkit-scrollbar-thumb {
+            background-color: #3f3f46;
+            border-radius: 10px;
+        }
+
+        .code-output::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .code-output pre {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
         }
 
         .code-output::before {
-            content: 'TERMINAL OUTPUT';
-            position: absolute;
-            top: 0;
-            right: 16px;
-            font-size: 0.65rem;
-            font-weight: bold;
-            color: #475569;
-            transform: translateY(-50%);
-            background: #09090b;
-            padding: 0 8px;
-            letter-spacing: 1px;
-            border: 1px solid #3f3f46;
-            border-radius: 4px;
+            display: none;
+            /* Hide old label as we now have the JS header */
         }
+
 
 
         .neon-box {

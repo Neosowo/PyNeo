@@ -168,6 +168,9 @@ window.modules.push({
                         <i class="fas fa-play mr-2"></i>Revelar Secreto
                     </button>
                 </div>
+                <div id="output-zen" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando revelación...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "The Zen of Python",

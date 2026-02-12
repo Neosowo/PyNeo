@@ -163,6 +163,9 @@ grupo_b = {3, 4, 5}
                         <i class="fas fa-play mr-2"></i>Calcular Unión
                     </button>
                 </div>
+                <div id="output-set-ops" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Comparando conjuntos...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "{3}",

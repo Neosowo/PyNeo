@@ -287,6 +287,9 @@ mi_funcion()
                         <i class="fas fa-play mr-2"></i>Verificar Documento
                     </button>
                 </div>
+                <div id="output-func-docs" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando documentación...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "",
@@ -327,6 +330,9 @@ mi_funcion()
                     <button onclick="runPythonCode(document.getElementById('code-func-named').value, 'output-func-named')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Lanzar Perfil
                     </button>
+                </div>
+                <div id="output-func-named" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando perfil...</p>
                 </div>
             `,
             validation: {

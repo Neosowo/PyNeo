@@ -168,6 +168,9 @@ window.modules.push({
                         <i class="fas fa-play mr-2"></i>Probar Gestor
                     </button>
                 </div>
+                <div id="output-file-with" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Probando gestor automático...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "",

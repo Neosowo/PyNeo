@@ -357,6 +357,9 @@ print("Mundo")</textarea>
                         <i class="fas fa-play mr-2"></i>Verificar Limpieza
                     </button>
                 </div>
+                <div id="output-comments" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando ejecución...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "Mundo",

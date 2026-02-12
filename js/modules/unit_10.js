@@ -254,6 +254,9 @@ precios = pd.DataFrame({
                         <i class="fas fa-play mr-2"></i>Filtrar Precios
                     </button>
                 </div>
+                <div id="output-pan-filter" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando filtro...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "60",

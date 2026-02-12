@@ -233,6 +233,9 @@ numeros = [1, 2, 3, 4, 5]
                         <i class="fas fa-play mr-2"></i>Barajar
                     </button>
                 </div>
+                <div id="output-rand-shuffle" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Mezclando...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "",

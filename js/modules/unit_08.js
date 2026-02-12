@@ -238,6 +238,9 @@ window.modules.push({
                         <i class="fas fa-play mr-2"></i>Unir Elementos
                     </button>
                 </div>
+                <div id="output-join-split" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando unión...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "python, code, ai",
@@ -280,6 +283,9 @@ except:
                     <button onclick="runPythonCode(document.getElementById('code-try-except').value, 'output-try-except')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Ejecutar Protegido
                     </button>
+                </div>
+                <div id="output-try-except" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Probando seguridad...</p>
                 </div>
             `,
             validation: {
@@ -328,6 +334,9 @@ except:
                     <button onclick="runPythonCode(document.getElementById('code-list-comp').value, 'output-list-comp')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Generar Lista Pro
                     </button>
+                </div>
+                <div id="output-list-comp" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Generando lista...</p>
                 </div>
             `,
             validation: {

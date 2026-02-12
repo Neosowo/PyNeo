@@ -17,51 +17,134 @@ let lessonProgress = JSON.parse(localStorage.getItem('PyNeo-lesson-progress')) |
 // COMPILADOR PYTHON (SKULPT)
 // ============================================
 function runPythonCode(code, outputId) {
-    const outputElement = document.getElementById(outputId);
-    outputElement.innerHTML = '<p class="text-yellow-400 animate-pulse"><i class="fas fa-spinner fa-spin mr-2"></i>Ejecutando...</p>';
+    console.log(`Ejecutando código Python para: ${outputId}`);
 
-    let output = '';
+    let outputElement = document.getElementById(outputId);
 
-    Sk.configure({
-        output: function (text) { output += text; },
-        read: function (x) {
-            if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-                throw "File not found: '" + x + "'";
-            return Sk.builtinFiles["files"][x];
-        },
-        inputfun: function (prompt) {
-            return new Promise((resolve) => {
-                const userInput = window.prompt(prompt || "Ingresa un valor:");
-                output += (userInput || "") + "\n";
-                resolve(userInput || "");
-            });
+    // Búsqueda inteligente del elemento de salida
+    if (!outputElement) {
+        console.warn(`Elemento "${outputId}" no encontrado. Buscando alternativa...`);
+        outputElement = document.querySelector('#lesson-content .code-output');
+
+        if (!outputElement) {
+            outputElement = document.querySelector('.code-output');
         }
-    });
 
-    Sk.misceval.asyncToPromise(function () {
-        return Sk.importMainWithBody("<stdin>", false, code, true);
-    }).then(
-        function (mod) {
-            const escapedOutput = output
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-            outputElement.innerHTML = '<div class="text-xs font-bold text-gray-500 mb-1">TERMINAL</div><pre class="text-white font-mono text-sm whitespace-pre-wrap">' + escapedOutput + '</pre>';
-            checkLessonValidation(code, output);
-        },
-        function (err) {
-            outputElement.innerHTML = `<p class="text-red-400 font-bold"><i class="fas fa-times-circle mr-2"></i>Error:</p><pre class="text-red-300 mt-2 text-xs">${err.toString()}</pre>`;
+        if (!outputElement) {
+            console.error("No se encontró ningún elemento de salida. Creando uno de emergencia.");
+            const container = document.getElementById('lesson-content') || document.body;
+            outputElement = document.createElement('div');
+            outputElement.id = 'emergency-output';
+            outputElement.className = 'code-output p-4 text-sm mt-4';
+            container.appendChild(outputElement);
         }
-    );
+    }
+
+    // Cabecera de la terminal
+    const terminalHeader = `
+        <div class="flex items-center justify-between mb-3 border-b border-white/5 pb-2 -mx-2 px-2">
+            <div class="flex items-center gap-2">
+                <div class="flex gap-1.5 ml-1">
+                    <div class="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/40"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/40"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/40"></div>
+                </div>
+                <span class="text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] ml-2 select-none">Python Console</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="copyOutput('${outputId}')" class="text-gray-600 hover:text-white transition-all transform hover:scale-110" title="Copiar salida">
+                    <i class="fas fa-copy text-[10px]"></i>
+                </button>
+                <button onclick="clearOutput('${outputId}')" class="text-gray-600 hover:text-red-400 transition-all transform hover:scale-110" title="Limpiar consola">
+                    <i class="fas fa-trash-alt text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    `;
+
+    try {
+        outputElement.innerHTML = terminalHeader + '<p class="text-yellow-400 animate-pulse font-mono flex items-center gap-2 text-xs py-2"><i class="fas fa-spinner fa-spin"></i> Procesando comandos...</p>';
+
+        let output = '';
+
+        if (typeof Sk === 'undefined') {
+            throw new Error("Skulpt no detectado. Verifica tu conexión.");
+        }
+
+        Sk.configure({
+            output: function (text) {
+                output += text;
+                console.log("Python Output:", text);
+            },
+            read: function (x) {
+                if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                    throw "Archivo no encontrado: '" + x + "'";
+                return Sk.builtinFiles["files"][x];
+            },
+            inputfun: function (prompt) {
+                return new Promise((resolve) => {
+                    const userInput = window.prompt(prompt || ">>> ");
+                    output += (userInput || "") + "\n";
+                    resolve(userInput || "");
+                });
+            }
+        });
+
+        const promise = Sk.misceval.asyncToPromise(function () {
+            return Sk.importMainWithBody("<stdin>", false, code, true);
+        });
+
+        promise.then(
+            function (mod) {
+                const escapedOutput = output
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+
+                const contentHtml = output.trim() === ""
+                    ? '<pre class="text-gray-600 italic text-xs font-mono py-2 opacity-50"><i class="fas fa-info-circle mr-2"></i>El programa finalizó sin imprimir texto.</pre>'
+                    : '<pre class="text-blue-100 font-mono text-sm whitespace-pre-wrap leading-relaxed py-1">' + escapedOutput + '</pre>';
+
+                outputElement.innerHTML = terminalHeader + contentHtml;
+                checkLessonValidation(code, output, outputElement.id);
+            },
+            function (err) {
+                const errMsg = err.toString();
+                outputElement.innerHTML = terminalHeader + `
+                    <div class="bg-red-500/5 border-l-2 border-red-500/50 p-3 my-1 rounded-r">
+                        <p class="text-red-400 font-bold text-[10px] uppercase tracking-wider flex items-center gap-2 mb-1">
+                            <i class="fas fa-exclamation-triangle"></i> Runtime Error
+                        </p>
+                        <pre class="text-red-300 text-xs font-mono whitespace-pre-wrap">${errMsg}</pre>
+                    </div>
+                `;
+
+                if (currentModule && currentLesson !== null) {
+                    const lesson = currentModule.lessons[currentLesson];
+                    if (lesson && lesson.validation) {
+                        const nextBtn = document.getElementById('next-lesson');
+                        if (nextBtn) {
+                            nextBtn.disabled = true;
+                            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                            nextBtn.innerHTML = '<i class="fas fa-lock mr-2"></i>Completa el reto';
+                        }
+                    }
+                }
+            }
+        );
+    } catch (e) {
+        outputElement.innerHTML = `<p class="text-red-500 font-bold text-xs p-2">Error fatal: ${e.message}</p>`;
+    }
 }
 
 // VALIDACIÓN
-// VALIDACIÓN
-function checkLessonValidation(code, output) {
+function checkLessonValidation(code, output, outputId) {
     if (!currentModule || currentLesson === null) return;
     const lesson = currentModule.lessons[currentLesson];
+    if (!lesson) return;
+
     const nextBtn = document.getElementById('next-lesson');
 
     if (!lesson.validation) {
@@ -103,14 +186,19 @@ function checkLessonValidation(code, output) {
         failureReason = rules.hint || "Falta código requerido.";
     }
 
-    const outputId = document.querySelector('.code-output').id;
-    const outputElement = document.getElementById(outputId);
+    const outputElement = document.getElementById(outputId) || document.querySelector('#lesson-content .code-output');
+    if (!outputElement) {
+        console.error(`Validation Error: Output element for "${outputId}" not found.`);
+        return;
+    }
 
     if (isValid) {
-        // Exito: Mensaje visual en la terminal, pero NO modal
+        // Exito
         outputElement.innerHTML += `
-            <div class="mt-3 pt-3 border-t border-white/10">
-                <p class="text-neon-green font-bold text-xs"><i class="fas fa-check-circle mr-1"></i>¡Excelente! Reto completado.</p>
+            <div class="mt-4 pt-4 border-t border-white/5 animate-pulse">
+                <p class="text-neon-green font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center bg-green-500/10 py-2 rounded">
+                    <i class="fas fa-check-circle mr-2"></i> Reto Superado
+                </p>
             </div>
         `;
         if (nextBtn) {
@@ -121,17 +209,67 @@ function checkLessonValidation(code, output) {
                 'SIGUIENTE <i class="fas fa-chevron-right ml-2"></i>';
         }
     } else {
-        // Error
+        // Fracaso en validación
         outputElement.innerHTML += `
-            <div class="mt-3 pt-3 border-t border-white/10">
-                <p class="text-orange-400 font-bold text-xs"><i class="fas fa-exclamation-circle mr-1"></i>Inténtalo de nuevo</p>
-                <pre class="text-gray-400 text-xs mt-1 mb-2 font-sans whitespace-pre-wrap">${failureReason}</pre>
+            <div class="mt-4 pt-4 border-t border-white/5">
+                <p class="text-orange-400 font-bold text-[10px] uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <i class="fas fa-redo-alt"></i> Casi listo
+                </p>
+                <div class="bg-orange-500/5 p-3 rounded text-orange-200/70 italic text-xs font-sans line-clamp-2">
+                    ${failureReason}
+                </div>
             </div>
         `;
         if (nextBtn) {
             nextBtn.disabled = true;
             nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
             nextBtn.innerHTML = '<i class="fas fa-lock mr-2"></i>Completa el reto';
+        }
+    }
+}
+
+// Funciones de utilidad para la consola
+function clearOutput(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        const terminalHeader = `
+            <div class="flex items-center justify-between mb-3 border-b border-white/5 pb-2 -mx-2 px-2">
+                <div class="flex items-center gap-2">
+                    <div class="flex gap-1.5 ml-1">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/40"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/40"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/40"></div>
+                    </div>
+                    <span class="text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] ml-2 select-none">Python Console</span>
+                </div>
+            </div>
+        `;
+        el.innerHTML = terminalHeader + `
+            <p class="text-gray-700 italic text-xs font-mono py-2 select-none">
+                <i class="fas fa-eraser mr-2"></i>Consola reseteada. Lista para ejecutar.
+            </p>
+        `;
+    }
+}
+
+function copyOutput(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        const pre = el.querySelector('pre');
+        if (pre) {
+            const text = pre.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = el.querySelector('button[title="Copiar salida"]');
+                if (btn) {
+                    const originalIcon = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-neon-green"></i>';
+                    btn.classList.add('scale-125');
+                    setTimeout(() => {
+                        btn.innerHTML = originalIcon;
+                        btn.classList.remove('scale-125');
+                    }, 1500);
+                }
+            });
         }
     }
 }

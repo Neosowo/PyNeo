@@ -422,6 +422,9 @@ dinero = 100
                         <i class="fas fa-play mr-2"></i>Calcular Piso
                     </button>
                 </div>
+                <div id="output-math-pro" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Esperando cálculo...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "3",

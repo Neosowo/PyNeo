@@ -165,6 +165,9 @@ window.modules.push({
                         <i class="fas fa-play mr-2"></i>Escanear Matriz
                     </button>
                 </div>
+                <div id="output-mat-loop" class="code-output p-4 text-sm mt-4">
+                    <p class="text-gray-500">Recorriendo matriz...</p>
+                </div>
             `,
             validation: {
                 expectedOutput: "1\n2\n3\n4",
