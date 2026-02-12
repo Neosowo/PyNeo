@@ -615,32 +615,39 @@ function exportProgress() {
 }
 
 function importProgressTrigger() {
-    document.getElementById('import-progress-file').click();
+    const input = document.getElementById('import-progress-file');
+    if (input) input.click();
 }
 
-document.getElementById('import-progress-file')?.addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
+// Inicializar listeners de datos cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    const importInput = document.getElementById('import-progress-file');
+    if (importInput) {
+        importInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        try {
-            const data = JSON.parse(e.target.result);
-
-            if (data.progress && data.lessonProgress) {
-                if (confirm('¿Deseas importar este progreso? Se sobrescribirá tu avance actual.')) {
-                    localStorage.setItem('PyNeo-progress', JSON.stringify(data.progress));
-                    localStorage.setItem('PyNeo-lesson-progress', JSON.stringify(data.lessonProgress));
-                    window.location.reload();
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data && data.progress !== undefined && data.lessonProgress !== undefined) {
+                        if (confirm('¿Deseas importar este progreso? Se sobrescribirá tu avance actual.')) {
+                            localStorage.setItem('PyNeo-progress', JSON.stringify(data.progress));
+                            localStorage.setItem('PyNeo-lesson-progress', JSON.stringify(data.lessonProgress));
+                            window.location.reload();
+                        }
+                    } else {
+                        alert('Archivo de progreso no válido. Faltan datos necesarios.');
+                    }
+                } catch (err) {
+                    console.error('Error al importar:', err);
+                    alert('Error al procesar el archivo.');
                 }
-            } else {
-                alert('Archivo de progreso no válido.');
-            }
-        } catch (err) {
-            alert('Error al leer el archivo. Asegúrate de que es un archivo .json válido.');
-        }
-    };
-    reader.readAsText(file);
+            };
+            reader.readAsText(file);
+        });
+    }
 });
 
 init();
