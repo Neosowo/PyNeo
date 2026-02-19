@@ -1,0 +1,213 @@
+
+// ─── Pandas Polyfill for Skulpt ───────────────────────────────────────────────
+const PANDAS_POLYFILL = `
+class Series:
+    def __init__(self, data, name=None, index=None):
+        if isinstance(data, list):
+            self._data = data[:]
+        elif isinstance(data, dict):
+            self._data = list(data.values())
+        else:
+            self._data = list(data)
+        self.name = name
+        self.index = index if index is not None else list(range(len(self._data)))
+
+    def __len__(self): return len(self._data)
+    def __getitem__(self, key):
+        if isinstance(key, list):
+            return Series([self._data[i] for i, v in enumerate(key) if v], name=self.name)
+        return self._data[key]
+    def __gt__(self, val): return Series([x > val for x in self._data])
+    def __lt__(self, val): return Series([x < val for x in self._data])
+    def __eq__(self, val): return Series([x == val for x in self._data])
+    def sum(self): return sum(self._data)
+    def mean(self):
+        n = len(self._data)
+        return sum(self._data) / n if n > 0 else 0
+    def std(self):
+        n = len(self._data)
+        if n < 2: return 0
+        m = self.mean()
+        var = sum([(x - m) ** 2 for x in self._data]) / (n - 1)
+        return var ** 0.5
+    def __repr__(self):
+        res = []
+        for i, v in zip(self.index, self._data):
+            res.append(str(i) + "    " + str(v))
+        if self.name: res.append("Name: " + str(self.name))
+        return "\n".join(res)
+
+class DataFrame:
+    def __init__(self, data=None):
+        self._cols = data if isinstance(data, dict) else {}
+        self._keys = list(self._cols.keys())
+        self.columns = self._keys
+        if self._cols:
+            first_col = list(self._cols.values())[0]
+            self.shape = (len(first_col), len(self._cols))
+        else:
+            self.shape = (0, 0)
+
+    def __getitem__(self, key):
+        if isinstance(key, str):
+            return Series(self._cols[key], name=key)
+        if isinstance(key, list):
+            return DataFrame({k: self._cols[k] for k in key})
+        if isinstance(key, Series):
+            mask = key._data
+            new_data = {}
+            for c, vals in self._cols.items():
+                new_data[c] = [vals[i] for i, m in enumerate(mask) if m]
+            return DataFrame(new_data)
+        return None
+
+    def groupby(self, by):
+        return _GroupBy(self, by)
+
+    def describe(self):
+        stats = ["count", "mean", "std", "min", "max"]
+        res = {"": stats}
+        for c, v in self._cols.items():
+            is_num = True
+            for x in v:
+                if not (isinstance(x, int) or isinstance(x, float)):
+                    is_num = False
+                    break
+            if is_num:
+                s = Series(v)
+                res[c] = [float(len(v)), s.mean(), s.std(), min(v or [0]), max(v or [0])]
+        return DataFrame(res)
+
+    def __repr__(self):
+        if not self._cols: return "Empty DataFrame"
+        cnames = list(self._cols.keys())
+        lines = ["    " + "  ".join(cnames)]
+        for i in range(self.shape[0]):
+            r = str(i) + "  " + "  ".join([str(self._cols[c][i]) for c in cnames])
+            lines.append(r)
+        return "\n".join(lines)
+
+class _GroupBy:
+    def __init__(self, df, by):
+        self.df = df
+        self.by = by
+    def __getitem__(self, col):
+        return _GroupByCol(self.df, self.by, col)
+
+class _GroupByCol:
+    def __init__(self, df, by, col):
+        self.df, self.by, self.col = df, by, col
+    def sum(self):
+        res = {}
+        for i, key in enumerate(self.df[self.by]._data):
+            val = self.df[self.col]._data[i]
+            res[key] = res.get(key, 0) + val
+        return Series(list(res.values()), index=list(res.keys()))
+`;
+
+function runPythonCode(code, outputId) {
+    console.log(`Ejecutando código Python para: ${outputId}`);
+    let outputElement = document.getElementById(outputId);
+    
+    if (!outputElement) {
+        outputElement = document.querySelector('#lesson-content .code-output');
+    }
+
+    let output = "";
+    const terminalHeader = `
+        <div class="flex items-center justify-between mb-3 border-b border-white/5 pb-2 -mx-2 px-2">
+            <div class="flex items-center gap-2">
+                <div class="flex gap-1.5 ml-1">
+                    <div class="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/40"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/40"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/40"></div>
+                </div>
+                <span class="text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] ml-2 select-none">Python Console</span>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="copyToClipboard('${outputId}')" class="p-1.5 hover:bg-white/5 rounded text-gray-500 hover:text-white transition-colors" title="Copiar consola">
+                    <i class="far fa-copy text-[10px]"></i>
+                </button>
+                <button onclick="clearConsole('${outputId}')" class="p-1.5 hover:bg-red-500/10 rounded text-gray-500 hover:text-red-400 transition-colors" title="Limpiar">
+                    <i class="fas fa-trash-alt text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    `;
+
+    try {
+        if (typeof Sk === 'undefined') {
+            throw new Error("Skulpt no detectado. Verifica tu conexión.");
+        }
+
+        Sk.configure({
+            output: function (text) {
+                output += text;
+                console.log("Python Output:", text);
+            },
+            read: function (x) {
+                if (x === 'pandas' || x === 'pandas/__init__.py') return PANDAS_POLYFILL;
+                if (!Sk.builtinFiles || !Sk.builtinFiles["files"] || !Sk.builtinFiles["files"][x])
+                    throw "Archivo no encontrado: '" + x + "'";
+                return Sk.builtinFiles["files"][x];
+            },
+            inputfun: function (prompt) {
+                return new Promise((resolve) => {
+                    customPrompt(prompt || ">>> ").then((userInput) => {
+                        output += (userInput || "") + "\n";
+                        resolve(userInput || "");
+                    });
+                });
+            }
+        });
+
+        // Pandas Strategy
+        let processedCode = code.replace(/import\s+pandas\s+as\s+pd/g, 'pd = _pd');
+        const PD_BRIDGE = `
+class _PDB:
+    def DataFrame(self, d=None): return DataFrame(d)
+    def Series(self, d, name=None): return Series(d, name=name)
+_pd = _PDB()
+`;
+        
+        const fullPrefix = PYTHON_FS_POLYFILL + "\n" + PANDAS_POLYFILL + "\n" + PD_BRIDGE + "\n";
+        const currentOffset = fullPrefix.split('\n').length;
+        const finalCode = fullPrefix + processedCode;
+
+        const promise = Sk.misceval.asyncToPromise(function () {
+            return Sk.importMainWithBody("<stdin>", false, finalCode, true);
+        });
+
+        promise.then(
+            function (mod) {
+                const escapedOutput = output
+                    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                const contentHtml = output.trim() === ""
+                    ? '<pre class="text-gray-600 italic text-xs font-mono py-2 opacity-50"><i class="fas fa-info-circle mr-2"></i>Sin salida de texto.</pre>'
+                    : '<pre class="text-blue-100 font-mono text-sm whitespace-pre-wrap py-1">' + escapedOutput + '</pre>';
+
+                outputElement.innerHTML = terminalHeader + contentHtml;
+                checkLessonValidation(code, output, outputElement.id);
+            },
+            function (err) {
+                let errMsg = err.toString();
+                errMsg = errMsg.replace(/line (\d+)/g, (match, lineStr) => {
+                    const lineNum = parseInt(lineStr);
+                    return lineNum >= currentOffset ? "line " + (lineNum - currentOffset + 1) : match;
+                });
+
+                outputElement.innerHTML = terminalHeader + `
+                    <div class="bg-red-500/5 border-l-2 border-red-500/50 p-3 my-1 rounded-r">
+                        <p class="text-red-400 font-bold text-[10px] uppercase tracking-wider mb-1">
+                            <i class="fas fa-exclamation-triangle"></i> Runtime Error
+                        </p>
+                        <pre class="text-red-300 font-mono text-xs whitespace-pre-wrap">${errMsg}</pre>
+                    </div>
+                `;
+            }
+        );
+    } catch (e) {
+        outputElement.innerHTML = `<p class="text-red-500 font-bold text-xs p-2">Error: ${e.message}</p>`;
+    }
+}
