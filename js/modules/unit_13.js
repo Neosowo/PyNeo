@@ -82,56 +82,74 @@ window.modules.push({
             }
         },
         {
-            title: "Filtrado Inteligente",
+            title: "Explorando Columnas",
             content: `
-                <h3 class="text-3xl font-bold mb-6 text-white">Preguntas a tus Datos</h3>
+                <h3 class="text-3xl font-bold mb-6 text-white">Accede a tus Datos</h3>
                 
                 <div class="neon-box p-8 mb-8">
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        ¿Quieres ver solo los productos caros? Pandas permite hacer preguntas lógicas directas a la tabla. Esto se llama <strong>Boolean Indexing</strong>.
-                        Es tan fácil como escribir la condición dentro de corchetes.
+                        Una vez que tienes un DataFrame, puedes acceder a cualquier columna usando su nombre entre corchetes.
+                        Y sobre esa columna puedes hacer operaciones matemáticas al instante.
                     </p>
                     
-                    <div class="neon-box-secondary p-6 border-l-2 border-neon-green">
-                        <h4 class="font-bold text-white mb-2">Sintaxis Maestra</h4>
-                        <code class="text-xs text-neon-green block bg-black/40 p-3 rounded">
-                            # "Dame el df DONDE la columna Edad sea > 18"
-                            adultos = df[ df["Edad"] > 18 ]
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="neon-box-dark p-5 border-l-2 border-neon-green text-center">
+                            <i class="fas fa-columns text-2xl text-neon-green mb-2"></i>
+                            <h4 class="font-bold text-white mb-1 text-sm">Acceder columna</h4>
+                            <code class="text-xs text-neon-green block bg-black/40 p-2 rounded mt-2">df["Precio"]</code>
+                        </div>
+                        <div class="neon-box-dark p-5 border-l-2 border-blue-400 text-center">
+                            <i class="fas fa-plus-circle text-2xl text-blue-400 mb-2"></i>
+                            <h4 class="font-bold text-white mb-1 text-sm">Sumar todo</h4>
+                            <code class="text-xs text-blue-400 block bg-black/40 p-2 rounded mt-2">df["Precio"].sum()</code>
+                        </div>
+                        <div class="neon-box-dark p-5 border-l-2 border-yellow-400 text-center">
+                            <i class="fas fa-calculator text-2xl text-yellow-400 mb-2"></i>
+                            <h4 class="font-bold text-white mb-1 text-sm">Calcular media</h4>
+                            <code class="text-xs text-yellow-400 block bg-black/40 p-2 rounded mt-2">df["Precio"].mean()</code>
+                        </div>
+                    </div>
+
+                    <div class="neon-box-secondary p-5 border-l-2 border-purple-400">
+                        <h4 class="font-bold text-white mb-2">💡 Ejemplo práctico</h4>
+                        <code class="text-xs text-purple-300 block bg-black/40 p-3 rounded">
+                            ventas = pd.DataFrame({"Ciudad": ["Madrid", "Lima", "Bogotá"], "Total": [500, 300, 450]})<br>
+                            print(ventas["Total"].sum())   # → 1250<br>
+                            print(ventas["Total"].mean())  # → 416.6...
                         </code>
-                        <p class="text-gray-300 text-sm mt-3">
-                            Puedes usar <code>></code>, <code><</code>, <code>==</code> (igual), e incluso combinar con <code>&</code> (y) / <code>|</code> (o).
-                        </p>
                     </div>
                 </div>
 
                 <div class="code-editor p-6 mb-4">
                     <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-                        <span class="text-sm text-gray-400">Buscador de Ofertas</span>
+                        <span class="text-sm text-gray-400">Calculadora de Inventario</span>
                     </div>
                     <p class="text-gray-300 text-sm mb-4">
-                        Filtra el DataFrame <code>productos</code> para mostrar SOLO aquellos cuyo "Precio" sea menor a 50.
+                        Tienes un inventario de productos. Imprime el <strong>total</strong> de unidades disponibles 
+                        usando <code>.sum()</code> en la columna <code>"Stock"</code>.
                     </p>
                     <textarea id="code-pan-2" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="8">import pandas as pd
-productos = pd.DataFrame({
-    "Item": ["A", "B", "C"],
-    "Precio": [100, 40, 60]
+inventario = pd.DataFrame({
+    "Producto": ["Manzana", "Pan", "Leche"],
+    "Stock": [50, 30, 20]
 })
 
-# Filtra los baratos (< 50):
+# Imprime el total de unidades en Stock:
+print(inventario["Stock"].sum())
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-2').value, 'output-pan-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
-                        <i class="fas fa-play mr-2"></i>Filtrar Ofertas
+                        <i class="fas fa-play mr-2"></i>Calcular Total
                     </button>
                 </div>
                 <div id="output-pan-2" class="code-output p-4 text-sm">
-                    <p class="text-gray-500">Buscando...</p>
+                    <p class="text-gray-500">Calculando inventario...</p>
                 </div>
             `,
             validation: {
-                expectedOutput: "40",
+                expectedOutput: "100",
                 matchType: "include",
-                requiredCode: "<",
-                hint: "Usa print(productos[ productos['Precio'] < 50 ])"
+                requiredCode: ".sum()",
+                hint: "Usa print(inventario['Stock'].sum()) — la suma de 50+30+20 es 100"
             }
         },
         {

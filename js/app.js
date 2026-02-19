@@ -34,9 +34,15 @@ def open(name, mode="r"): return _VirtualFile(name, mode)
 const PANDAS_POLYFILL = `
 class Series:
     def __init__(self, data, name=None, index=None):
-        self._data = list(data) if isinstance(data, (list, dict)) else list(data)
+        self._data = []
+        for item in data:
+            self._data.append(item)
         self.name = name
-        self.index = index if index is not None else list(range(len(self._data)))
+        self._is_s = True
+        if index is not None:
+            self.index = index
+        else:
+            self.index = list(range(len(self._data)))
     def __len__(self): return len(self._data)
     def __getitem__(self, key):
         if isinstance(key, list):
@@ -52,40 +58,125 @@ class Series:
         m = self.mean()
         var = sum([(x - m) ** 2 for x in self._data]) / (n - 1)
         return var ** 0.5
+    def _to_num(self, x):
+        try: return float(str(x))
+        except: return x
+    def __lt__(self, other):
+        o = self._to_num(other)
+        res = []
+        for x in self._data:
+            try: res.append(1 if self._to_num(x) < o else 0)
+            except: res.append(0)
+        return Series(res)
+    def __gt__(self, other):
+        o = self._to_num(other)
+        res = []
+        for x in self._data:
+            try: res.append(1 if self._to_num(x) > o else 0)
+            except: res.append(0)
+        return Series(res)
+    def __le__(self, other):
+        o = self._to_num(other)
+        res = []
+        for x in self._data:
+            try: res.append(1 if self._to_num(x) <= o else 0)
+            except: res.append(0)
+        return Series(res)
+    def __ge__(self, other):
+        o = self._to_num(other)
+        res = []
+        for x in self._data:
+            try: res.append(1 if self._to_num(x) >= o else 0)
+            except: res.append(0)
+        return Series(res)
+    def __eq__(self, other):
+        res = []
+        for x in self._data:
+            try: res.append(1 if str(x) == str(other) else 0)
+            except: res.append(0)
+        return Series(res)
+    def __ne__(self, other):
+        res = []
+        for x in self._data:
+            try: res.append(1 if str(x) != str(other) else 0)
+            except: res.append(0)
+        return Series(res)
     def __repr__(self):
-        return "\\n".join([str(i) + "  " + str(v) for i, v in zip(self.index, self._data)])
+        lines = []
+        for i, v in zip(self.index, self._data):
+            lines.append(str(i) + "    " + str(v))
+        return "\\n".join(lines)
 
 class DataFrame:
     def __init__(self, data=None):
-        self._cols = data if isinstance(data, dict) else {}
-        self.columns = list(self._cols.keys())
-        if self._cols:
-            self.shape = (len(list(self._cols.values())[0]), len(self._cols))
-        else:
-            self.shape = (0, 0)
+        self._cols = {}
+        self._keys = []
+        if data is not None:
+            try:
+                for k in data.keys():
+                    self._keys.append(k)
+                    vals = []
+                    for v in data[k]:
+                        vals.append(v)
+                    self._cols[k] = vals
+            except: pass
+        first_col = self._cols[self._keys[0]] if self._keys else []
+        self.shape = (len(first_col), len(self._keys))
     def __getitem__(self, key):
-        if isinstance(key, str): return Series(self._cols[key], name=key)
-        if isinstance(key, list): return DataFrame({k: self._cols[k] for k in key})
-        if isinstance(key, Series):
-            mask = key._data
-            new_data = {}
-            for c, vals in self._cols.items():
-                new_data[c] = [vals[i] for i, m in enumerate(mask) if m]
-            return DataFrame(new_data)
+        if isinstance(key, str):
+            return Series(self._cols[key], name=key)
+        is_m = False
+        try: is_m = key._is_s
+        except: pass
+        if not is_m:
+            is_m = isinstance(key, list)
+        if is_m:
+            if isinstance(key, list) and len(key) > 0 and isinstance(key[0], str):
+                result = DataFrame()
+                for k in key:
+                    result._cols[k] = self._cols[k]
+                    result._keys.append(k)
+                if result._keys:
+                    result.shape = (len(result._cols[result._keys[0]]), len(result._keys))
+                return result
+            mask = key._data if hasattr(key, '_data') else key
+            result = DataFrame()
+            for k in self._keys:
+                col = self._cols[k]
+                filtered = []
+                for i in range(len(mask)):
+                    if mask[i]:
+                        filtered.append(col[i])
+                result._cols[k] = filtered
+                result._keys.append(k)
+            if result._keys:
+                result.shape = (len(result._cols[result._keys[0]]), len(result._keys))
+            return result
+        return DataFrame()
     def groupby(self, by): return _GB(self, by)
     def describe(self):
         res = {"": ["count", "mean", "std", "min", "max"]}
-        for c, v in self._cols.items():
-            s = Series(v)
-            res[c] = [float(len(v)), s.mean(), s.std(), min(v), max(v)]
+        for c in self._keys:
+            v = self._cols[c]
+            if not v: continue
+            is_n = True
+            for x in v:
+                try: float(str(x))
+                except: is_n = False; break
+            if is_n:
+                nums = [float(str(x)) for x in v]
+                s = Series(nums)
+                res[c] = [float(len(nums)), s.mean(), s.std(), min(nums), max(nums)]
         return DataFrame(res)
     def __repr__(self):
-        if not self._cols: return "Empty DF"
-        cnames = list(self._cols.keys())
-        head = "    " + "  ".join(cnames)
+        if not self._keys: return "Empty DataFrame\\nColumns: []\\nIndex: []"
+        n = self.shape[0]
+        if n == 0:
+            return "Empty DataFrame\\nColumns: [" + ", ".join(self._keys) + "]\\nIndex: []"
+        head = "   " + "  ".join(self._keys)
         rows = [head]
-        for i in range(self.shape[0]):
-            r = str(i) + "  " + "  ".join([str(self._cols[c][i]) for c in cnames])
+        for i in range(n):
+            r = str(i) + "  " + "  ".join([str(self._cols[c][i]) for c in self._keys])
             rows.append(r)
         return "\\n".join(rows)
 
@@ -319,13 +410,60 @@ function copyOutput(id) {
     }
 }
 
-function showNotification(msg, type = 'info') {
-    console.log(`[Notification] ${type.toUpperCase()}: ${msg}`);
-    // Implementación básica si no existe el contenedor
+const SECRET_SALT = "PyNeo_Secure_System_2026_NoCheating";
+
+function toggleDataMenu(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById('data-menu');
+    if (menu) menu.classList.toggle('hidden');
 }
 
-function safeSave(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+async function generateSignature(data) {
+    const { signature, ...dataToSign } = data;
+    const jsonString = JSON.stringify(dataToSign);
+    const encoder = new TextEncoder();
+    const dataBuffer = encoder.encode(jsonString + SECRET_SALT);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function exportProgress() {
+    const data = {
+        progress: JSON.parse(localStorage.getItem('PyNeo-progress') || '{}'),
+        lessonProgress: JSON.parse(localStorage.getItem('PyNeo-lesson-progress') || '{}'),
+        timestamp: new Date().toISOString()
+    };
+    data.signature = await generateSignature(data);
+    const obfuscated = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    const blob = new Blob([`PYNEO_SECURE_DATA::${obfuscated}`], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pyneo_progreso_${new Date().toLocaleDateString().replace(/\//g, '-')}.pyn`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function importProgressTrigger() {
+    const input = document.getElementById('import-progress-file');
+    if (input) input.click();
+}
+
+function showNotification(message, type = 'info') {
+    let container = document.getElementById('notification-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'notification-container';
+        container.className = 'fixed top-24 right-6 z-[200] flex flex-col items-end pointer-events-none gap-3';
+        document.body.appendChild(container);
+    }
+    const notif = document.createElement('div');
+    const color = type === 'success' ? 'border-neon-green/50' : (type === 'error' ? 'border-red-500/50' : 'border-blue-500/50');
+    notif.className = `p-4 rounded-xl border ${color} bg-black/90 backdrop-blur-xl flex items-center gap-3 min-w-[280px] pointer-events-auto animate-fade-in`;
+    notif.innerHTML = `<div class="flex-1"><p class="text-xs font-medium text-white">${message}</p></div>`;
+    container.appendChild(notif);
+    setTimeout(() => { notif.style.opacity = '0'; setTimeout(() => notif.remove(), 300); }, 3000);
 }
 
 function customPrompt(msg) {
@@ -335,5 +473,34 @@ function customPrompt(msg) {
     });
 }
 
-// Iniciar aplicación
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    const importInput = document.getElementById('import-progress-file');
+    if (importInput) {
+        importInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const content = e.target.result;
+                if (content.startsWith('PYNEO_SECURE_DATA::')) {
+                    const data = JSON.parse(decodeURIComponent(escape(atob(content.split('::')[1]))));
+                    if (await generateSignature(data) === data.signature) {
+                        localStorage.setItem('PyNeo-progress', JSON.stringify(data.progress));
+                        localStorage.setItem('PyNeo-lesson-progress', JSON.stringify(data.lessonProgress));
+                        showNotification('Progreso importado con éxito', 'success');
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        showNotification('Firma inválida: archivo corrupto', 'error');
+                    }
+                }
+            };
+            reader.readAsText(file);
+        });
+    }
+});
+
+document.addEventListener('click', () => {
+    const menu = document.getElementById('data-menu');
+    if (menu) menu.classList.add('hidden');
+});
