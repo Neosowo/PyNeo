@@ -44,6 +44,243 @@ def open(name, mode="r"):
     return _VirtualFile(name, mode)
 `;
 
+// ─── Pandas Polyfill for Skulpt ───────────────────────────────────────────────
+const PANDAS_POLYFILL = `
+class Series:
+    def __init__(self, data, name=None, index=None):
+        if isinstance(data, list):
+            self._data = data[:]
+        elif isinstance(data, dict):
+            self._data = list(data.values())
+        else:
+            self._data = list(data)
+        self.name = name
+        self.index = index if index is not None else list(range(len(self._data)))
+        self.values = self._data
+
+    def __len__(self): return len(self._data)
+    def __iter__(self): return iter(self._data)
+    def __getitem__(self, key):
+        if isinstance(key, list):
+            return Series([self._data[i] for i, v in enumerate(key) if v], name=self.name)
+        if isinstance(key, Series):
+            return Series([self._data[i] for i, v in enumerate(key._data) if v], name=self.name)
+        return self._data[key]
+    def __gt__(self, val): return Series([x > val for x in self._data])
+    def __lt__(self, val): return Series([x < val for x in self._data])
+    def __ge__(self, val): return Series([x >= val for x in self._data])
+    def __le__(self, val): return Series([x <= val for x in self._data])
+    def __eq__(self, val): return Series([x == val for x in self._data])
+    def __ne__(self, val): return Series([x != val for x in self._data])
+    def __and__(self, other): return Series([a and b for a,b in zip(self._data, other._data)])
+    def __or__(self, other): return Series([a or b for a,b in zip(self._data, other._data)])
+    def sum(self): return sum(self._data)
+    def mean(self):
+        if len(self._data) == 0: return 0
+        return sum(self._data) / len(self._data)
+    def min(self): return min(self._data)
+    def max(self): return max(self._data)
+    def count(self): return len(self._data)
+    def std(self):
+        if len(self._data) < 2: return 0
+        m = self.mean()
+        variance = sum((x - m) ** 2 for x in self._data) / (len(self._data) - 1)
+        return variance ** 0.5
+    def tolist(self): return self._data[:]
+    def __repr__(self):
+        lines = []
+        for i, v in zip(self.index, self._data):
+            lines.append(str(i) + "    " + str(v))
+        if self.name:
+            lines.append("Name: " + str(self.name) + ", dtype: object")
+        return "\n".join(lines)
+    def __str__(self): return self.__repr__()
+
+
+class _GroupBy:
+    def __init__(self, df, by):
+        self._df = df
+        self._by = by
+        self._groups = {}
+        by_col = df[by]
+        for i, key in enumerate(by_col._data):
+            if key not in self._groups:
+                self._groups[key] = []
+            self._groups[key].append(i)
+
+    def __getitem__(self, col):
+        return _GroupByCol(self._df, self._groups, col)
+
+
+class _GroupByCol:
+    def __init__(self, df, groups, col):
+        self._df = df
+        self._groups = groups
+        self._col = col
+
+    def _apply(self, func):
+        result = {}
+        for key, indices in sorted(self._groups.items()):
+            vals = [self._df[self._col]._data[i] for i in indices]
+            result[key] = func(vals)
+        s = Series(list(result.values()), name=self._col, index=list(result.keys()))
+        return s
+
+    def sum(self): return self._apply(sum)
+    def mean(self): return self._apply(lambda v: sum(v)/len(v) if v else 0)
+    def min(self): return self._apply(min)
+    def max(self): return self._apply(max)
+    def count(self): return self._apply(len)
+
+
+class DataFrame:
+    def __init__(self, data=None, columns=None):
+        self._cols = {}
+        self._index = []
+        if data is None:
+            return
+        if isinstance(data, dict):
+            length = 0
+            for k, v in data.items():
+                self._cols[k] = list(v)
+                length = len(v)
+            self._index = list(range(length))
+        elif isinstance(data, list):
+            if len(data) > 0 and isinstance(data[0], dict):
+                all_keys = list(data[0].keys())
+                for k in all_keys:
+                    self._cols[k] = [row.get(k, None) for row in data]
+                self._index = list(range(len(data)))
+        if columns:
+            new_cols = {}
+            for c in columns:
+                new_cols[c] = self._cols.get(c, [])
+            self._cols = new_cols
+
+    def _num_rows(self):
+        if not self._cols: return 0
+        return len(list(self._cols.values())[0])
+
+    def __len__(self): return self._num_rows()
+
+    def __getitem__(self, key):
+        if isinstance(key, str):
+            return Series(self._cols[key], name=key, index=self._index)
+        if isinstance(key, list):
+            new_data = {k: self._cols[k] for k in key}
+            return DataFrame(new_data)
+        if isinstance(key, Series):
+            mask = key._data
+            new_data = {}
+            new_index = []
+            for i, keep in enumerate(mask):
+                if keep:
+                    new_index.append(self._index[i])
+            for col, vals in self._cols.items():
+                new_data[col] = [vals[i] for i, keep in enumerate(mask) if keep]
+            df2 = DataFrame(new_data)
+            df2._index = new_index
+            return df2
+        raise KeyError(str(key))
+
+    def __setitem__(self, key, value):
+        if isinstance(value, Series):
+            self._cols[key] = value._data
+        elif isinstance(value, list):
+            self._cols[key] = value
+        else:
+            n = self._num_rows()
+            self._cols[key] = [value] * n
+
+    def groupby(self, by):
+        return _GroupBy(self, by)
+
+    def columns(self):
+        return list(self._cols.keys())
+
+    def shape(self):
+        return (self._num_rows(), len(self._cols))
+
+    def _lerp(self, sv, idx):
+        lo = int(idx)
+        hi = lo + 1
+        if hi >= len(sv): return sv[lo]
+        return sv[lo] + (sv[hi] - sv[lo]) * (idx - lo)
+
+    def describe(self):
+        num_cols = {}
+        for k, v in self._cols.items():
+            if all(isinstance(x, (int, float)) for x in v):
+                num_cols[k] = v
+        if not num_cols:
+            return DataFrame()
+        stats = ["count", "mean", "std", "min", "25%", "50%", "75%", "max"]
+        result = {}
+        result[""] = stats
+        for col, vals in num_cols.items():
+            n = len(vals)
+            sv = sorted(vals)
+            mean_v = sum(vals) / n if n else 0
+            std_v = (sum((x - mean_v)**2 for x in vals) / (n-1))**0.5 if n > 1 else 0
+            q1_idx = (n - 1) * 25 / 100
+            q2_idx = (n - 1) * 50 / 100
+            q3_idx = (n - 1) * 75 / 100
+            result[col] = [
+                float(n),
+                round(mean_v, 6),
+                round(std_v, 6),
+                float(sv[0]),
+                round(self._lerp(sv, q1_idx), 6),
+                round(self._lerp(sv, q2_idx), 6),
+                round(self._lerp(sv, q3_idx), 6),
+                float(sv[-1])
+            ]
+        df_desc = DataFrame(result)
+        return df_desc
+
+    def head(self, n=5):
+        new_data = {k: v[:n] for k, v in self._cols.items()}
+        df2 = DataFrame(new_data)
+        df2._index = self._index[:n]
+        return df2
+
+    def tail(self, n=5):
+        new_data = {k: v[-n:] for k, v in self._cols.items()}
+        df2 = DataFrame(new_data)
+        df2._index = self._index[-n:]
+        return df2
+
+    def _col_widths(self):
+        widths = {}
+        for col in self._cols:
+            w = max(len(str(col)), max((len(str(v)) for v in self._cols[col]), default=0))
+            widths[col] = w
+        return widths
+
+    def __repr__(self):
+        if not self._cols: return "Empty DataFrame"
+        col_names = list(self._cols.keys())
+        rows = self._num_rows()
+        lines = []
+        header = "   "
+        for c in col_names:
+            header = header + "  " + str(c)
+        lines.append(header)
+        for i in range(rows):
+            row = str(self._index[i]) + "  "
+            for c in col_names:
+                val = self._cols[c][i] if i < len(self._cols[c]) else ""
+                row = row + "  " + str(val)
+            lines.append(row)
+        return "\n".join(lines)
+
+    def __str__(self): return self.__repr__()
+
+
+`;
+
+
+
 
 
 const POLYFILL_OFFSET = PYTHON_FS_POLYFILL.split('\n').length + 1;
@@ -109,7 +346,10 @@ function runPythonCode(code, outputId) {
                 console.log("Python Output:", text);
             },
             read: function (x) {
-
+                // Intercept pandas import and serve our polyfill
+                if (x === 'pandas' || x === 'pandas/__init__.py' || x.startsWith('pandas/')) {
+                    return PANDAS_POLYFILL;
+                }
                 if (!Sk.builtinFiles || !Sk.builtinFiles["files"] || !Sk.builtinFiles["files"][x])
                     throw "Archivo no encontrado: '" + x + "'";
                 return Sk.builtinFiles["files"][x];
@@ -124,6 +364,11 @@ function runPythonCode(code, outputId) {
             }
         });
 
+
+        // Inject pandas polyfill as a builtin file so `import pandas as pd` works
+        if (!Sk.builtinFiles) Sk.builtinFiles = { files: {} };
+        Sk.builtinFiles["files"]["pandas"] = PANDAS_POLYFILL;
+        Sk.builtinFiles["files"]["pandas/__init__.py"] = PANDAS_POLYFILL;
 
         const finalCode = PYTHON_FS_POLYFILL + "\n" + code;
         console.log("Running code with polyfill length:", PYTHON_FS_POLYFILL.length);
