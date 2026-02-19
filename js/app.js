@@ -279,13 +279,6 @@ function previousLesson() {
     if (currentLesson > -1) { currentLesson--; loadLesson(); }
 }
 
-function closeModule() {
-    document.getElementById('modules-section').classList.remove('hidden');
-    document.getElementById('hero-section').classList.remove('hidden');
-    document.getElementById('module-content').classList.add('hidden');
-    loadModules();
-    updateOverallProgress();
-}
 
 function updateOverallProgress() {
     const el = document.getElementById('overall-progress');
