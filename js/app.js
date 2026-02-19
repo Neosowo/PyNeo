@@ -49,6 +49,18 @@ class Series:
             return Series([self._data[i] for i, v in enumerate(key) if v], name=self.name)
         return self._data[key]
     def sum(self): return sum(self._data)
+    def max(self):
+        nums = []
+        for x in self._data:
+            try: nums.append(float(str(x)))
+            except: pass
+        return max(nums) if nums else None
+    def min(self):
+        nums = []
+        for x in self._data:
+            try: nums.append(float(str(x)))
+            except: pass
+        return min(nums) if nums else None
     def mean(self):
         n = len(self._data)
         return sum(self._data) / n if n > 0 else 0
