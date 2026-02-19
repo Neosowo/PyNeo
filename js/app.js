@@ -84,7 +84,7 @@ class Series:
     def std(self):
         if len(self._data) < 2: return 0
         m = self.mean()
-        variance = sum((x - m) ** 2 for x in self._data) / (len(self._data) - 1)
+        variance = sum([(x - m) ** 2 for x in self._data]) / (len(self._data) - 1)
         return variance ** 0.5
     def tolist(self): return self._data[:]
     def __repr__(self):
@@ -210,7 +210,12 @@ class DataFrame:
     def describe(self):
         num_cols = {}
         for k, v in self._cols.items():
-            if all(isinstance(x, (int, float)) for x in v):
+            is_num = True
+            for x in v:
+                if not isinstance(x, (int, float)):
+                    is_num = False
+                    break
+            if is_num:
                 num_cols[k] = v
         if not num_cols:
             return DataFrame()
@@ -221,7 +226,8 @@ class DataFrame:
             n = len(vals)
             sv = sorted(vals)
             mean_v = sum(vals) / n if n else 0
-            std_v = (sum((x - mean_v)**2 for x in vals) / (n-1))**0.5 if n > 1 else 0
+            diff_sq = [(x - mean_v) ** 2 for x in vals]
+            std_v = (sum(diff_sq) / (n-1))**0.5 if n > 1 else 0
             q1_idx = (n - 1) * 25 / 100
             q2_idx = (n - 1) * 50 / 100
             q3_idx = (n - 1) * 75 / 100
@@ -249,13 +255,6 @@ class DataFrame:
         df2 = DataFrame(new_data)
         df2._index = self._index[-n:]
         return df2
-
-    def _col_widths(self):
-        widths = {}
-        for col in self._cols:
-            w = max(len(str(col)), max((len(str(v)) for v in self._cols[col]), default=0))
-            widths[col] = w
-        return widths
 
     def __repr__(self):
         if not self._cols: return "Empty DataFrame"
@@ -370,7 +369,22 @@ function runPythonCode(code, outputId) {
         Sk.builtinFiles["files"]["pandas"] = PANDAS_POLYFILL;
         Sk.builtinFiles["files"]["pandas/__init__.py"] = PANDAS_POLYFILL;
 
-        const finalCode = PYTHON_FS_POLYFILL + "\n" + code;
+        // Strip pandas import lines since we inject the classes directly
+        let processedCode = code
+            .replace(/^\s*import\s+pandas\s+as\s+pd\s*$/gm, '# pandas polyfill activo')
+            .replace(/^\s*from\s+pandas\s+.*$/gm, '# pandas polyfill activo');
+
+        // Build a small bridge: create a pd object with DataFrame and Series as methods
+        const PD_BRIDGE = `
+class _pd_bridge:
+    def DataFrame(self, data=None, columns=None):
+        return DataFrame(data, columns)
+    def Series(self, data, name=None, index=None):
+        return Series(data, name, index)
+pd = _pd_bridge()
+`;
+
+        const finalCode = PYTHON_FS_POLYFILL + "\n" + PANDAS_POLYFILL + "\n" + PD_BRIDGE + "\n" + processedCode;
         console.log("Running code with polyfill length:", PYTHON_FS_POLYFILL.length);
 
         const promise = Sk.misceval.asyncToPromise(function () {
