@@ -148,7 +148,7 @@ inventario = pd.DataFrame({
 })
 
 # Imprime el total de unidades en Stock:
-print(inventario["Stock"].sum())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-2').value, 'output-pan-2')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Calcular Total
@@ -219,7 +219,7 @@ semana = pd.DataFrame({
 })
 
 # Imprime la venta maxima:
-print(semana["Ventas"].max())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-3').value, 'output-pan-3')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Buscar Máximo
@@ -402,7 +402,7 @@ print(df.groupby("Vendedor")["Ventas"].sum())
                     </div>
 
                     <div class="neon-box-secondary p-4 border-l-2 border-neon-green">
-                        <p class="text-neon-green text-sm font-bold"><i class="fas fa-star mr-2"></i>Tip profesional</p>
+                        <p class="text-neon-green text-sm font-bold"><i class="fas fa-star mr-2"></i>Tip</p>
                         <p class="text-gray-300 text-sm mt-1">Siempre que veas patrones en categorías, usa <code>groupby</code>. Es la base de cualquier dashboard de datos.</p>
                     </div>
                 </div>
@@ -421,7 +421,7 @@ notas = pd.DataFrame({
 })
 
 # Promedio de nota por Materia:
-print(notas.groupby("Materia")["Nota"].mean())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-6').value, 'output-pan-6')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Calcular Promedios

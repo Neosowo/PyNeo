@@ -201,11 +201,28 @@ class _GB:
 class _GBC:
     def __init__(self, df, by, col):
         self.df, self.by, self.col = df, by, col
-    def sum(self):
-        res = {}
+    def _groups(self):
+        groups = {}
         for i, key in enumerate(self.df[self.by]._data):
-            res[key] = res.get(key, 0) + self.df[self.col]._data[i]
-        return Series(list(res.values()), index=list(res.keys()))
+            if key not in groups:
+                groups[key] = []
+            groups[key].append(self.df[self.col]._data[i])
+        return groups
+    def sum(self):
+        groups = self._groups()
+        return Series([sum(v) for v in groups.values()], index=list(groups.keys()))
+    def mean(self):
+        groups = self._groups()
+        return Series([sum(v)/len(v) if len(v) > 0 else 0 for v in groups.values()], index=list(groups.keys()))
+    def min(self):
+        groups = self._groups()
+        return Series([min(v) for v in groups.values()], index=list(groups.keys()))
+    def max(self):
+        groups = self._groups()
+        return Series([max(v) for v in groups.values()], index=list(groups.keys()))
+    def count(self):
+        groups = self._groups()
+        return Series([len(v) for v in groups.values()], index=list(groups.keys()))
 `;
 
 function runPythonCode(code, outputId) {
