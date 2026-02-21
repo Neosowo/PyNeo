@@ -29,7 +29,7 @@ window.evaluations[4] = {
                 <p class="text-gray-300 mb-4">Imprime el caracter multiplicado por cada número de la lista.</p>
                 <p class="text-gray-300">Prueba con lista <code class="text-neon-green">[4, 2]</code> y char '*'.</p>
             `,
-            expectedOutput: "Char: ****\n**",
+            expectedOutput: "Char: *\n****\n**",
             points: 25
         },
         {
@@ -54,7 +54,7 @@ window.evaluations[4] = {
                 <p class="text-gray-300">Si raiz > 10 imprime "Mayor", si no "Menor". Prueba con [100, 144].</p>
                 <p class="text-xs text-gray-500">Output exacto: "Menor\nMayor" (Raiz de 100 es 10 (no mayor), 144 es 12 (mayor)).</p>
             `,
-            expectedOutput: "Menor\nMayor", 
+            expectedOutput: "Menor\nMayor",
             points: 25
         }
     ]

@@ -17,7 +17,7 @@ window.evaluations[20] = {
                 <p class="text-gray-300">Imprime: <code class="text-neon-green">"X euros son Y dolares"</code> (redondeado a 2 decimales).</p>
                 <p class="text-xs text-gray-500">Prompt: "Euros: ". Prueba con 100.</p>
             `,
-            expectedOutput: "Euros: 100.00 euros son 112.99 dolares", 
+            expectedOutput: "Euros: 100\n100.00 euros son 112.99 dolares",
             points: 30
         },
         {
@@ -44,7 +44,7 @@ window.evaluations[20] = {
                 <p class="text-gray-300">Calcula el cambio: <code class="text-neon-green">pago - costo_convertido</code>. Imprime con 2 decimales.</p>
                 <p class="text-xs text-gray-500">40 - (41.27 * 0.72) = 40 - 29.7144 = 10.28.</p>
             `,
-            expectedOutput: "10.29", 
+            expectedOutput: "10.29",
             points: 35
         }
     ]

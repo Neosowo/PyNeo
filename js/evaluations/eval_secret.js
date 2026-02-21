@@ -21,7 +21,7 @@ window.evaluations.push({
                 </ul>
                 <p class="text-xs text-gray-500">Prueba con "KROD PXQGR" (debe dar "HOLA MUNDO")</p>
             `,
-            expectedOutput: "Mensaje: HOLA MUNDO",
+            expectedOutput: "Mensaje: KROD PXQGR\nHOLA MUNDO",
             points: 50
         },
         {
@@ -34,7 +34,7 @@ window.evaluations.push({
                 <p class="text-gray-300">Si son gemelos, imprime: <code class="text-neon-green">"Es gemelo"</code>. Si no, <code class="text-red-400">"No es gemelo"</code>.</p>
                 <p class="text-xs text-gray-500">Ejemplo: 11 (11 y 13 son primos -> Es gemelo). 10 (No es gemelo).</p>
             `,
-            expectedOutput: "Numero: Es gemelo",
+            expectedOutput: "Numero: 11\nEs gemelo",
             points: 50
         }
     ]

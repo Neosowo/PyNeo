@@ -16,7 +16,7 @@ window.evaluations[5] = {
                 <p class="text-gray-300 mb-4">Usa <code class="text-neon-green">.index()</code> para encontrar su posición. Si no existe, captura el error (try/except) o verifica con <code class="text-neon-green">in</code>.</p>
                 <p class="text-gray-300">Imprime el índice. Prueba con "Leche".</p>
             `,
-            expectedOutput: "Producto: 1",
+            expectedOutput: "Producto: Leche\n1",
             points: 20
         },
         {
@@ -43,7 +43,7 @@ window.evaluations[5] = {
                 <p class="text-gray-300">Imprime el stock restante.</p>
                 <p class="text-xs text-gray-500">Prompt: "Prod: ", "Cant: ".</p>
             `,
-            expectedOutput: "Prod: Cant: [8]",
+            expectedOutput: "Prod: A\nCant: 2\n[8]",
             points: 25
         },
         {

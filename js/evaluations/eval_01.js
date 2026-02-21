@@ -21,9 +21,9 @@ window.evaluations[0] = {
                 <p class="text-gray-400 text-sm mb-4">Usa el prompt: <code class="text-neon-green">"Ingrese su cedula: "</code> y al final imprime: <code class="text-neon-green">"Cedula valida? True"</code> (o False).</p>
                 <p class="text-xs text-gray-500">Ejemplo de entrada válida para probar: 0928219281</p>
             `,
-            expectedOutput: "Ingrese su cedula: Cedula valida? True",
-            
-            
+            expectedOutput: "Ingrese su cedula: 0928219281\nCedula valida? True",
+
+
             points: 25
         },
         {
@@ -35,9 +35,9 @@ window.evaluations[0] = {
                 <p class="text-gray-400 text-sm mb-4">Fórmula: <code class="text-neon-green">C = (F - 32) * 5/9</code></p>
                 <p class="text-gray-300 mb-2">Usa el prompt: <code class="text-neon-green">"Ingrese F: "</code></p>
                 <p class="text-gray-300">Imprime el formato exacto: <code class="text-neon-green">"X grados F son Y grados C"</code></p>
-                <p class="text-xs text-gray-500">Prueba con 78 (debe dar aprox 25)</p>
+                <p class="text-xs text-gray-500">Prueba con 77 (da exactamente 25.0°C)</p>
             `,
-            expectedOutput: "Ingrese F: 78 grados F son 25 grados C", 
+            expectedOutput: "Ingrese F: 77\n77 grados F son 25.0 grados C",
             points: 25
         },
         {
@@ -50,7 +50,7 @@ window.evaluations[0] = {
                 <p class="text-gray-300">Salida exacta: <code class="text-neon-green">"X seg son H hora(s), M minuto(s), S segundo(s)"</code></p>
                 <p class="text-xs text-gray-500">Prueba con 3661 (1h, 1m, 1s)</p>
             `,
-            expectedOutput: "Segundos: 3661 seg son 1 hora(s), 1 minuto(s), 1 segundo(s)",
+            expectedOutput: "Segundos: 3661\n3661 seg son 1 hora(s), 1 minuto(s), 1 segundo(s)",
             points: 25
         },
         {
@@ -66,8 +66,9 @@ window.evaluations[0] = {
                     <li>El usuario no es "espol".</li>
                 </ul>
                 <p class="text-gray-300">Prompt: <code class="text-neon-green">"Correo: "</code>. Imprime <code class="text-neon-green">"Valido? True"</code></p>
+                <p class="text-xs text-gray-500">Ejemplo de correo válido para probar: neo@espol.edu.ec</p>
             `,
-            expectedOutput: "Correo: Valido? True",
+            expectedOutput: "Correo: neo@espol.edu.ec\nValido? True",
             points: 25
         }
     ]

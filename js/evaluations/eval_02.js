@@ -17,7 +17,7 @@ window.evaluations[1] = {
                 <p class="text-gray-300">Salida esperada para 14:30: <code class="text-neon-green">"ES P.M"</code></p>
                 <p class="text-xs text-gray-500">Nota: Asume formato de 24 horas correcto.</p>
             `,
-            expectedOutput: "Hora (HH:MM): ES P.M",
+            expectedOutput: "Hora (HH:MM): 14:30\nES P.M",
             points: 20
         },
         {
@@ -34,7 +34,7 @@ window.evaluations[1] = {
                 <p class="text-gray-300">Imprime: <code class="text-neon-green">"Total: 30.60"</code> y <code class="text-neon-green">"Obsequio 3 productos"</code></p>
                 <p class="text-xs text-gray-500">Prompt: <code class="text-neon-green">"Cantidad: "</code></p>
             `,
-            expectedOutput: "Cantidad: Total: 30.60\nObsequio 3 productos",
+            expectedOutput: "Cantidad: 40\nTotal: 30.60\nObsequio 3 productos",
             points: 30
         },
         {
@@ -48,11 +48,11 @@ window.evaluations[1] = {
                 <p class="text-xs text-gray-500">Si usas seed(42), el portero elegirá 6 (usando randint) o 1 (usando randrange). Usa randint(1,6).</p>
                 <p class="text-gray-300">Prompt: <code class="text-neon-green">"Zona: "</code>.  Prueba con Zona 1.</p>
             `,
-            expectedOutput: "Zona: EL PORTERO SE LANZO A 6\nES GOL\nPor derecha",
-            
-            
-            
-            
+            expectedOutput: "Zona: 1\nEL PORTERO SE LANZO A 6\nES GOL\nPor derecha",
+
+
+
+
             points: 25
         },
         {
