@@ -79,8 +79,7 @@ window.modules.push({
                     <textarea id="code-pan-1" class="w-full bg-transparent text-gray-300 font-mono text-sm outline-none resize-none" rows="6">import pandas as pd
 
 # Crea df con columna "Ventas" y describe:
-df = pd.DataFrame({"Ventas": [100, 200, 150, 400]})
-print(df.describe())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-1').value, 'output-pan-1')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Analizar
@@ -290,7 +289,7 @@ aula = pd.DataFrame({
 })
 
 # Imprime el promedio de Nota:
-print(aula["Nota"].mean())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-4').value, 'output-pan-4')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Calcular Promedio
@@ -354,7 +353,7 @@ df = pd.DataFrame({
 })
 
 # Agrupa por Vendedor y suma las Ventas:
-print(df.groupby("Vendedor")["Ventas"].sum())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-5').value, 'output-pan-5')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-play mr-2"></i>Generar Reporte
@@ -505,13 +504,13 @@ df = pd.DataFrame({
 df["Monto"] = pd.Series([400, 300, 500, 700, 0])
 
 # 1. Total vendido:
-print("Total:", df["Monto"].sum())
+
 
 # 2. Venta maxima:
-print("Maximo:", df["Monto"].max())
+
 
 # 3. Total por vendedor:
-print(df.groupby("Vendedor")["Monto"].sum())
+
 </textarea>
                     <button onclick="runPythonCode(document.getElementById('code-pan-7').value, 'output-pan-7')" class="btn-neon px-6 py-2 rounded-lg font-semibold text-white mt-4">
                         <i class="fas fa-trophy mr-2"></i>Enviar Análisis
