@@ -266,7 +266,6 @@ async function syncDailyChallengeWithFirestore() {
     try {
         await db.collection(DB_USERS_STATS).doc(currentUser).set(dataToSave, { merge: true });
     } catch (e) {
-        // Si falla por falta de índice, podríamos intentar un fallback aquí
         console.warn('Error al sincronizar con Firestore:', e);
     }
 }
@@ -291,17 +290,27 @@ async function showRanking() {
 function executeRankingRealtime(list) {
     window.rankingUnsubscribe = db.collection(DB_USERS_STATS)
         .orderBy('streak', 'desc')
-        .orderBy('streakTimestamp', 'asc')
-        .limit(10)
         .onSnapshot(snapshot => {
             list.innerHTML = '';
-            let rank = 1;
             if (snapshot.empty) {
                 list.innerHTML = '<p class="text-center text-gray-500 py-8">No hay datos aún.</p>';
                 return;
             }
+
+            let users = [];
             snapshot.forEach(doc => {
-                const data = doc.data();
+                users.push({ id: doc.id, ...doc.data() });
+            });
+
+            users.sort((a, b) => {
+                if ((b.streak || 0) !== (a.streak || 0)) {
+                    return (b.streak || 0) - (a.streak || 0);
+                }
+                return (a.streakTimestamp || 0) - (b.streakTimestamp || 0);
+            });
+
+            users.slice(0, 10).forEach((data, index) => {
+                const rank = index + 1;
                 const isMe = data.user === localStorage.getItem('pyneo_chat_user');
                 const item = document.createElement('div');
                 item.className = `flex items-center justify-between p-4 rounded-xl mb-2 border transition-all ${isMe ? 'bg-primary/20 border-primary/50' : 'bg-white/5 border-white/5'}`;
@@ -327,9 +336,9 @@ function executeRankingRealtime(list) {
                     </div>
                 `;
                 list.appendChild(item);
-                rank++;
             });
         }, error => {
+            console.error('Firestore Error:', error);
             list.innerHTML = '<p class="text-center text-red-400 py-8">Error al cargar ranking.</p>';
         });
 }
