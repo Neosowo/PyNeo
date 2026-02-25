@@ -26,6 +26,7 @@ async function loadUserDataFromFirestore(userId) {
             let localChallenge = getDailyChallenge();
             if (data.streak > (localChallenge.count || 0)) {
                 localChallenge.count = data.streak;
+                localChallenge.streakTimestamp = data.streakTimestamp || 0;
                 localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(localChallenge));
             }
 
@@ -96,7 +97,12 @@ function getDailyChallenge() {
     const saved = localStorage.getItem(DAILY_CHALLENGE_KEY);
     if (!saved) return { count: 0, lastUpdate: null };
     try {
-        return JSON.parse(saved);
+        let parsed = JSON.parse(saved);
+
+        if (parsed.count > 0 && !parsed.streakTimestamp) {
+            parsed.streakTimestamp = Date.now();
+        }
+        return parsed;
     } catch (e) {
         return { count: 0, lastUpdate: null };
     }
@@ -170,6 +176,8 @@ function updateStreak() {
         addFreeze();
     }
 
+    challenge.streakTimestamp = Date.now();
+
     localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
     updateDailyChallengeUI();
     syncDailyChallengeWithFirestore();
@@ -178,6 +186,7 @@ function updateStreak() {
 }
 
 function getStreakColor(count) {
+    if (count >= 50) return '#06b6d4';
     if (count >= 30) return '#06b6d4';
     if (count >= 15) return '#a855f7';
     if (count >= 7) return '#ec4899';
@@ -250,13 +259,15 @@ async function syncDailyChallengeWithFirestore() {
         freezes: freezes,
         progress: userProgress,
         lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-        color: userColor
+        color: userColor,
+        streakTimestamp: challenge.streakTimestamp || 0
     };
 
     try {
         await db.collection(DB_USERS_STATS).doc(currentUser).set(dataToSave, { merge: true });
     } catch (e) {
-        console.warn(e);
+        // Si falla por falta de índice, podríamos intentar un fallback aquí
+        console.warn('Error al sincronizar con Firestore:', e);
     }
 }
 
@@ -280,6 +291,7 @@ async function showRanking() {
 function executeRankingRealtime(list) {
     window.rankingUnsubscribe = db.collection(DB_USERS_STATS)
         .orderBy('streak', 'desc')
+        .orderBy('streakTimestamp', 'asc')
         .limit(10)
         .onSnapshot(snapshot => {
             list.innerHTML = '';
