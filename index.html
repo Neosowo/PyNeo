@@ -1211,28 +1211,32 @@
         </div>
     </div>
 
-    <!-- Ad Simulation Modal -->
     <div id="ad-modal"
         class="hidden fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-md p-4">
         <div
-            class="w-full max-w-sm aspect-video bg-[#09090b] rounded-2xl border border-white/10 flex flex-col items-center justify-center relative overflow-hidden">
-            <div class="absolute inset-0 opacity-20 pointer-events-none">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 animate-pulse"></div>
-            </div>
+            class="w-full max-w-md bg-[#09090b] rounded-2xl border border-white/10 flex flex-col overflow-hidden shadow-2xl">
 
-            <div class="relative z-10 flex flex-col items-center gap-4">
-                <div class="w-16 h-16 rounded-full border-4 border-white/10 border-t-blue-500 animate-spin"></div>
-                <div class="text-center">
-                    <p class="text-white font-black uppercase tracking-widest text-sm mb-1">Cargando Recompensa</p>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest" id="ad-countdown">El anuncio termina
-                        en 15s</p>
+            <div class="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-white/5">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-snowflake text-blue-400 animate-pulse"></i>
+                    <span class="text-xs font-black text-white uppercase tracking-widest">Gana un Protector</span>
                 </div>
+                <span class="text-[10px] text-gray-500 font-mono" id="ad-countdown">Espera 15s...</span>
             </div>
 
-            <button disabled id="btn-close-ad" onclick="closeAdWithReward()"
-                class="absolute top-4 right-4 text-gray-700 cursor-not-allowed transition-colors">
-                <i class="fas fa-times-circle text-xl"></i>
-            </button>
+            <div class="w-full flex items-center justify-center bg-black/40 min-h-[200px] p-3">
+                <ins class="adsbygoogle" style="display:block;width:100%;min-height:200px;"
+                    data-ad-client="ca-pub-8771484945698756" data-ad-slot="auto" data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
+
+            <div class="flex items-center justify-between px-5 py-3 border-t border-white/10 bg-white/5">
+                <p class="text-[10px] text-gray-600 uppercase tracking-widest">Mira el anuncio para ganar ❄️</p>
+                <button disabled id="btn-close-ad" onclick="closeAdWithReward()"
+                    class="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-gray-700 cursor-not-allowed transition-all text-xs font-black uppercase tracking-widest">
+                    <i class="fas fa-snowflake"></i> Reclamar
+                </button>
+            </div>
         </div>
     </div>
 
