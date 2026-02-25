@@ -3,17 +3,51 @@ const DB_USERS_STATS = 'leaderboard';
 const STREAK_FREEZE_KEY = 'PyNeo-streak-freeze';
 const LAST_AD_VIEW_KEY = 'PyNeo-last-ad-view';
 
-function initStreak() {
+async function initStreak() {
     checkStreakLoss();
     updateDailyChallengeUI();
-    // Sync periodically if connected
+
+    const currentUser = localStorage.getItem('pyneo_chat_user');
+    if (currentUser && typeof db !== 'undefined') {
+        await loadUserDataFromFirestore(currentUser);
+    }
+
     setTimeout(() => {
         syncDailyChallengeWithFirestore();
     }, 2000);
 }
 
+async function loadUserDataFromFirestore(userId) {
+    try {
+        const doc = await db.collection(DB_USERS_STATS).doc(userId).get();
+        if (doc.exists) {
+            const data = doc.data();
+
+            let localChallenge = getDailyChallenge();
+            if (data.streak > (localChallenge.count || 0)) {
+                localChallenge.count = data.streak;
+                localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(localChallenge));
+            }
+
+            let localFreezes = getFreezes();
+            let remoteFreezes = data.freezes || 0;
+
+            if (remoteFreezes > localFreezes) {
+                localStorage.setItem(STREAK_FREEZE_KEY, remoteFreezes);
+            } else if (localFreezes > remoteFreezes) {
+                syncDailyChallengeWithFirestore();
+            }
+
+            updateDailyChallengeUI();
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
 function getFreezes() {
-    return parseInt(localStorage.getItem(STREAK_FREEZE_KEY) || "0");
+    const val = localStorage.getItem(STREAK_FREEZE_KEY);
+    return (val === null || val === undefined) ? 0 : parseInt(val);
 }
 
 function addFreeze() {
@@ -22,9 +56,13 @@ function addFreeze() {
         showNotification('Ya tienes el máximo de protectores (2) ❄️', 'info');
         return false;
     }
-    localStorage.setItem(STREAK_FREEZE_KEY, current + 1);
+    const newVal = current + 1;
+    localStorage.setItem(STREAK_FREEZE_KEY, newVal);
     showNotification('¡Has ganado un Protector de Racha! ❄️', 'success');
     updateDailyChallengeUI();
+
+    syncDailyChallengeWithFirestore();
+
     return true;
 }
 
@@ -42,11 +80,11 @@ function checkStreakLoss() {
     if (challenge.lastUpdate !== today && challenge.lastUpdate !== yesterdayStr) {
         let freezes = getFreezes();
         if (freezes > 0) {
-            console.log("❄️ Protector usado! Racha salvada.");
             localStorage.setItem(STREAK_FREEZE_KEY, freezes - 1);
-            challenge.lastUpdate = yesterdayStr; // Simulate they did it yesterday to keep it alive
+            challenge.lastUpdate = yesterdayStr;
             localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
             showNotification('¡Tu Protector de Racha te ha salvado hoy! ❄️', 'info');
+            syncDailyChallengeWithFirestore();
         } else {
             challenge.count = 0;
             localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
@@ -64,7 +102,6 @@ function getDailyChallenge() {
     }
 }
 
-// Main logic for the challenge button
 function handleDailyChallengeClick() {
     const now = new Date();
     const today = new Intl.DateTimeFormat('en-CA', {
@@ -89,13 +126,11 @@ function startRandomDailyExercise() {
         return;
     }
 
-    // Pick exactly one per day based on date (Guayaquil timezone)
     const now = new Date();
     const dateStr = new Intl.DateTimeFormat('en-CA', {
         timeZone: 'America/Guayaquil'
-    }).format(now); // "YYYY-MM-DD"
+    }).format(now);
 
-    // Simple hash from date string to index
     let hash = 0;
     for (let i = 0; i < dateStr.length; i++) {
         hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
@@ -105,7 +140,6 @@ function startRandomDailyExercise() {
     const index = Math.abs(hash) % window.dailyChallenges.length;
     const todayChallenge = window.dailyChallenges[index];
 
-    // Inject into evaluations if not present so startEvaluation can find it
     if (typeof window.evaluations !== 'undefined') {
         if (!window.evaluations.find(e => e.id === todayChallenge.id)) {
             window.evaluations.push(todayChallenge);
@@ -115,13 +149,11 @@ function startRandomDailyExercise() {
     showNotification(`Reto del día: ${todayChallenge.title} ✨`, 'success');
 
     if (typeof startEvaluation === 'function') {
-        startEvaluation(todayChallenge.id, false); // Sin tiempo
-    } else {
-        console.error("startEvaluation not found");
+        startEvaluation(todayChallenge.id, false);
     }
 }
 
-function updateStreak() { // Compatibility name for app_eval.js and nextLesson()
+function updateStreak() {
     const now = new Date();
     const today = new Intl.DateTimeFormat('en-CA', {
         timeZone: 'America/Guayaquil'
@@ -134,8 +166,7 @@ function updateStreak() { // Compatibility name for app_eval.js and nextLesson()
     challenge.count++;
     challenge.lastUpdate = today;
 
-    // Duolingo Reward: Gain a freeze every 7 days
-    if (challenge.count % 7 === 0) {
+    if (challenge.count % 10 === 0) {
         addFreeze();
     }
 
@@ -147,11 +178,11 @@ function updateStreak() { // Compatibility name for app_eval.js and nextLesson()
 }
 
 function getStreakColor(count) {
-    if (count >= 30) return '#06b6d4'; // Cyan/Master
-    if (count >= 15) return '#a855f7'; // Purple
-    if (count >= 7) return '#ec4899';  // Pink
-    if (count >= 3) return '#ef4444';  // Red
-    return '#f97316'; // Orange default
+    if (count >= 30) return '#06b6d4';
+    if (count >= 15) return '#a855f7';
+    if (count >= 7) return '#ec4899';
+    if (count >= 3) return '#ef4444';
+    return '#f97316';
 }
 
 function updateDailyChallengeUI() {
@@ -173,7 +204,6 @@ function updateDailyChallengeUI() {
         const icon = container.querySelector('i');
         const color = getStreakColor(challenge.count);
 
-        // Protector Counter removed from header
         const modalCount = document.getElementById('modal-freeze-count');
         if (modalCount) modalCount.innerText = `${freezes}/2`;
 
@@ -209,20 +239,24 @@ async function syncDailyChallengeWithFirestore() {
     if (!currentUser) return;
 
     const challenge = getDailyChallenge();
+    const freezes = getFreezes();
     const progressEl = document.getElementById('overall-progress');
     const userProgress = progressEl ? progressEl.innerText : '0%';
     const userColor = localStorage.getItem('PyNeo-user-color') || '#ffffff';
 
+    const dataToSave = {
+        user: currentUser,
+        streak: challenge.count,
+        freezes: freezes,
+        progress: userProgress,
+        lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+        color: userColor
+    };
+
     try {
-        await db.collection(DB_USERS_STATS).doc(currentUser).set({
-            user: currentUser,
-            streak: challenge.count, // Mapping count to 'streak' field for ranking
-            progress: userProgress,
-            lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-            color: userColor
-        }, { merge: true });
+        await db.collection(DB_USERS_STATS).doc(currentUser).set(dataToSave, { merge: true });
     } catch (e) {
-        console.warn("Firestore sync wait...");
+        console.warn(e);
     }
 }
 
@@ -284,7 +318,6 @@ function executeRankingRealtime(list) {
                 rank++;
             });
         }, error => {
-            console.error(error);
             list.innerHTML = '<p class="text-center text-red-400 py-8">Error al cargar ranking.</p>';
         });
 }
@@ -305,7 +338,6 @@ function watchAdForFreeze() {
         return;
     }
 
-    // --- DETECCIÓN DE ADBLOCK ---
     const adBlockTest = document.createElement('div');
     adBlockTest.innerHTML = '&nbsp;';
     adBlockTest.className = 'adsbox';
@@ -325,17 +357,13 @@ function watchAdForFreeze() {
     if (!modal) return;
     modal.classList.remove('hidden');
 
-    // Inicializar el anuncio real de AdSense dentro del modal
     try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-        console.warn('AdSense no disponible:', e);
-    }
+    } catch (e) { }
 
     let seconds = 15;
     let isPaused = false;
 
-    // Detectar si el usuario cambia de pestaña (Trampa)
     const handleVisibilityChange = () => {
         if (document.hidden) {
             isPaused = true;
@@ -372,7 +400,6 @@ function closeAdWithReward() {
     addFreeze();
     localStorage.setItem(LAST_AD_VIEW_KEY, Date.now().toString());
 
-    // Reset button state for next time
     const closeBtn = document.getElementById('btn-close-ad');
     if (closeBtn) {
         closeBtn.disabled = true;
