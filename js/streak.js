@@ -1,1 +1,479 @@
-const a50_0x425330=a50_0x3427;(function(_0x4f2bb9,_0x4a855e){const _0xaf50d=a50_0x3427,_0x1ca9b0=_0x4f2bb9();while(!![]){try{const _0x14cf7a=-parseInt(_0xaf50d(0x164))/0x1*(parseInt(_0xaf50d(0x150))/0x2)+parseInt(_0xaf50d(0x18f))/0x3+-parseInt(_0xaf50d(0x15e))/0x4+parseInt(_0xaf50d(0x1be))/0x5+-parseInt(_0xaf50d(0x17a))/0x6*(-parseInt(_0xaf50d(0x17b))/0x7)+parseInt(_0xaf50d(0x1a3))/0x8*(parseInt(_0xaf50d(0x13f))/0x9)+-parseInt(_0xaf50d(0x197))/0xa;if(_0x14cf7a===_0x4a855e)break;else _0x1ca9b0['push'](_0x1ca9b0['shift']());}catch(_0x5e8b98){_0x1ca9b0['push'](_0x1ca9b0['shift']());}}}(a50_0x3eb3,0xc691d));const DAILY_CHALLENGE_KEY='PyNeo-daily-challenge',DB_USERS_STATS=a50_0x425330(0x178),STREAK_FREEZE_KEY=a50_0x425330(0x140),LAST_AD_VIEW_KEY=a50_0x425330(0x1ac);function initStreak(){checkStreakLoss(),updateDailyChallengeUI(),setTimeout(()=>{syncDailyChallengeWithFirestore();},0x1f4);}function getFreezes(){return parseInt(localStorage['getItem'](STREAK_FREEZE_KEY)||'0');}function addFreeze(){const _0x865887=a50_0x425330;let _0x3b7a9b=getFreezes();if(_0x3b7a9b>=0x2)return showNotification(_0x865887(0x1b6),'info'),![];return localStorage['setItem'](STREAK_FREEZE_KEY,_0x3b7a9b+0x1),showNotification(_0x865887(0x16e),_0x865887(0x145)),updateDailyChallengeUI(),!![];}function checkStreakLoss(){const _0x47e68c=a50_0x425330;let _0x5b397c=getDailyChallenge();if(!_0x5b397c[_0x47e68c(0x19c)]||_0x5b397c[_0x47e68c(0x16c)]===0x0)return;const _0x4fa729=new Date(),_0x571966=new Intl[(_0x47e68c(0x171))]('en-CA',{'timeZone':'America/Guayaquil'})['format'](_0x4fa729),_0x257f82=new Date(_0x4fa729);_0x257f82[_0x47e68c(0x14a)](_0x4fa729[_0x47e68c(0x191)]()-0x1);const _0x12e40a=new Intl[(_0x47e68c(0x171))](_0x47e68c(0x165),{'timeZone':_0x47e68c(0x1b5)})[_0x47e68c(0x14d)](_0x257f82);if(_0x5b397c[_0x47e68c(0x19c)]!==_0x571966&&_0x5b397c[_0x47e68c(0x19c)]!==_0x12e40a){let _0x141646=getFreezes();_0x141646>0x0?(console[_0x47e68c(0x172)](_0x47e68c(0x1bc)),localStorage[_0x47e68c(0x1b1)](STREAK_FREEZE_KEY,_0x141646-0x1),_0x5b397c[_0x47e68c(0x19c)]=_0x12e40a,localStorage['setItem'](DAILY_CHALLENGE_KEY,JSON[_0x47e68c(0x181)](_0x5b397c)),showNotification(_0x47e68c(0x159),_0x47e68c(0x1cb))):(console['log'](_0x47e68c(0x15d)),_0x5b397c[_0x47e68c(0x16c)]=0x0,localStorage[_0x47e68c(0x1b1)](DAILY_CHALLENGE_KEY,JSON['stringify'](_0x5b397c)));}}function getDailyChallenge(){const _0x280fdb=a50_0x425330,_0x4713af=localStorage[_0x280fdb(0x1ad)](DAILY_CHALLENGE_KEY);if(!_0x4713af)return{'count':0x0,'lastUpdate':null};try{return JSON[_0x280fdb(0x1a6)](_0x4713af);}catch(_0x58570a){return{'count':0x0,'lastUpdate':null};}}function handleDailyChallengeClick(){const _0x120567=a50_0x425330,_0x22a2aa=new Date(),_0x19968a=new Intl[(_0x120567(0x171))](_0x120567(0x165),{'timeZone':_0x120567(0x1b5)})[_0x120567(0x14d)](_0x22a2aa),_0x5acc8d=getDailyChallenge();if(_0x5acc8d['lastUpdate']===_0x19968a){showRanking(),showNotification('¡Ya\x20completaste\x20tu\x20reto\x20de\x20hoy!\x20🎯',_0x120567(0x1cb));return;}startRandomDailyExercise();}function a50_0x3eb3(){const _0x194c07=['flex\x20items-center\x20justify-between\x20p-4\x20rounded-xl\x20mb-2\x20border\x20transition-all\x20','<p\x20class=\x22text-center\x20text-red-400\x20py-8\x22>Error\x20al\x20cargar\x20ranking.</p>','&nbsp;','</span>','order-1','count','querySelector','¡Has\x20ganado\x20un\x20Protector\x20de\x20Racha!\x20❄️','startEvaluation\x20not\x20found','streakTimestamp','DateTimeFormat','log','style','FieldValue','length','Desactiva\x20el\x20AdBlock\x20para\x20ganar\x20protecciones\x20gratis\x20🛡️','push','leaderboard','streak-container','36WyEBCJ','1568889QUFWUy','#ec4899','toLocaleTimeString','PyNeo-user-color','\x22></i>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','DOMContentLoaded','stringify','PyNeo-last-synced-count','<p\x20class=\x22text-center\x20text-gray-500\x20py-8\x22>No\x20hay\x20datos\x20aún.</p>','hover:text-red-400','evaluations','orderBy','find','ranking-modal','btn-close-ad','empty','function','appendChild','overall-progress','<span\x20class=\x22text-gray-500\x20w-8\x20text-center\x20font-bold\x22>','3346608ZbLQTm','60)','getDate','bg-blue-500/30','\x22\x20style=\x22','cursor-not-allowed','removeEventListener','addEventListener','6135930BiHXAj','glitch-effect','limit','borderColor','<div\x20class=\x22flex\x20justify-center\x20p-8\x22><i\x20class=\x22fas\x20fa-spinner\x20fa-spin\x20text-neon-green\x20text-3xl\x22></i></div>','lastUpdate','opacity-100','serverTimestamp','Reto\x20del\x20día:\x20','#f97316','¡Desafío\x20diario\x20completado!\x20🔥','Espera\x20','1627352sBSONH','lastActive','PyNeo-ranking-cache','parse','PyNeo-last-sync-time','classList','hidden','abs','AdSense\x20no\x20disponible:','PyNeo-last-ad-view','getItem','innerHTML','forEach','Sync\x20skipped\x20to\x20save\x20quota','setItem','adsbox','visibilitychange','adsbygoogle','America/Guayaquil','Ya\x20tienes\x20el\x20máximo\x20de\x20protectores\x20(2)\x20❄️','s...','#ef4444','now','createElement','text-white','❄️\x20Protector\x20usado!\x20Racha\x20salvada.','opacity-20','3454975OdiiXD','firestore','ad-modal','border-blue-400/60','#06b6d4','header-streak-count','doc','ad-countdown','\x22\x20data-text=\x22','data','rgba(255,255,255,0.1)','drop-shadow(0\x200\x208px\x20','className','info','remove','add','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','div','fas\x20fa-fire\x20text-gray-500\x20text-sm\x20order-2','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22relative\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20flex-col\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22font-bold\x20text-sm\x20','\x20horas\x20para\x20otro\x20protector\x20❄️','18gzoKrb','PyNeo-streak-freeze','title','#a855f7','streak','fas\x20fa-fire\x20text-sm\x20animate-flame\x20order-2','success','get','<span\x20style=\x22color:#4ade80;font-weight:bold\x22>¡LISTO!</span>','charCodeAt','progress','setDate','toString','dailyChallenges','format','Anon','warn','38SjdvfT','color','user','\x22></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22text-[8px]\x20text-gray-600\x22>','modal-freeze-count','2-digit','Firestore\x20sync\x20error:','text-gray-700','undefined','¡Tu\x20Protector\x20de\x20Racha\x20te\x20ha\x20salvado\x20hoy!\x20❄️','filter','disabled','getElementById','💔\x20Racha\x20perdida\x20por\x20inactividad.','2823344ZweJJO','error','glitch-text\x20text-white','cursor-pointer','asc','pyneo_chat_user','75019mrAlMJ','en-CA','innerText'];a50_0x3eb3=function(){return _0x194c07;};return a50_0x3eb3();}function a50_0x3427(_0x5a5d9d,_0x220858){_0x5a5d9d=_0x5a5d9d-0x13f;const _0x3eb38b=a50_0x3eb3();let _0x342778=_0x3eb38b[_0x5a5d9d];return _0x342778;}function startRandomDailyExercise(){const _0x134dc3=a50_0x425330;if(typeof window[_0x134dc3(0x14c)]===_0x134dc3(0x158)||window['dailyChallenges'][_0x134dc3(0x175)]===0x0){showNotification('Cargando\x20reto\x20del\x20día...',_0x134dc3(0x1cb)),setTimeout(startRandomDailyExercise,0x3e8);return;}const _0x2b699f=new Date(),_0x8abe2a=new Intl[(_0x134dc3(0x171))](_0x134dc3(0x165),{'timeZone':'America/Guayaquil'})[_0x134dc3(0x14d)](_0x2b699f);let _0x3140b9=0x0;for(let _0x121f7d=0x0;_0x121f7d<_0x8abe2a[_0x134dc3(0x175)];_0x121f7d++){_0x3140b9=(_0x3140b9<<0x5)-_0x3140b9+_0x8abe2a[_0x134dc3(0x148)](_0x121f7d),_0x3140b9|=0x0;}const _0x2f743b=Math[_0x134dc3(0x1aa)](_0x3140b9)%window[_0x134dc3(0x14c)]['length'],_0x1476b3=window[_0x134dc3(0x14c)][_0x2f743b];typeof window[_0x134dc3(0x185)]!==_0x134dc3(0x158)&&(!window[_0x134dc3(0x185)][_0x134dc3(0x187)](_0x55e9c4=>_0x55e9c4['id']===_0x1476b3['id'])&&window[_0x134dc3(0x185)][_0x134dc3(0x177)](_0x1476b3)),showNotification(_0x134dc3(0x19f)+_0x1476b3[_0x134dc3(0x141)]+'\x20✨',_0x134dc3(0x145)),typeof startEvaluation===_0x134dc3(0x18b)?startEvaluation(_0x1476b3['id'],![]):console[_0x134dc3(0x15f)](_0x134dc3(0x16f));}function updateStreak(){const _0x4b3336=a50_0x425330,_0xf0b9c9=new Date(),_0x243ab2=new Intl[(_0x4b3336(0x171))]('en-CA',{'timeZone':_0x4b3336(0x1b5)})[_0x4b3336(0x14d)](_0xf0b9c9);let _0x59b713=getDailyChallenge();if(_0x59b713['lastUpdate']===_0x243ab2)return;_0x59b713[_0x4b3336(0x16c)]++,_0x59b713[_0x4b3336(0x19c)]=_0x243ab2,_0x59b713[_0x4b3336(0x16c)]%0x7===0x0&&addFreeze(),localStorage[_0x4b3336(0x1b1)](DAILY_CHALLENGE_KEY,JSON[_0x4b3336(0x181)](_0x59b713)),updateDailyChallengeUI(),syncDailyChallengeWithFirestore(!![]),showNotification(_0x4b3336(0x1a1),_0x4b3336(0x145));}function getStreakColor(_0x12974b){const _0x5e2aaa=a50_0x425330;if(_0x12974b>=0x1e)return _0x5e2aaa(0x1c2);if(_0x12974b>=0xf)return _0x5e2aaa(0x142);if(_0x12974b>=0x7)return _0x5e2aaa(0x17c);if(_0x12974b>=0x3)return _0x5e2aaa(0x1b8);return'#f97316';}function updateDailyChallengeUI(){const _0x25fcf3=a50_0x425330,_0x544cd0=getDailyChallenge(),_0x35128a=document[_0x25fcf3(0x15c)]('header-streak-count'),_0x45528c=document[_0x25fcf3(0x15c)](_0x25fcf3(0x179)),_0x588bde=getFreezes();_0x35128a&&(_0x35128a['innerText']=_0x544cd0[_0x25fcf3(0x16c)]);const _0x39bb1f=new Date(),_0x49cf54=new Intl[(_0x25fcf3(0x171))](_0x25fcf3(0x165),{'timeZone':_0x25fcf3(0x1b5)})[_0x25fcf3(0x14d)](_0x39bb1f);if(_0x45528c){const _0x267220=_0x45528c[_0x25fcf3(0x16d)]('i'),_0x4a7aa8=getStreakColor(_0x544cd0[_0x25fcf3(0x16c)]),_0xf58d3e=document['getElementById'](_0x25fcf3(0x154));if(_0xf58d3e)_0xf58d3e[_0x25fcf3(0x166)]=_0x588bde+'/2';if(_0x544cd0[_0x25fcf3(0x19c)]===_0x49cf54){_0x45528c[_0x25fcf3(0x1a8)][_0x25fcf3(0x1cc)]('opacity-20'),_0x45528c[_0x25fcf3(0x1a8)][_0x25fcf3(0x1cd)](_0x25fcf3(0x19d)),_0x45528c[_0x25fcf3(0x173)][_0x25fcf3(0x19a)]=_0x4a7aa8+'40';_0x267220&&(_0x267220['className']=_0x25fcf3(0x144),_0x267220['style']['color']=_0x4a7aa8,_0x267220[_0x25fcf3(0x173)][_0x25fcf3(0x15a)]=_0x25fcf3(0x1c9)+_0x4a7aa8+_0x25fcf3(0x190));const _0x1d9171=document[_0x25fcf3(0x15c)](_0x25fcf3(0x1c3));if(_0x1d9171)_0x1d9171[_0x25fcf3(0x1a8)][_0x25fcf3(0x1cd)](_0x25fcf3(0x16b));}else{_0x45528c[_0x25fcf3(0x1a8)]['add'](_0x25fcf3(0x19d)),_0x45528c[_0x25fcf3(0x1a8)][_0x25fcf3(0x1cc)](_0x25fcf3(0x1bd)),_0x45528c[_0x25fcf3(0x173)][_0x25fcf3(0x19a)]=_0x25fcf3(0x1c8);_0x267220&&(_0x267220['className']=_0x25fcf3(0x1d0),_0x267220['style'][_0x25fcf3(0x151)]='',_0x267220[_0x25fcf3(0x173)]['filter']='');const _0x1b3bfc=document[_0x25fcf3(0x15c)](_0x25fcf3(0x1c3));if(_0x1b3bfc)_0x1b3bfc[_0x25fcf3(0x1a8)][_0x25fcf3(0x1cd)]('order-1');}}}async function syncDailyChallengeWithFirestore(_0xf41f73=![]){const _0x2d8ac7=a50_0x425330;if(typeof db===_0x2d8ac7(0x158)||!db)return;const _0x3d1684=localStorage[_0x2d8ac7(0x1ad)](_0x2d8ac7(0x163));if(!_0x3d1684)return;const _0x420eb8=getDailyChallenge(),_0x5d6c82=document[_0x2d8ac7(0x15c)](_0x2d8ac7(0x18d)),_0x5ec031=_0x5d6c82?_0x5d6c82[_0x2d8ac7(0x166)]:'0%',_0x1cfb26=typeof getUserColor==='function'?getUserColor(_0x3d1684):localStorage['getItem'](_0x2d8ac7(0x17e))||'#ffffff',_0x3debf4=localStorage[_0x2d8ac7(0x1ad)](LAST_SYNC_TIME_KEY),_0x460cf2=localStorage[_0x2d8ac7(0x1ad)](_0x2d8ac7(0x182)),_0x5a3924=Date[_0x2d8ac7(0x1b9)]();if(!_0xf41f73&&_0x3debf4&&_0x5a3924-parseInt(_0x3debf4)<0x2*0x3c*0x3e8&&_0x460cf2==_0x420eb8[_0x2d8ac7(0x16c)]){console[_0x2d8ac7(0x172)](_0x2d8ac7(0x1b0));return;}const _0x2368b1={'user':_0x3d1684,'streak':_0x420eb8[_0x2d8ac7(0x16c)],'progress':_0x5ec031,'lastActive':firebase['firestore'][_0x2d8ac7(0x174)][_0x2d8ac7(0x19e)](),'color':_0x1cfb26,'lastUpdate':_0x420eb8[_0x2d8ac7(0x19c)]};_0xf41f73&&(_0x2368b1['streakTimestamp']=firebase[_0x2d8ac7(0x1bf)][_0x2d8ac7(0x174)][_0x2d8ac7(0x19e)]());try{await db['collection'](DB_USERS_STATS)[_0x2d8ac7(0x1c4)](_0x3d1684)['set'](_0x2368b1,{'merge':!![]}),localStorage[_0x2d8ac7(0x1b1)](LAST_SYNC_TIME_KEY,_0x5a3924[_0x2d8ac7(0x14b)]()),localStorage[_0x2d8ac7(0x1b1)](_0x2d8ac7(0x182),_0x420eb8[_0x2d8ac7(0x16c)]['toString']()),sessionStorage['removeItem'](RANKING_CACHE_KEY);}catch(_0x47b17f){console[_0x2d8ac7(0x14f)](_0x2d8ac7(0x156),_0x47b17f);}}const LAST_SYNC_TIME_KEY=a50_0x425330(0x1a7),RANKING_CACHE_KEY=a50_0x425330(0x1a5),CACHE_DURATION=0x1*0x3c*0x3e8;async function showRanking(){const _0x45746e=a50_0x425330,_0x1dfa1e=document[_0x45746e(0x15c)](_0x45746e(0x188)),_0x27f9f0=document[_0x45746e(0x15c)]('ranking-list');if(!_0x1dfa1e||!_0x27f9f0)return;_0x1dfa1e[_0x45746e(0x1a8)][_0x45746e(0x1cc)](_0x45746e(0x1a9));const _0x377e91=sessionStorage['getItem'](RANKING_CACHE_KEY);if(_0x377e91){const {timestamp:_0x53e6cc,html:_0x477f58}=JSON[_0x45746e(0x1a6)](_0x377e91);if(Date[_0x45746e(0x1b9)]()-_0x53e6cc<CACHE_DURATION){_0x27f9f0[_0x45746e(0x1ae)]=_0x477f58;return;}}_0x27f9f0[_0x45746e(0x1ae)]=_0x45746e(0x19b);if(typeof db===_0x45746e(0x158)||!db){setTimeout(showRanking,0x3e8);return;}executeRankingFetch(_0x27f9f0);}async function executeRankingFetch(_0x467aec){const _0x4cf873=a50_0x425330;try{const _0x4caf16=new Intl[(_0x4cf873(0x171))](_0x4cf873(0x165),{'timeZone':_0x4cf873(0x1b5)})[_0x4cf873(0x14d)](new Date()),_0x534fab=await db['collection'](DB_USERS_STATS)['where']('lastUpdate','==',_0x4caf16)[_0x4cf873(0x186)](_0x4cf873(0x170),_0x4cf873(0x162))[_0x4cf873(0x199)](0xa)[_0x4cf873(0x146)]();_0x467aec[_0x4cf873(0x1ae)]='';let _0x3e36e5=0x1;if(_0x534fab[_0x4cf873(0x18a)]){_0x467aec[_0x4cf873(0x1ae)]=_0x4cf873(0x183);return;}_0x534fab[_0x4cf873(0x1af)](_0x21fb37=>{const _0x55afc9=_0x4cf873,_0x553830=_0x21fb37[_0x55afc9(0x1c7)](),_0x35eba3=_0x553830['user']===localStorage[_0x55afc9(0x1ad)](_0x55afc9(0x163)),_0x241925=document['createElement'](_0x55afc9(0x1cf));_0x241925[_0x55afc9(0x1ca)]=_0x55afc9(0x167)+(_0x35eba3?'bg-primary/20\x20border-primary/50':'bg-white/5\x20border-white/5');let _0x1a6608=![];if(_0x553830[_0x55afc9(0x1a4)]){const _0x1a862a=_0x553830[_0x55afc9(0x1a4)]['toDate']()['getTime']();_0x1a6608=Date[_0x55afc9(0x1b9)]()-_0x1a862a<0x5*0x3c*0x3e8;}let _0x255928=_0x3e36e5<=0x3?['🥇','🥈','🥉'][_0x3e36e5-0x1]:_0x55afc9(0x18e)+_0x3e36e5+_0x55afc9(0x16a);const _0x41c4f5=typeof getStreakColor===_0x55afc9(0x18b)?getStreakColor(_0x553830[_0x55afc9(0x143)]||0x0):_0x55afc9(0x1a0);let _0x20b751='';if(_0x553830[_0x55afc9(0x170)]){const _0x3f2d20=_0x553830[_0x55afc9(0x170)]['toDate']();_0x20b751=_0x3f2d20[_0x55afc9(0x17d)]([],{'hour':_0x55afc9(0x155),'minute':_0x55afc9(0x155),'hour12':![]});}_0x241925[_0x55afc9(0x1ae)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20items-center\x20gap-4\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22text-xl\x20w-8\x20flex\x20justify-center\x22>'+_0x255928+_0x55afc9(0x1d1)+(_0x553830[_0x55afc9(0x151)]===_0x55afc9(0x198)?_0x55afc9(0x160):'')+_0x55afc9(0x1c6)+_0x553830[_0x55afc9(0x152)]+_0x55afc9(0x193)+(_0x553830['color']&&_0x553830[_0x55afc9(0x151)]!==_0x55afc9(0x198)?'color:'+_0x553830[_0x55afc9(0x151)]:'')+'\x22>'+(_0x553830[_0x55afc9(0x152)]||_0x55afc9(0x14e))+'</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20items-center\x20gap-2\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22w-12\x20h-1\x20bg-white/5\x20rounded-full\x20overflow-hidden\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22h-full\x20bg-neon-green/50\x22\x20style=\x22width:\x20'+(_0x553830[_0x55afc9(0x149)]||'0%')+_0x55afc9(0x153)+(_0x553830[_0x55afc9(0x149)]||'0%')+_0x55afc9(0x1ce)+(_0x20b751?'<span\x20class=\x22text-[8px]\x20text-neon-green/60\x20font-mono\x20ml-1\x22><i\x20class=\x22far\x20fa-clock\x20mr-1\x22></i>'+_0x20b751+_0x55afc9(0x16a):'')+'\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20items-center\x20gap-2\x20bg-black/30\x20px-3\x20py-1.5\x20rounded-lg\x20border\x20border-white/5\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22text-sm\x20font-black\x20text-white\x22>'+(_0x553830['streak']||0x0)+'</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<i\x20class=\x22fas\x20fa-fire\x20text-[10px]\x22\x20style=\x22color:\x20'+_0x41c4f5+_0x55afc9(0x17f),_0x467aec[_0x55afc9(0x18c)](_0x241925),_0x3e36e5++;}),sessionStorage[_0x4cf873(0x1b1)](RANKING_CACHE_KEY,JSON[_0x4cf873(0x181)]({'timestamp':Date['now'](),'html':_0x467aec[_0x4cf873(0x1ae)]}));}catch(_0xff19a2){console[_0x4cf873(0x15f)](_0xff19a2),_0x467aec['innerHTML']=_0x4cf873(0x168);}}function closeRanking(){const _0x36556f=a50_0x425330,_0x518613=document[_0x36556f(0x15c)](_0x36556f(0x188));if(_0x518613)_0x518613[_0x36556f(0x1a8)]['add'](_0x36556f(0x1a9));}function watchAdForFreeze(){const _0x37df3a=a50_0x425330,_0x2fd05b=localStorage[_0x37df3a(0x1ad)](LAST_AD_VIEW_KEY),_0x388ea3=Date[_0x37df3a(0x1b9)](),_0x4ac48a=0xc*0x3c*0x3c*0x3e8;if(_0x2fd05b&&_0x388ea3-_0x2fd05b<_0x4ac48a){const _0x3a468d=Math['ceil']((_0x4ac48a-(_0x388ea3-_0x2fd05b))/(0x3c*0x3c*0x3e8));showNotification('Vuelve\x20en\x20'+_0x3a468d+_0x37df3a(0x1d2),'info');return;}const _0x16a0c5=document[_0x37df3a(0x1ba)]('div');_0x16a0c5[_0x37df3a(0x1ae)]=_0x37df3a(0x169),_0x16a0c5[_0x37df3a(0x1ca)]=_0x37df3a(0x1b2),document['body'][_0x37df3a(0x18c)](_0x16a0c5);const _0x4cd7fb=_0x16a0c5['offsetHeight']===0x0;_0x16a0c5[_0x37df3a(0x1cc)]();if(_0x4cd7fb){showNotification(_0x37df3a(0x176),_0x37df3a(0x15f));return;}const _0x4ed623=document[_0x37df3a(0x15c)]('ad-modal'),_0x312807=document[_0x37df3a(0x15c)](_0x37df3a(0x1c5)),_0x2547f5=document[_0x37df3a(0x15c)](_0x37df3a(0x189));if(!_0x4ed623)return;_0x4ed623[_0x37df3a(0x1a8)][_0x37df3a(0x1cc)]('hidden');try{(window[_0x37df3a(0x1b4)]=window[_0x37df3a(0x1b4)]||[])[_0x37df3a(0x177)]({});}catch(_0x128fe9){console[_0x37df3a(0x14f)](_0x37df3a(0x1ab),_0x128fe9);}let _0x49446a=0xf,_0x4e3f3d=![];const _0xa19f64=()=>{const _0x19307d=_0x37df3a;if(document[_0x19307d(0x1a9)]){_0x4e3f3d=!![];if(_0x312807)_0x312807[_0x19307d(0x1ae)]='<span\x20style=\x22color:#f87171\x22>⏳\x20Pausado</span>';}else _0x4e3f3d=![];};document['addEventListener'](_0x37df3a(0x1b3),_0xa19f64);const _0x5c59cc=setInterval(()=>{const _0x2e7d56=_0x37df3a;if(_0x4e3f3d)return;_0x49446a--;if(_0x312807)_0x312807['innerText']=_0x2e7d56(0x1a2)+_0x49446a+_0x2e7d56(0x1b7);if(_0x49446a<=0x0){clearInterval(_0x5c59cc),document[_0x2e7d56(0x195)]('visibilitychange',_0xa19f64);if(_0x312807)_0x312807[_0x2e7d56(0x1ae)]=_0x2e7d56(0x147);_0x2547f5&&(_0x2547f5['disabled']=![],_0x2547f5[_0x2e7d56(0x1a8)][_0x2e7d56(0x1cc)](_0x2e7d56(0x157),_0x2e7d56(0x194)),_0x2547f5[_0x2e7d56(0x1a8)][_0x2e7d56(0x1cd)](_0x2e7d56(0x1bb),'cursor-pointer',_0x2e7d56(0x192),_0x2e7d56(0x1c1)));}},0x3e8);}function closeAdWithReward(){const _0x464992=a50_0x425330,_0x448840=document[_0x464992(0x15c)](_0x464992(0x1c0));if(_0x448840)_0x448840[_0x464992(0x1a8)][_0x464992(0x1cd)](_0x464992(0x1a9));addFreeze(),localStorage['setItem'](LAST_AD_VIEW_KEY,Date[_0x464992(0x1b9)]()[_0x464992(0x14b)]());const _0x1f84d4=document[_0x464992(0x15c)]('btn-close-ad');_0x1f84d4&&(_0x1f84d4[_0x464992(0x15b)]=!![],_0x1f84d4[_0x464992(0x1a8)][_0x464992(0x1cd)](_0x464992(0x157),_0x464992(0x194)),_0x1f84d4[_0x464992(0x1a8)][_0x464992(0x1cc)](_0x464992(0x1bb),_0x464992(0x184),_0x464992(0x161)));}document[a50_0x425330(0x196)](a50_0x425330(0x180),()=>{initStreak();});
+const DAILY_CHALLENGE_KEY = 'PyNeo-daily-challenge';
+const DB_USERS_STATS = 'leaderboard';
+const STREAK_FREEZE_KEY = 'PyNeo-streak-freeze';
+const LAST_AD_VIEW_KEY = 'PyNeo-last-ad-view';
+
+function initStreak() {
+    checkStreakLoss();
+    updateDailyChallengeUI();
+    // Sync periodically if connected
+    setTimeout(() => {
+        syncDailyChallengeWithFirestore();
+    }, 500);
+}
+
+function getFreezes() {
+    return parseInt(localStorage.getItem(STREAK_FREEZE_KEY) || "0");
+}
+
+function addFreeze() {
+    let current = getFreezes();
+    if (current >= 2) {
+        showNotification('Ya tienes el máximo de protectores (2) ❄️', 'info');
+        return false;
+    }
+    localStorage.setItem(STREAK_FREEZE_KEY, current + 1);
+    showNotification('¡Has ganado un Protector de Racha! ❄️', 'success');
+    updateDailyChallengeUI();
+    return true;
+}
+
+function checkStreakLoss() {
+    let challenge = getDailyChallenge();
+    if (!challenge.lastUpdate || challenge.count === 0) return;
+
+    const now = new Date();
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Guayaquil' }).format(now);
+
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    const yesterdayStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Guayaquil' }).format(yesterday);
+
+    if (challenge.lastUpdate !== today && challenge.lastUpdate !== yesterdayStr) {
+        let freezes = getFreezes();
+        if (freezes > 0) {
+            console.log("❄️ Protector usado! Racha salvada.");
+            localStorage.setItem(STREAK_FREEZE_KEY, freezes - 1);
+            challenge.lastUpdate = yesterdayStr; // Simulate they did it yesterday to keep it alive
+            localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
+            showNotification('¡Tu Protector de Racha te ha salvado hoy! ❄️', 'info');
+        } else {
+            console.log("💔 Racha perdida por inactividad.");
+            challenge.count = 0;
+            localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
+        }
+    }
+}
+
+function getDailyChallenge() {
+    const saved = localStorage.getItem(DAILY_CHALLENGE_KEY);
+    if (!saved) return { count: 0, lastUpdate: null };
+    try {
+        return JSON.parse(saved);
+    } catch (e) {
+        return { count: 0, lastUpdate: null };
+    }
+}
+
+// Main logic for the challenge button
+function handleDailyChallengeClick() {
+    const now = new Date();
+    const today = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Guayaquil'
+    }).format(now);
+
+    const challenge = getDailyChallenge();
+
+    if (challenge.lastUpdate === today) {
+        // Already done today, show ranking
+        showRanking();
+        showNotification('¡Ya completaste tu reto de hoy! 🎯', 'info');
+        return;
+    }
+
+    startRandomDailyExercise();
+}
+
+function startRandomDailyExercise() {
+    if (typeof window.dailyChallenges === 'undefined' || window.dailyChallenges.length === 0) {
+        showNotification('Cargando reto del día...', 'info');
+        setTimeout(startRandomDailyExercise, 1000);
+        return;
+    }
+
+    // Pick exactly one per day based on date (Guayaquil timezone)
+    const now = new Date();
+    const dateStr = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Guayaquil'
+    }).format(now); // "YYYY-MM-DD"
+
+    // Simple hash from date string to index
+    let hash = 0;
+    for (let i = 0; i < dateStr.length; i++) {
+        hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
+        hash |= 0;
+    }
+
+    const index = Math.abs(hash) % window.dailyChallenges.length;
+    const todayChallenge = window.dailyChallenges[index];
+
+    // Inject into evaluations if not present so startEvaluation can find it
+    if (typeof window.evaluations !== 'undefined') {
+        if (!window.evaluations.find(e => e.id === todayChallenge.id)) {
+            window.evaluations.push(todayChallenge);
+        }
+    }
+
+    showNotification(`Reto del día: ${todayChallenge.title} ✨`, 'success');
+
+    if (typeof startEvaluation === 'function') {
+        startEvaluation(todayChallenge.id, false); // Sin tiempo
+    } else {
+        console.error("startEvaluation not found");
+    }
+}
+
+function updateStreak() { // Compatibility name for app_eval.js and nextLesson()
+    const now = new Date();
+    const today = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Guayaquil'
+    }).format(now);
+
+    let challenge = getDailyChallenge();
+
+    if (challenge.lastUpdate === today) return;
+
+    challenge.count++;
+    challenge.lastUpdate = today;
+
+    // Duolingo Reward: Gain a freeze every 7 days
+    if (challenge.count % 7 === 0) {
+        addFreeze();
+    }
+
+    localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
+    updateDailyChallengeUI();
+    syncDailyChallengeWithFirestore(true); // Indica que es una nueva racha completada
+
+    showNotification('¡Desafío diario completado! 🔥', 'success');
+}
+
+function getStreakColor(count) {
+    if (count >= 30) return '#06b6d4'; // Cyan/Master
+    if (count >= 15) return '#a855f7'; // Purple
+    if (count >= 7) return '#ec4899';  // Pink
+    if (count >= 3) return '#ef4444';  // Red
+    return '#f97316'; // Orange default
+}
+
+function updateDailyChallengeUI() {
+    const challenge = getDailyChallenge();
+    const countEl = document.getElementById('header-streak-count');
+    const container = document.getElementById('streak-container');
+    const freezes = getFreezes();
+
+    if (countEl) {
+        countEl.innerText = challenge.count;
+    }
+
+    const now = new Date();
+    const today = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Guayaquil'
+    }).format(now);
+
+    if (container) {
+        const icon = container.querySelector('i');
+        const color = getStreakColor(challenge.count);
+
+        // Protector Counter removed from header
+        const modalCount = document.getElementById('modal-freeze-count');
+        if (modalCount) modalCount.innerText = `${freezes}/2`;
+
+        if (challenge.lastUpdate === today) {
+            container.classList.remove('opacity-20');
+            container.classList.add('opacity-100');
+            container.style.borderColor = `${color}40`;
+            if (icon) {
+                icon.className = 'fas fa-fire text-sm animate-flame order-2';
+                icon.style.color = color;
+                icon.style.filter = `drop-shadow(0 0 8px ${color}60)`;
+            }
+            const countEl = document.getElementById('header-streak-count');
+            if (countEl) countEl.classList.add('order-1');
+        } else {
+            container.classList.add('opacity-100');
+            container.classList.remove('opacity-20');
+            container.style.borderColor = 'rgba(255,255,255,0.1)';
+            if (icon) {
+                icon.className = 'fas fa-fire text-gray-500 text-sm order-2';
+                icon.style.color = '';
+                icon.style.filter = '';
+            }
+            const countEl = document.getElementById('header-streak-count');
+            if (countEl) countEl.classList.add('order-1');
+        }
+    }
+}
+
+async function syncDailyChallengeWithFirestore(isNewCompletion = false) {
+    if (typeof db === 'undefined' || !db) return;
+    const currentUser = localStorage.getItem('pyneo_chat_user');
+    if (!currentUser) return;
+
+    const challenge = getDailyChallenge();
+    const progressEl = document.getElementById('overall-progress');
+    const userProgress = progressEl ? progressEl.innerText : '0%';
+    const userColor = typeof getUserColor === 'function' ? getUserColor(currentUser) : (localStorage.getItem('PyNeo-user-color') || '#ffffff');
+
+    // OPTIMIZATION: Only sync if enough time has passed (2 mins) or if streak changed
+    const lastSync = localStorage.getItem(LAST_SYNC_TIME_KEY);
+    const lastSyncedStreak = localStorage.getItem('PyNeo-last-synced-count');
+    const now = Date.now();
+
+    // Si es una nueva racha (isNewCompletion), no saltamos para asegurar el timestamp
+    if (!isNewCompletion && lastSync && (now - parseInt(lastSync) < 2 * 60 * 1000) && lastSyncedStreak == challenge.count) {
+        console.log("Sync skipped to save quota");
+        return;
+    }
+
+    const data = {
+        user: currentUser,
+        streak: challenge.count, // Mapping count to 'streak' field for ranking
+        progress: userProgress,
+        lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+        color: userColor,
+        lastUpdate: challenge.lastUpdate // Guardamos la fecha YYYY-MM-DD
+    };
+
+    if (isNewCompletion) {
+        data.streakTimestamp = firebase.firestore.FieldValue.serverTimestamp();
+    }
+
+    try {
+        await db.collection(DB_USERS_STATS).doc(currentUser).set(data, { merge: true });
+
+        localStorage.setItem(LAST_SYNC_TIME_KEY, now.toString());
+        localStorage.setItem('PyNeo-last-synced-count', challenge.count.toString());
+
+        // Clear ranking cache to show updated data
+        sessionStorage.removeItem(RANKING_CACHE_KEY);
+    } catch (e) {
+        console.warn("Firestore sync error:", e);
+    }
+}
+
+const LAST_SYNC_TIME_KEY = 'PyNeo-last-sync-time';
+const RANKING_CACHE_KEY = 'PyNeo-ranking-cache';
+const CACHE_DURATION = 1 * 60 * 1000; // 1 minute (antes 5 mins)
+
+async function showRanking() {
+    const modal = document.getElementById('ranking-modal');
+    const list = document.getElementById('ranking-list');
+    if (!modal || !list) return;
+
+    modal.classList.remove('hidden');
+
+    // Check Cache first
+    const cached = sessionStorage.getItem(RANKING_CACHE_KEY);
+    if (cached) {
+        const { timestamp, html } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_DURATION) {
+            list.innerHTML = html;
+            return;
+        }
+    }
+
+    list.innerHTML = '<div class="flex justify-center p-8"><i class="fas fa-spinner fa-spin text-neon-green text-3xl"></i></div>';
+
+    if (typeof db === 'undefined' || !db) {
+        setTimeout(showRanking, 1000);
+        return;
+    }
+
+    executeRankingFetch(list);
+}
+
+async function executeRankingFetch(list) {
+    try {
+        // Obtenemos la fecha de hoy en Guayaquil
+        const today = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/Guayaquil'
+        }).format(new Date());
+
+        // OPTIMIZACIÓN: Fetch simple para evitar error de índice compuesto missing
+        // Luego ordenamos en memoria para los top 10 (ahorra quota y evita error)
+        const querySnapshot = await db.collection(DB_USERS_STATS)
+            .where('lastUpdate', '==', today)
+            .limit(20)
+            .get();
+
+        let users = [];
+        querySnapshot.forEach(doc => {
+            const data = doc.data();
+            users.push({ id: doc.id, ...data });
+        });
+
+        // Ordenar por streakTimestamp (los que terminaron más temprano aparecen primero)
+        users.sort((a, b) => {
+            const getMillis = (ts) => {
+                if (!ts) return 0;
+                if (typeof ts.toDate === 'function') return ts.toDate().getTime();
+                if (ts.seconds) return ts.seconds * 1000;
+                if (ts instanceof Date) return ts.getTime();
+                return 0;
+            };
+            return getMillis(a.streakTimestamp) - getMillis(b.streakTimestamp);
+        });
+
+        const top10 = users.slice(0, 10);
+
+        list.innerHTML = '';
+        let rank = 1;
+        if (top10.length === 0) {
+            list.innerHTML = '<p class="text-center text-gray-500 py-8">No hay datos aún.</p>';
+            return;
+        }
+
+        top10.forEach(userData => {
+            const data = userData;
+            const isMe = data.user === localStorage.getItem('pyneo_chat_user');
+            const item = document.createElement('div');
+            item.className = `flex items-center justify-between p-4 rounded-xl mb-2 border transition-all ${isMe ? 'bg-primary/20 border-primary/50' : 'bg-white/5 border-white/5'}`;
+
+            let isActive = false;
+            if (data.lastActive && typeof data.lastActive.toDate === 'function') {
+                const lastActiveTime = data.lastActive.toDate().getTime();
+                isActive = (Date.now() - lastActiveTime) < 5 * 60 * 1000;
+            }
+
+            let rankIcon = rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : `<span class="text-gray-500 w-8 text-center font-bold">${rank}</span>`;
+            const color = typeof getStreakColor === 'function' ? getStreakColor(data.streak || 0) : '#f97316';
+
+            item.innerHTML = `
+                <div class="flex items-center gap-4">
+                    <div class="text-xl w-8 flex justify-center">${rankIcon}</div>
+                    <div class="relative">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-sm ${data.color === 'glitch-effect' ? 'glitch-text text-white' : ''}" data-text="${data.user}" style="${data.color && data.color !== 'glitch-effect' ? 'color:' + data.color : ''}">${data.user || 'Anon'}</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-12 h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-neon-green/50" style="width: ${data.progress || '0%'}"></div>
+                                </div>
+                                <span class="text-[8px] text-gray-600">${data.progress || '0%'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5">
+                    <span class="text-sm font-black text-white">${data.streak || 0}</span>
+                    <i class="fas fa-fire text-[10px]" style="color: ${color}"></i>
+                </div>
+            `;
+            list.appendChild(item);
+            rank++;
+        });
+
+        // Save to cache
+        sessionStorage.setItem(RANKING_CACHE_KEY, JSON.stringify({
+            timestamp: Date.now(),
+            html: list.innerHTML
+        }));
+
+    } catch (error) {
+        console.error("Ranking Error Details:", error);
+        list.innerHTML = `
+            <div class="text-center py-8">
+                <p class="text-red-400 mb-2">Error al cargar ranking.</p>
+                <p class="text-[10px] text-gray-600 px-4">${error.message || "Error desconocido"}</p>
+                <button onclick="executeRankingFetch(document.getElementById('ranking-list'))" class="mt-4 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-[10px] text-gray-400 uppercase tracking-widest border border-white/10 transition-all">Reintentar</button>
+            </div>
+        `;
+    }
+}
+
+
+function closeRanking() {
+    const modal = document.getElementById('ranking-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function watchAdForFreeze() {
+    const lastView = localStorage.getItem(LAST_AD_VIEW_KEY);
+    const now = Date.now();
+    const COOLDOWN = 12 * 60 * 60 * 1000;
+
+    if (lastView && (now - lastView < COOLDOWN)) {
+        const timeLeft = Math.ceil((COOLDOWN - (now - lastView)) / (60 * 60 * 1000));
+        showNotification(`Vuelve en ${timeLeft} horas para otro protector ❄️`, 'info');
+        return;
+    }
+
+    // --- DETECCIÓN DE ADBLOCK ---
+    const adBlockTest = document.createElement('div');
+    adBlockTest.innerHTML = '&nbsp;';
+    adBlockTest.className = 'adsbox';
+    document.body.appendChild(adBlockTest);
+    const isAdBlockActive = adBlockTest.offsetHeight === 0;
+    adBlockTest.remove();
+
+    if (isAdBlockActive) {
+        showNotification('Desactiva el AdBlock para ganar protecciones gratis 🛡️', 'error');
+        return;
+    }
+
+    const modal = document.getElementById('ad-modal');
+    const countdownEl = document.getElementById('ad-countdown');
+    const closeBtn = document.getElementById('btn-close-ad');
+
+    if (!modal) return;
+    modal.classList.remove('hidden');
+
+    // Inicializar el anuncio real de AdSense dentro del modal
+    try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+        console.warn('AdSense no disponible:', e);
+    }
+
+    let seconds = 15;
+    let isPaused = false;
+
+    // Detectar si el usuario cambia de pestaña (Trampa)
+    const handleVisibilityChange = () => {
+        if (document.hidden) {
+            isPaused = true;
+            if (countdownEl) countdownEl.innerHTML = '<span style="color:#f87171">⏳ Pausado</span>';
+        } else {
+            isPaused = false;
+        }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    const interval = setInterval(() => {
+        if (isPaused) return;
+
+        seconds--;
+        if (countdownEl) countdownEl.innerText = `Espera ${seconds}s...`;
+
+        if (seconds <= 0) {
+            clearInterval(interval);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            if (countdownEl) countdownEl.innerHTML = '<span style="color:#4ade80;font-weight:bold">¡LISTO!</span>';
+            if (closeBtn) {
+                closeBtn.disabled = false;
+                closeBtn.classList.remove('text-gray-700', 'cursor-not-allowed');
+                closeBtn.classList.add('text-white', 'cursor-pointer', 'bg-blue-500/30', 'border-blue-400/60');
+            }
+        }
+    }, 1000);
+}
+
+function closeAdWithReward() {
+    const modal = document.getElementById('ad-modal');
+    if (modal) modal.classList.add('hidden');
+
+    addFreeze();
+    localStorage.setItem(LAST_AD_VIEW_KEY, Date.now().toString());
+
+    // Reset button state for next time
+    const closeBtn = document.getElementById('btn-close-ad');
+    if (closeBtn) {
+        closeBtn.disabled = true;
+        closeBtn.classList.add('text-gray-700', 'cursor-not-allowed');
+        closeBtn.classList.remove('text-white', 'hover:text-red-400', 'cursor-pointer');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initStreak();
+});
