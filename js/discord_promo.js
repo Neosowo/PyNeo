@@ -1,1 +1,109 @@
-const a2_0x5cc875=a2_0x38f3;(function(_0x51fd55,_0x4a7b8c){const _0xbb546a=a2_0x38f3,_0x489918=_0x51fd55();while(!![]){try{const _0x328120=parseInt(_0xbb546a(0x1f0))/0x1+-parseInt(_0xbb546a(0x1fc))/0x2*(parseInt(_0xbb546a(0x1f1))/0x3)+parseInt(_0xbb546a(0x201))/0x4+-parseInt(_0xbb546a(0x1f3))/0x5+-parseInt(_0xbb546a(0x1f8))/0x6+parseInt(_0xbb546a(0x1f9))/0x7+-parseInt(_0xbb546a(0x1f2))/0x8*(-parseInt(_0xbb546a(0x1ff))/0x9);if(_0x328120===_0x4a7b8c)break;else _0x489918['push'](_0x489918['shift']());}catch(_0x327f77){_0x489918['push'](_0x489918['shift']());}}}(a2_0x146b,0xec41a));const DISCORD_HIDE_KEY=a2_0x5cc875(0x1ef),DISCORD_SESSION_HIDE='PyNeo-discord-session-hide',DISCORD_LINK='https://discord.gg/S8Xp6Dk3';function initDiscordPromo(){const _0x3942b8=a2_0x5cc875,_0x1b71bc=localStorage[_0x3942b8(0x1e9)](DISCORD_HIDE_KEY);if(_0x1b71bc==='permanent')return;if(sessionStorage['getItem'](DISCORD_SESSION_HIDE))return;createDiscordUI();}function createDiscordUI(){const _0x239bf2=a2_0x5cc875;if(document[_0x239bf2(0x208)](_0x239bf2(0x1fb)))return;const _0xed0b96=document[_0x239bf2(0x1f7)](_0x239bf2(0x1ec));_0xed0b96['id']='discord-promo',_0xed0b96[_0x239bf2(0x1fd)]=_0x239bf2(0x1e6),_0xed0b96[_0x239bf2(0x207)]=_0x239bf2(0x1e8)+DISCORD_LINK+_0x239bf2(0x206),document[_0x239bf2(0x1e7)][_0x239bf2(0x1fe)](_0xed0b96);}function a2_0x38f3(_0x3dd605,_0x2e4182){_0x3dd605=_0x3dd605-0x1e6;const _0x146b02=a2_0x146b();let _0x38f3ef=_0x146b02[_0x3dd605];return _0x38f3ef;}function a2_0x146b(){const _0x3378e9=['head','addEventListener','join','textContent','\x22\x20target=\x22_blank\x22\x20onclick=\x22handleDiscordAction(\x27join\x27)\x22\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20class=\x22bg-[#5865f2]\x20hover:bg-[#4752c4]\x20text-white\x20text-center\x20py-2.5\x20rounded-xl\x20font-bold\x20text-sm\x20transition-all\x20hover:shadow-lg\x20hover:shadow-[#5865f2]/30\x20active:scale-95\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Unirse\x20ahora\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</a>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20gap-2\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22handleDiscordAction(\x27later\x27)\x22\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20class=\x22flex-1\x20bg-white/5\x20hover:bg-white/10\x20text-gray-300\x20py-2\x20rounded-lg\x20text-[10px]\x20font-bold\x20transition-all\x20border\x20border-white/5\x20uppercase\x20tracking-wider\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Recordar\x20más\x20tarde\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22handleDiscordAction(\x27never\x27)\x22\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20class=\x22flex-1\x20bg-white/5\x20hover:bg-white/10\x20text-gray-500\x20hover:text-red-400\x20py-2\x20rounded-lg\x20text-[10px]\x20font-bold\x20transition-all\x20border\x20border-white/5\x20uppercase\x20tracking-wider\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20No\x20mostrar\x20más\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<!--\x20Close\x20icon\x20small\x20-->\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22handleDiscordAction(\x27later\x27)\x22\x20class=\x22absolute\x20top-3\x20right-3\x20text-gray-600\x20hover:text-white\x20transition-colors\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<i\x20class=\x22fas\x20fa-times\x20text-xs\x22></i>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20','innerHTML','getElementById','\x0a\x20\x20\x20\x20\x20\x20\x20\x20@keyframes\x20fade-in-up\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20from\x20{\x20opacity:\x200;\x20transform:\x20translateY(30px)\x20scale(0.95);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20to\x20{\x20opacity:\x201;\x20transform:\x20translateY(0)\x20scale(1);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20@keyframes\x20fade-out-down\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20from\x20{\x20opacity:\x201;\x20transform:\x20translateY(0)\x20scale(1);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20to\x20{\x20opacity:\x200;\x20transform:\x20translateY(30px)\x20scale(0.95);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.animate-fade-in-up\x20{\x20animation:\x20fade-in-up\x200.6s\x20cubic-bezier(0.16,\x201,\x200.3,\x201)\x20forwards;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.animate-fade-out-down\x20{\x20animation:\x20fade-out-down\x200.4s\x20cubic-bezier(0.7,\x200,\x200.84,\x200)\x20forwards;\x20}\x0a\x20\x20\x20\x20','fixed\x20bottom-6\x20left-6\x20z-[150]\x20max-w-[320px]\x20md:max-w-sm\x20animate-fade-in-up','body','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22bg-[#1e1f22]/95\x20border\x20border-[#5865f2]/30\x20rounded-2xl\x20p-5\x20shadow-2xl\x20backdrop-blur-xl\x20relative\x20overflow-hidden\x20group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<!--\x20Discord-like\x20glow\x20-->\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22absolute\x20-right-10\x20-top-10\x20w-32\x20h-32\x20bg-[#5865f2]/10\x20rounded-full\x20blur-3xl\x20group-hover:bg-[#5865f2]/20\x20transition-all\x20duration-700\x22></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20items-start\x20gap-4\x20relative\x20z-10\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22w-12\x20h-12\x20bg-[#5865f2]\x20rounded-2xl\x20flex\x20items-center\x20justify-center\x20shadow-lg\x20shadow-[#5865f2]/20\x20shrink-0\x20transform\x20group-hover:scale-110\x20transition-transform\x20duration-300\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<i\x20class=\x22fab\x20fa-discord\x20text-2xl\x20text-white\x22></i>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h4\x20class=\x22text-white\x20font-black\x20text-lg\x20leading-tight\x20mb-1\x22>¡Comunidad\x20Discord!\x20🚀</h4>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p\x20class=\x22text-gray-400\x20text-[11px]\x20leading-relaxed\x20mb-4\x22>Únete\x20para\x20resolver\x20dudas,\x20compartir\x20tus\x20códigos\x20y\x20conocer\x20a\x20otros\x20estudiantes\x20de\x20PyNeo.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22flex\x20flex-col\x20gap-2\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<a\x20href=\x22','getItem','classList','animate-fade-in-up','div','later','add','PyNeo-discord-hide','672609KexknD','9219pTjCoE','8844712PZLAny','6630675nnRJSh','discord-promo-styles','remove','never','createElement','8304282IeoMcw','11110414wkceTc','DOMContentLoaded','discord-promo','142kWPXiv','className','appendChild','9YEFkZG','setItem','2122684piSqAR'];a2_0x146b=function(){return _0x3378e9;};return a2_0x146b();}function handleDiscordAction(_0x42d52e){const _0x3597b8=a2_0x5cc875,_0x2f8af6=document[_0x3597b8(0x208)](_0x3597b8(0x1fb));_0x2f8af6&&(_0x2f8af6[_0x3597b8(0x1ea)]['remove'](_0x3597b8(0x1eb)),_0x2f8af6[_0x3597b8(0x1ea)][_0x3597b8(0x1ee)]('animate-fade-out-down')),setTimeout(()=>{const _0x4697b5=_0x3597b8;if(_0x2f8af6)_0x2f8af6[_0x4697b5(0x1f5)]();if(_0x42d52e===_0x4697b5(0x1ed))sessionStorage[_0x4697b5(0x200)](DISCORD_SESSION_HIDE,'true');else{if(_0x42d52e===_0x4697b5(0x1f6))localStorage[_0x4697b5(0x200)](DISCORD_HIDE_KEY,'permanent');else _0x42d52e===_0x4697b5(0x204)&&localStorage[_0x4697b5(0x200)](DISCORD_HIDE_KEY,'permanent');}},0x1f4);}if(!document['getElementById'](a2_0x5cc875(0x1f4))){const style=document['createElement']('style');style['id']='discord-promo-styles',style[a2_0x5cc875(0x205)]=a2_0x5cc875(0x209),document[a2_0x5cc875(0x202)]['appendChild'](style);}document[a2_0x5cc875(0x203)](a2_0x5cc875(0x1fa),()=>{setTimeout(initDiscordPromo,0xfa0);});
+const DISCORD_HIDE_KEY = 'PyNeo-discord-hide';
+const DISCORD_SESSION_HIDE = 'PyNeo-discord-session-hide';
+const DISCORD_LINK = 'https://discord.gg/2pPYtJyEFw'; // Reemplázalo con tu link real de Discord
+
+function initDiscordPromo() {
+    const hideStatus = localStorage.getItem(DISCORD_HIDE_KEY);
+    if (hideStatus === 'permanent') return;
+
+    // Si ya lo ocultó en esta sesión, no molestar
+    if (sessionStorage.getItem(DISCORD_SESSION_HIDE)) return;
+
+    createDiscordUI();
+}
+
+function createDiscordUI() {
+    // Evitar duplicados
+    if (document.getElementById('discord-promo')) return;
+
+    const promo = document.createElement('div');
+    promo.id = 'discord-promo';
+    // Estilos base usando Tailwind para coherencia
+    promo.className = 'fixed bottom-6 left-6 z-[150] max-w-[320px] md:max-w-sm animate-fade-in-up';
+
+    promo.innerHTML = `
+        <div class="bg-[#1e1f22]/95 border border-[#5865f2]/30 rounded-2xl p-5 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
+            <!-- Discord-like glow -->
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#5865f2]/10 rounded-full blur-3xl group-hover:bg-[#5865f2]/20 transition-all duration-700"></div>
+            
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="w-12 h-12 bg-[#5865f2] rounded-2xl flex items-center justify-center shadow-lg shadow-[#5865f2]/20 shrink-0 transform group-hover:scale-110 transition-transform duration-300">
+                    <i class="fab fa-discord text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h4 class="text-white font-black text-lg leading-tight mb-1">¡Comunidad Discord! 🚀</h4>
+                    <p class="text-gray-400 text-[11px] leading-relaxed mb-4">Únete para resolver dudas, compartir tus códigos y conocer a otros estudiantes de PyNeo.</p>
+                    
+                    <div class="flex flex-col gap-2">
+                        <a href="${DISCORD_LINK}" target="_blank" onclick="handleDiscordAction('join')" 
+                           class="bg-[#5865f2] hover:bg-[#4752c4] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-all hover:shadow-lg hover:shadow-[#5865f2]/30 active:scale-95">
+                            Unirse ahora
+                        </a>
+                        <div class="flex gap-2">
+                            <button onclick="handleDiscordAction('later')" 
+                                    class="flex-1 bg-white/5 hover:bg-white/10 text-gray-300 py-2 rounded-lg text-[10px] font-bold transition-all border border-white/5 uppercase tracking-wider">
+                                Recordar más tarde
+                            </button>
+                            <button onclick="handleDiscordAction('never')" 
+                                    class="flex-1 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-red-400 py-2 rounded-lg text-[10px] font-bold transition-all border border-white/5 uppercase tracking-wider">
+                                No mostrar más
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Close icon small -->
+            <button onclick="handleDiscordAction('later')" class="absolute top-3 right-3 text-gray-600 hover:text-white transition-colors">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(promo);
+}
+
+function handleDiscordAction(action) {
+    const promo = document.getElementById('discord-promo');
+    if (promo) {
+        promo.classList.remove('animate-fade-in-up');
+        promo.classList.add('animate-fade-out-down');
+    }
+
+    setTimeout(() => {
+        if (promo) promo.remove();
+
+        if (action === 'later') {
+            sessionStorage.setItem(DISCORD_SESSION_HIDE, 'true');
+        } else if (action === 'never') {
+            localStorage.setItem(DISCORD_HIDE_KEY, 'permanent');
+        } else if (action === 'join') {
+            // Si se une, lo ocultamos permanentemente para no molestar más
+            localStorage.setItem(DISCORD_HIDE_KEY, 'permanent');
+        }
+    }, 500);
+}
+
+// Estilos de animación personalizados si no existen
+if (!document.getElementById('discord-promo-styles')) {
+    const style = document.createElement('style');
+    style.id = 'discord-promo-styles';
+    style.textContent = `
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fade-out-down {
+            from { opacity: 1; transform: translateY(0) scale(1); }
+            to { opacity: 0; transform: translateY(30px) scale(0.95); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-fade-out-down { animation: fade-out-down 0.4s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
+    `;
+    document.head.appendChild(style);
+}
+
+// Inicializar con un pequeño delay para no saturar al entrar
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initDiscordPromo, 4000);
+});
