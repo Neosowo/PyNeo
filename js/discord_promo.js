@@ -1,6 +1,6 @@
 const DISCORD_HIDE_KEY = 'PyNeo-discord-hide';
 const DISCORD_SESSION_HIDE = 'PyNeo-discord-session-hide';
-const DISCORD_LINK = 'https://discord.gg/2pPYtJyEFw'; // Reemplázalo con tu link real de Discord
+const DISCORD_LINK = 'https://discord.gg/bMdEdZ7aH9'; // Reemplázalo con tu link real de Discord
 
 function initDiscordPromo() {
     const hideStatus = localStorage.getItem(DISCORD_HIDE_KEY);
