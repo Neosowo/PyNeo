@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PyNeo</title>
+    <link rel="manifest" href="manifest.json">
 
 
     <meta name="description"
@@ -576,6 +577,52 @@
         footer p span {
             color: var(--primary);
             font-weight: 700;
+        }
+
+        @keyframes pulse-wifi {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 12px rgba(239, 68, 68, 0);
+            }
+        }
+
+        @keyframes shake-no {
+            0% {
+                transform: translateX(0) scale(1);
+            }
+
+            15% {
+                transform: translateX(-6px) scale(0.97);
+            }
+
+            30% {
+                transform: translateX(6px) scale(0.97);
+            }
+
+            45% {
+                transform: translateX(-5px) scale(0.98);
+            }
+
+            60% {
+                transform: translateX(5px) scale(0.98);
+            }
+
+            75% {
+                transform: translateX(-3px);
+            }
+
+            90% {
+                transform: translateX(3px);
+            }
+
+            100% {
+                transform: translateX(0) scale(1);
+            }
         }
     </style>
 
@@ -1378,9 +1425,10 @@
         }
     </script>
 
+    <script src="js/offline.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/streak.js"></script>
-    <script src="js/discord_promo.js"></script>
+    <!-- <script src="js/discord_promo.js"></script> -->
 </body>
 
 </html>
