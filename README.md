@@ -115,13 +115,15 @@ Dado que Skulpt no implementa todas las librerías de Python, se desarrollaron p
 
 La pantalla principal muestra el mapa de unidades y, al seleccionar una, despliega la lección con teoría, ejemplos y un editor de código integrado donde el usuario puede ejecutar Python directamente en el navegador.
 
-![Pantalla principal de PyNeo con lecciones y editor de código](https://py-neo.vercel.app/js/media/preview.png)
+![Pantalla principal de PyNeo con lecciones y editor de código](js/media/preview.png)
 
 > *Interfaz oscura con acento índigo (#6366f1) y verde neón. El editor embebido permite ejecutar código Python sin instalar nada.*
 
 ### Módulo de Ejercicios — Retos Cronometrados
 
 La página de ejercicios (`/ejercicios.html`) presenta retos de código con niveles de dificultad (Principiante → Experto), un temporizador de cuenta regresiva y validación automática de la solución. Al resolver correctamente, se activa una animación de celebración y se actualiza el puntaje en el leaderboard.
+
+![Módulo de ejercicios de PyNeo](js/media/preview-ejercicios.png)
 
 > *Ejercicios organizados por temática y dificultad, con editor de código y retroalimentación en tiempo real.*
 
