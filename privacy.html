@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad — PyNeo</title>
+    <meta name="google-adsense-account" content="ca-pub-8771484945698756">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8771484945698756" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="js/media/favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary:      #6366f1;
+            --primary-dark: #4338ca;
+            --accent:       #8b5cf6;
+            --secondary:    #ec4899;
+            --bg-dark:      #09090b;
+            --text-main:    #e2e8f0;
+            --text-muted:   #94a3b8;
+        }
+
+        body {
+            font-family: 'Google Sans Code', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+        }
+
+        .glow-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse 60% 50% at 80% 20%, hsla(280,60%,14%,0.85) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 60% at 20% 10%, hsla(243,80%,12%,0.7)  0%, transparent 60%),
+                radial-gradient(ellipse 40% 50% at 50% 80%, hsla(225,70%,10%,0.6)  0%, transparent 60%),
+                #09090b;
+            pointer-events: none;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 65%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(40px);
+            transform: translate(-50%, -50%);
+            will-change: left, top;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        .nav-fixed {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(9,9,11,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .doc-section {
+            position: relative;
+            padding: 1.75rem 2rem;
+            background: rgba(15,15,22,0.6);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s;
+        }
+        .doc-section:hover { border-color: rgba(139,92,246,0.28); }
+        .doc-section::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            border-radius: 3px 0 0 3px;
+            background: linear-gradient(180deg, var(--accent), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .doc-section:hover::before { opacity: 1; }
+
+        .doc-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #d8b4fe;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .doc-section h2 .sec-num {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.3);
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+        .doc-section p, .doc-section li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+        .doc-section ul { padding-left: 1.4rem; margin-top: 0.5rem; }
+        .doc-section li { margin-bottom: 0.3rem; list-style: disc; }
+
+        .page-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139,92,246,0.08);
+            border: 1px solid rgba(139,92,246,0.25);
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #c4b5fd;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .site-footer {
+            margin-top: auto;
+            padding: 2.5rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .text-neon-green { color: #818cf8; }
+    </style>
+</head>
+
+<body>
+    <div class="glow-mesh"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    
+    <header class="nav-fixed">
+        <div class="container mx-auto px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
+                    onclick="window.location.href='index.html'">
+                    <img src="js/media/favicon.png" alt="PyNeo Logo" class="w-9 h-9 object-contain">
+                    <span class="text-2xl font-black tracking-tight text-white select-none">PyNeo</span>
+                </div>
+                <a href="index.html"
+                    class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-gray-400 hover:text-white transition-all"
+                    style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);"
+                    onmouseover="this.style.borderColor='rgba(139,92,246,0.4)'"
+                    onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+                    <i class="fas fa-arrow-left text-xs"></i> Volver al Inicio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    
+    <main class="container mx-auto px-6 flex-grow max-w-3xl relative z-10" style="padding-top: 8rem; padding-bottom: 4rem;">
+
+        <div class="page-header-badge">
+            <i class="fas fa-shield-alt"></i> Privacidad
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-2" style="letter-spacing: -1.5px;">
+            Política de<br><span style="background: linear-gradient(135deg,#c084fc,#ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Privacidad</span>
+        </h1>
+        <p class="mb-10" style="color:#64748b; font-size:0.82rem; font-family:'JetBrains Mono',monospace;">
+            Última actualización: Febrero 2026
+        </p>
+
+        <div class="flex flex-col gap-4">
+
+            <div class="doc-section">
+                <h2><span class="sec-num">01</span> Recopilación de Información</h2>
+                <p>PyNeo no recopila información personal identificable como nombres, correos electrónicos o direcciones IP. Todo el procesamiento de código y ejecución de ejercicios se realiza directamente en tu navegador.</p>
+            </div>
+
+            <div class="doc-section">
+                <h2><span class="sec-num">02</span> Almacenamiento de Datos (LocalStorage)</h2>
+                <p>Para mejorar tu experiencia de aprendizaje, utilizamos el almacenamiento local (LocalStorage) de tu navegador para guardar tu progreso, puntajes y preferencias. Estos datos permanecen en tu dispositivo y no se envían a nuestros servidores.</p>
+            </div>
+
+            <div class="doc-section">
+                <h2><span class="sec-num">03</span> Enlaces a Terceros</h2>
+                <p>Nuestra plataforma puede contener enlaces a sitios externos, como plataformas de donación (Ko-fi). No somos responsables de las prácticas de privacidad de estos sitios y te recomendamos revisar sus propias políticas.</p>
+            </div>
+
+            <div class="doc-section">
+                <h2><span class="sec-num">04</span> Cookies</h2>
+                <p>No utilizamos cookies propias para seguimiento o publicidad. Sin embargo, servicios de terceros integrados pueden utilizarlas según sus propias políticas.</p>
+            </div>
+
+            <div class="doc-section">
+                <h2><span class="sec-num">05</span> Contacto</h2>
+                <p>Si tienes preguntas sobre nuestra política de privacidad, puedes contactarnos a través de los canales proporcionados en la plataforma (GitHub).</p>
+            </div>
+
+            <div class="doc-section">
+                <h2><span class="sec-num">06</span> Datos del Chat</h2>
+                <p>Los mensajes enviados al chat global son públicos y visibles por cualquier usuario conectado en ese momento. No almacenamos historial de mensajes a largo plazo; el sistema está diseñado para mostrar solo los mensajes del día actual. Por seguridad, evita compartir información personal (nombres reales, direcciones, teléfonos) en este espacio público.</p>
+            </div>
+
+        </div>
+    </main>
+
+    
+    <footer class="site-footer">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-center md:text-left">
+                <p class="text-gray-500 text-sm flex items-center gap-2 justify-center md:justify-start">
+                    &copy; 2026 <span class="text-white font-bold">PyNeo</span>
+                </p>
+                <p class="text-xs text-gray-600 mt-1">
+                    Hecho con <i class="fas fa-heart text-red-500 mx-1 animate-pulse"></i> por
+                    <a href="https://github.com/Neosowo" target="_blank" class="text-neon-green hover:underline">Erick</a>
+                </p>
+            </div>
+            <div class="flex gap-6 text-gray-500 text-xs" style="font-family:'JetBrains Mono',monospace;">
+                <a href="terms.html" class="hover:text-white transition-colors">Términos</a>
+                <a href="privacy.html" class="hover:text-white transition-colors" style="color:#c084fc;">Privacidad</a>
+                <a href="index.html" class="hover:text-white transition-colors">Inicio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const g = document.getElementById('cursor-glow');
+            if (!g) return;
+            let tx = innerWidth/2, ty = innerHeight/2, cx = tx, cy = ty;
+            const lerp = (a,b,t) => a+(b-a)*t;
+            const loop = () => {
+                cx = lerp(cx,tx,.1); cy = lerp(cy,ty,.1);
+                g.style.left = cx+'px'; g.style.top = cy+'px';
+                requestAnimationFrame(loop);
+            };
+            addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; });
+            loop();
+        })();
+    </script>
+</body>
+
+</html>
