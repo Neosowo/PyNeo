@@ -40,6 +40,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8771484945698756"
         crossorigin="anonymous"></script>
 
+    <script src="js/perf-optimizer.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
@@ -351,60 +352,8 @@
         }
 
         
-        .cinematic-mode #main-nav,
-        .cinematic-mode .hero-badge,
-        .cinematic-mode #hero-p-left,
-        .cinematic-mode #hero-cta-wrap,
-        .cinematic-mode #hero-stats,
-        .cinematic-mode #hero-marquee-band {
-            opacity: 0 !important;
-            pointer-events: none;
-            transform: translateY(20px);
-        }
-
-        .cinematic-mode #hero-section {
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            overflow: visible !important;
-        }
-
-        .cinematic-mode .hide-on-idle {
-            opacity: 0 !important;
-            position: absolute;
-            pointer-events: none;
-            visibility: hidden;
-        }
-
-        .cinematic-mode .text-gradient-anim {
-            transform: scale(1.1);
-            z-index: 200;
-            font-size: clamp(4rem, 16vw, 14rem) !important;
-            filter: hue-rotate(360deg) drop-shadow(0 0 60px rgba(99,102,241,0.5));
-            white-space: nowrap;
-            margin: 0 auto;
-            text-align: center;
-            line-height: 1.2 !important;
-            padding: 0 0.5rem 0.2em 0.5rem;
-            display: inline-block;
-        }
-
-        .cinematic-mode .container {
-            max-width: none !important;
-            width: 100% !important;
-            overflow: visible !important;
-        }
-
-        
-        #main-nav, .hero-badge, #hero-p-left, #hero-cta-wrap, #hero-stats, #hero-marquee-band, .hide-on-idle, #hero-section {
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
         .text-gradient-anim {
             display: inline-block;
-            transition: all 2.2s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             line-height: 0.92;
         }
@@ -1347,9 +1296,9 @@
 
                     
                     <h1 class="font-black leading-none mb-8" style="font-size: clamp(3.2rem, 9vw, 6.5rem); line-height: 0.92; letter-spacing: -2px;">
-                        <span class="hide-on-idle inline-block">Aprende</span><br class="hide-on-idle">
-                        <span class="text-gradient-anim">Python</span><br class="hide-on-idle">
-                        <span class="text-white hide-on-idle inline-block" style="opacity:0.9;">Paso a Paso.</span>
+                        <span class="inline-block">Aprende</span><br>
+                        <span class="text-gradient-anim">Python</span><br>
+                        <span class="text-white inline-block" style="opacity:0.9;">Paso a Paso.</span>
                     </h1>
 
                     
@@ -2496,42 +2445,6 @@
     <script src="js/donation_promo.js"></script>
 
     <script>
-        
-        let idleTimer = null;
-        const IDLE_TIME = 10000; 
-
-        function startIdleTimer() {
-            stopIdleTimer();
-            idleTimer = setTimeout(enterCinematicMode, IDLE_TIME);
-        }
-
-        function stopIdleTimer() {
-            if (idleTimer) clearTimeout(idleTimer);
-            exitCinematicMode();
-        }
-
-        function enterCinematicMode() {
-            
-            if (window.scrollY < 300) {
-                document.body.classList.add('cinematic-mode');
-            }
-        }
-
-        function exitCinematicMode() {
-            if (document.body.classList.contains('cinematic-mode')) {
-                document.body.classList.remove('cinematic-mode');
-            }
-        }
-
-        
-        ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
-            window.addEventListener(evt, () => {
-                startIdleTimer();
-            }, { passive: true });
-        });
-
-        
-        startIdleTimer();
 
         // Prevent default contextmenu globally (no file tree on this page)
         document.addEventListener('contextmenu', (e) => {

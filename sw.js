@@ -18,6 +18,7 @@ const STATIC_ASSETS = [
     toUrl('index.html'),
     toUrl('offline.html'),
     toUrl('manifest.json'),
+    toUrl('js/perf-optimizer.js'),
     toUrl('js/offline.js'),
     toUrl('js/app.js'),
     toUrl('js/app.js?v=3.2'),
