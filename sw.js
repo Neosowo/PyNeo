@@ -2,7 +2,7 @@
 
 
 
-const CACHE_NAME = 'pyneo-v2';
+const CACHE_NAME = 'pyneo-v3';
 
 
 

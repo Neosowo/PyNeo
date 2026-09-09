@@ -178,6 +178,41 @@
             .perf-toggle-btn.active-low .perf-dot {
                 background: #818cf8;
             }
+
+            /* Neutralizacion definitiva contra cualquier remanente del modo cinematico */
+            .cinematic-mode,
+            body.cinematic-mode {
+                background: #09090b !important;
+            }
+
+            body.cinematic-mode #main-nav,
+            body.cinematic-mode .hero-badge,
+            body.cinematic-mode #hero-p-left,
+            body.cinematic-mode #hero-cta-wrap,
+            body.cinematic-mode #hero-stats,
+            body.cinematic-mode #hero-marquee-band,
+            body.cinematic-mode .hide-on-idle,
+            .hide-on-idle {
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                transform: none !important;
+                visibility: visible !important;
+                display: inline-block !important;
+            }
+
+            body.cinematic-mode .text-gradient-anim {
+                font-size: inherit !important;
+                transform: none !important;
+                filter: none !important;
+                white-space: normal !important;
+                line-height: inherit !important;
+            }
+
+            body.cinematic-mode #hero-section {
+                padding-top: 100px !important;
+                padding-bottom: 2rem !important;
+                display: flex !important;
+            }
         `;
         document.head.appendChild(style);
     }
@@ -335,17 +370,47 @@
         updateButtonsUI();
     }
 
+    function neutralizeIdleRemnants() {
+        if (document.body) {
+            document.body.classList.remove('cinematic-mode');
+        }
+        if (typeof window.idleTimer !== 'undefined' && window.idleTimer) {
+            clearTimeout(window.idleTimer);
+            window.idleTimer = null;
+        }
+        window.enterCinematicMode = function () {
+            if (document.body) document.body.classList.remove('cinematic-mode');
+        };
+        window.startIdleTimer = function () {};
+        window.stopIdleTimer = function () {};
+
+        if (typeof window !== 'undefined' && 'caches' in window) {
+            window.caches.keys().then(keys => {
+                keys.forEach(key => {
+                    if (key !== 'pyneo-v3') {
+                        window.caches.delete(key);
+                    }
+                });
+            }).catch(() => {});
+        }
+    }
+
+    neutralizeIdleRemnants();
     evaluateAndApply();
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
+            neutralizeIdleRemnants();
             injectPerformanceStyles();
             attachToNavbars();
         });
     } else {
+        neutralizeIdleRemnants();
         injectPerformanceStyles();
         attachToNavbars();
     }
+
+    window.addEventListener('load', neutralizeIdleRemnants);
 
     window.PyNeoPerf = {
         isLowSpec: () => isLowSpecActive,
