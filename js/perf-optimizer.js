@@ -181,6 +181,7 @@
             /* Blindaje inmutable contra escalado o crecimiento en la palabra Python */
             .text-gradient-anim,
             #hero-section h1 span,
+            #hero-section h1,
             .hero-badge {
                 transform: none !important;
                 max-width: 100% !important;
@@ -189,35 +190,9 @@
             .text-gradient-anim {
                 font-size: inherit !important;
                 display: inline-block !important;
-                line-height: 0.92 !important;
+                line-height: 1 !important;
                 animation: none !important;
                 transition: none !important;
-            }
-
-            .cinematic-mode,
-            body.cinematic-mode {
-                background: #09090b !important;
-            }
-
-            body.cinematic-mode #main-nav,
-            body.cinematic-mode .hero-badge,
-            body.cinematic-mode #hero-p-left,
-            body.cinematic-mode #hero-cta-wrap,
-            body.cinematic-mode #hero-stats,
-            body.cinematic-mode #hero-marquee-band,
-            body.cinematic-mode .hide-on-idle,
-            .hide-on-idle {
-                opacity: 1 !important;
-                pointer-events: auto !important;
-                transform: none !important;
-                visibility: visible !important;
-                display: inline-block !important;
-            }
-
-            body.cinematic-mode #hero-section {
-                padding-top: 100px !important;
-                padding-bottom: 2rem !important;
-                display: flex !important;
             }
         `;
         document.head.appendChild(style);
@@ -402,11 +377,28 @@
         if (typeof window !== 'undefined' && 'caches' in window) {
             window.caches.keys().then(keys => {
                 keys.forEach(key => {
-                    if (key !== 'pyneo-v4') {
-                        window.caches.delete(key);
-                    }
+                    window.caches.delete(key);
                 });
             }).catch(() => {});
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let r of registrations) {
+                    r.unregister();
+                }
+            }).catch(() => {});
+        }
+
+        if (typeof MutationObserver !== 'undefined' && document.documentElement) {
+            try {
+                const obs = new MutationObserver(() => {
+                    if (document.body && document.body.classList.contains('cinematic-mode')) {
+                        document.body.classList.remove('cinematic-mode');
+                    }
+                });
+                obs.observe(document.documentElement, { attributes: true, subtree: true, attributeFilter: ['class'] });
+            } catch (e) {}
         }
     }
 
