@@ -97,12 +97,11 @@ function verifyAndTestConnection() {
     
     
     db.collection('codespaces').limit(1).get().then(() => {
-        
         sessionStorage.setItem('pyneo_firebase_rotation_count', '0');
     }).catch(err => {
         const msg = (err.message || err.toString()).toLowerCase();
-        if (msg.includes("quota") || msg.includes("exhausted") || msg.includes("resource-exhausted") || msg.includes("permission-denied") || msg.includes("permission_denied")) {
-            console.warn("[Firebase] Test de conexión falló debido a cuotas excedidas:", err);
+        if (msg.includes("quota") || msg.includes("exhausted") || msg.includes("resource-exhausted")) {
+            console.warn("[Firebase] Test de conexion fallo debido a cuotas excedidas:", err);
             rotateFirebaseApp();
         }
     });
@@ -112,7 +111,7 @@ function verifyAndTestConnection() {
 function rotateFirebaseApp() {
     let rotationCount = parseInt(sessionStorage.getItem('pyneo_firebase_rotation_count') || '0', 10);
     if (rotationCount >= firebaseConfigs.length) {
-        console.error("[Firebase] CRÍTICO: Todos los servidores del pool de Firebase han agotado su cuota.");
+        console.error("[Firebase] Todos los servidores del pool de Firebase han agotado su cuota.");
         showExhaustedModal();
         return;
     }
@@ -130,8 +129,8 @@ function rotateFirebaseApp() {
 window.handleFirebaseError = function(error) {
     if (!error) return;
     const msg = (error.message || error.toString()).toLowerCase();
-    if (msg.includes("quota") || msg.includes("exhausted") || msg.includes("resource-exhausted") || msg.includes("permission-denied") || msg.includes("permission_denied")) {
-        console.warn("[Firebase] Alerta en tiempo de ejecución: Cuota diaria alcanzada. Rotando de servidor...", error);
+    if (msg.includes("quota") || msg.includes("exhausted") || msg.includes("resource-exhausted")) {
+        console.warn("[Firebase] Alerta en tiempo de ejecucion: Cuota diaria alcanzada. Rotando de servidor...", error);
         rotateFirebaseApp();
     }
 };

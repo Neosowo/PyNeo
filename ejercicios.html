@@ -104,7 +104,7 @@ tailwind.config = {
     
     #login-modal-overlay {
         position: fixed; inset: 0; z-index: 1000;
-        background: rgba(0,0,0,0.75); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+        background: rgba(9, 9, 11, 0.88);
         display: flex; align-items: center; justify-content: center; padding: 1.5rem;
     }
     #login-modal-overlay.hidden { display: none; }
@@ -160,6 +160,12 @@ tailwind.config = {
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
             Continuar con Google
         </button>
+
+        <div class="mt-3 text-center">
+            <button type="button" onclick="signInWithGoogle(true)" class="text-[11px] text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer bg-transparent border-none">
+                Acceder directamente (sin ventana emergente)
+            </button>
+        </div>
 
         <div class="flex items-center gap-4 my-6 opacity-20">
             <div class="flex-1 h-px bg-white"></div>
@@ -704,39 +710,74 @@ function dismissLoginModal() {
   }
 }
 
-async function signInWithGoogle() {
+function showAuthNotice(msg) {
+  let toast = document.getElementById('pyneo-auth-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'pyneo-auth-toast';
+    toast.className = 'fixed bottom-6 right-6 z-[2000] max-w-sm px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs shadow-2xl transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.remove('translate-y-4', 'opacity-0', 'pointer-events-none');
+  setTimeout(() => {
+    toast.classList.add('translate-y-4', 'opacity-0', 'pointer-events-none');
+  }, 5000);
+}
+
+async function signInWithGoogle(forceRedirect = false) {
   const btn = document.querySelector('.btn-google-login');
   let originalText = "";
   if (btn) {
     originalText = btn.innerHTML;
-    btn.textContent = 'Iniciando sesión...';
+    btn.textContent = 'Iniciando sesion...';
     btn.disabled = true;
   }
   try {
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+      throw new Error('El servicio de autenticacion aun esta inicializando. Por favor intenta en unos segundos.');
+    }
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
+    provider.setCustomParameters({ prompt: 'select_account' });
+
+    const isLowSpec = forceRedirect || 
+                      (window.__pyneo_is_low_spec) || 
+                      (typeof navigator !== 'undefined' && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
+
+    if (isLowSpec) {
+      btn.textContent = 'Redirigiendo a Google...';
+      await firebase.auth().signInWithRedirect(provider);
+      return;
+    }
+
+    try {
+      await firebase.auth().signInWithPopup(provider);
+    } catch (popupErr) {
+      if (popupErr.code === 'auth/popup-blocked' || 
+          popupErr.code === 'auth/cancelled-popup-request' ||
+          popupErr.code === 'auth/popup-closed-by-user' ||
+          popupErr.code === 'auth/internal-error') {
+        btn.textContent = 'Redirigiendo a Google...';
+        await firebase.auth().signInWithRedirect(provider);
+        return;
+      }
+      throw popupErr;
+    }
   } catch (e) {
     console.error('[Auth] Error:', e);
-    
-    let errorMsg = 'Ocurrió un error inesperado al intentar iniciar sesión.';
+    let errorMsg = 'No se pudo iniciar sesion.';
     if (e.code === 'auth/operation-not-allowed') {
-      errorMsg = 'El proveedor de inicio de sesión de Google no está habilitado en este proyecto de Firebase. Actívalo en la consola de Firebase > Authentication > Sign-in method.';
+      errorMsg = 'El proveedor de Google no esta habilitado en Firebase.';
     } else if (e.code === 'auth/unauthorized-domain') {
-      errorMsg = `El dominio actual (${window.location.hostname}) no está autorizado en la configuración de Firebase de este proyecto. Agrega este dominio en Firebase > Authentication > Settings > Authorized domains.`;
-    } else if (e.code === 'auth/popup-blocked') {
-      errorMsg = 'El navegador bloqueó la ventana emergente de inicio de sesión. Por favor, permite las ventanas emergentes para este sitio e intenta de nuevo.';
-    } else if (e.code === 'auth/popup-closed-by-user') {
-      errorMsg = 'La ventana de inicio de sesión se cerró antes de completar el proceso. Inténtalo de nuevo.';
+      errorMsg = `El dominio (${window.location.hostname}) no esta autorizado en Firebase.`;
     } else if (e.code === 'auth/network-request-failed') {
-      errorMsg = 'Error de red. Verifica tu conexión a internet o comprueba si hay un bloqueador de anuncios (AdBlocker) o extensión interfiriendo con Firebase.';
+      errorMsg = 'Error de red con Firebase. Revisa tu conexion.';
     } else if (e.message) {
-      errorMsg = `Detalle: ${e.message} (Código: ${e.code || 'desconocido'})`;
+      errorMsg = e.message;
     }
-    
-    alert(`⚠️ Error de Inicio de Sesión:\n\n${errorMsg}`);
-    
+    showAuthNotice(errorMsg);
     if (btn) {
-      btn.innerHTML = '⚠️ Error — intenta de nuevo';
+      btn.textContent = 'Reintentar conexion';
       btn.disabled = false;
       setTimeout(() => {
         btn.innerHTML = originalText;
@@ -758,11 +799,9 @@ function armScrollBlur() {
 
   _scrollBlurHandler = () => {
     const scrollY = window.scrollY;
-    
     const progress = Math.min(1, Math.max(0, (scrollY - 100) / 400));
     
     if (progress <= 0) {
-      overlay.style.backdropFilter = 'none';
       overlay.style.background = 'transparent';
       overlay.classList.remove('blocking');
       card.classList.remove('show');
@@ -770,8 +809,7 @@ function armScrollBlur() {
     }
 
     const eased = progress * progress * (3 - 2 * progress);
-    overlay.style.backdropFilter = `blur(${eased * 20}px)`;
-    overlay.style.background = `rgba(9,9,11,${eased * 0.75})`;
+    overlay.style.background = `rgba(9,9,11,${(eased * 0.85).toFixed(3)})`;
 
     if (eased >= 0.6) {
       overlay.classList.add('blocking');
@@ -792,7 +830,6 @@ function disarmScrollBlur() {
   const card    = document.getElementById('scroll-blur-card');
   if (overlay) {
     overlay.classList.remove('active', 'blocking');
-    overlay.style.backdropFilter = 'none';
     overlay.style.background = 'transparent';
   }
   if (card) card.classList.remove('show');
@@ -804,6 +841,15 @@ window.addEventListener('load', () => {
   const checkAuth = setInterval(() => {
     if (typeof firebase !== 'undefined' && firebase.auth) {
       clearInterval(checkAuth);
+
+      if (firebase.auth().getRedirectResult) {
+        firebase.auth().getRedirectResult().catch(err => {
+          if (err && err.code !== 'auth/null-user') {
+            console.warn('[Auth] Error al procesar redireccion:', err);
+          }
+        });
+      }
+
       firebase.auth().onAuthStateChanged(user => {
         const modal = document.getElementById('login-modal-overlay');
         const nameEl = document.getElementById('header-user-name');
