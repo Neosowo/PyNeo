@@ -2,6 +2,7 @@
     const STORAGE_KEY = 'pyneo_perf_mode';
     let currentMode = localStorage.getItem(STORAGE_KEY) || 'auto';
     let isLowSpecActive = false;
+    let observerAttached = false;
     let hardwareSpecs = {
         cores: navigator.hardwareConcurrency || 4,
         memory: navigator.deviceMemory || 8,
@@ -17,7 +18,7 @@
 
         try {
             const canvas = document.createElement('canvas');
-            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            const gl = canvas.getContext('webgl', { powerPreference: 'low-power' });
             if (gl) {
                 const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
                 if (debugInfo) {
@@ -26,9 +27,13 @@
                         hardwareSpecs.isSoftwareGPU = true;
                     }
                 }
+                const loseExt = gl.getExtension('WEBGL_lose_context');
+                if (loseExt) loseExt.loseContext();
             } else {
                 hardwareSpecs.isSoftwareGPU = true;
             }
+            canvas.width = 0;
+            canvas.height = 0;
         } catch (e) {
             hardwareSpecs.isSoftwareGPU = false;
         }
@@ -390,8 +395,9 @@
             }).catch(() => {});
         }
 
-        if (typeof MutationObserver !== 'undefined' && document.documentElement) {
+        if (!observerAttached && typeof MutationObserver !== 'undefined' && document.documentElement) {
             try {
+                observerAttached = true;
                 const obs = new MutationObserver(() => {
                     if (document.body && document.body.classList.contains('cinematic-mode')) {
                         document.body.classList.remove('cinematic-mode');

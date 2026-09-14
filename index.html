@@ -272,57 +272,37 @@
         .gm-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.55;
-            will-change: transform;
+            pointer-events: none;
+            opacity: 0.5;
         }
         .gm-blob-1 {
             width: 55vw; height: 55vw;
-            background: radial-gradient(circle, hsla(243,80%,22%,1) 0%, transparent 70%);
+            background: radial-gradient(circle, hsla(243,80%,22%,0.6) 0%, hsla(243,80%,22%,0.15) 45%, transparent 70%);
             top: -15%; left: -10%;
-            animation: blob-drift-1 18s ease-in-out infinite alternate;
         }
         .gm-blob-2 {
             width: 45vw; height: 45vw;
-            background: radial-gradient(circle, hsla(280,70%,18%,1) 0%, transparent 70%);
+            background: radial-gradient(circle, hsla(280,70%,18%,0.6) 0%, hsla(280,70%,18%,0.15) 45%, transparent 70%);
             top: -10%; right: -8%;
-            animation: blob-drift-2 22s ease-in-out infinite alternate;
         }
         .gm-blob-3 {
             width: 40vw; height: 40vw;
-            background: radial-gradient(circle, hsla(225,75%,14%,1) 0%, transparent 70%);
+            background: radial-gradient(circle, hsla(225,75%,14%,0.6) 0%, hsla(225,75%,14%,0.15) 45%, transparent 70%);
             bottom: -10%; left: 30%;
-            animation: blob-drift-3 26s ease-in-out infinite alternate;
-        }
-        @keyframes blob-drift-1 {
-            0%   { transform: translate(0,0) scale(1); }
-            33%  { transform: translate(8vw, 6vh) scale(1.08); }
-            66%  { transform: translate(-4vw, 12vh) scale(0.95); }
-            100% { transform: translate(6vw, -4vh) scale(1.05); }
-        }
-        @keyframes blob-drift-2 {
-            0%   { transform: translate(0,0) scale(1); }
-            33%  { transform: translate(-10vw, 8vh) scale(1.1); }
-            66%  { transform: translate(5vw, 15vh) scale(0.92); }
-            100% { transform: translate(-6vw, 3vh) scale(1.06); }
-        }
-        @keyframes blob-drift-3 {
-            0%   { transform: translate(0,0) scale(1); }
-            50%  { transform: translate(-8vw, -10vh) scale(1.12); }
-            100% { transform: translate(10vw, -5vh) scale(0.96); }
         }
 
         .cursor-glow {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 65%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.02) 40%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            filter: blur(40px);
-            transform: translate(-50%, -50%);
-            will-change: left, top;
+            top: 0;
+            left: 0;
+            transform: translate3d(-1000px, -1000px, 0);
+            will-change: transform;
         }
 
         
@@ -418,14 +398,12 @@
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            background: rgba(9, 9, 11, 0.88);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
-            animation: fade-in-modal 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+            animation: fade-in-modal 0.25s ease forwards;
         }
         #login-modal-overlay.hidden { display: none; }
         @keyframes fade-in-modal {
@@ -2206,7 +2184,9 @@
             setTimeout(checkUpdateModal, 1500);
 
             
+            let authAttempts = 0;
             const waitForAuth = setInterval(() => {
+                authAttempts++;
                 if (typeof firebase !== 'undefined' && firebase.auth) {
                     clearInterval(waitForAuth);
                     firebase.auth().onAuthStateChanged(user => {
@@ -2241,26 +2221,28 @@
                             }, 600);
                         }
                     });
+                } else if (authAttempts >= 30) {
+                    clearInterval(waitForAuth);
                 }
             }, 200);
         });
 
-        
         (function() {
             const glowEl = document.getElementById('cursor-glow');
-            if (!glowEl) return;
-            let tx = window.innerWidth / 2, ty = window.innerHeight / 2;
-            let cx = tx, cy = ty;
-            const lerp = (a, b, t) => a + (b - a) * t;
-            const animate = () => {
-                cx = lerp(cx, tx, 0.1);
-                cy = lerp(cy, ty, 0.1);
-                glowEl.style.left = cx + 'px';
-                glowEl.style.top  = cy + 'px';
-                requestAnimationFrame(animate);
-            };
-            window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-            animate();
+            if (!glowEl || window.matchMedia('(pointer: coarse)').matches) return;
+            let scheduled = false;
+            let mouseX = -1000, mouseY = -1000;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!scheduled) {
+                    scheduled = true;
+                    requestAnimationFrame(() => {
+                        glowEl.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                        scheduled = false;
+                    });
+                }
+            }, { passive: true });
         })();
 
         

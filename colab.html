@@ -678,28 +678,18 @@
         }
         .gm-blob {
             position: absolute; border-radius: 50%;
-            filter: blur(80px); opacity: 0.55; will-change: transform;
+            opacity: 0.45; pointer-events: none;
             transition: background 0.3s ease;
         }
         .gm-blob-1 {
             width: 55vw; height: 55vw;
             background: var(--glow-blob1);
             top: -15%; left: -10%;
-            animation: blob-drift-1 18s ease-in-out infinite alternate;
         }
         .gm-blob-2 {
             width: 45vw; height: 45vw;
             background: var(--glow-blob2);
             top: -10%; right: -8%;
-            animation: blob-drift-2 22s ease-in-out infinite alternate;
-        }
-        @keyframes blob-drift-1 {
-            0%   { transform: translate(0,0) scale(1); }
-            100% { transform: translate(6vw, -4vh) scale(1.05); }
-        }
-        @keyframes blob-drift-2 {
-            0%   { transform: translate(0,0) scale(1); }
-            100% { transform: translate(-6vw, 3vh) scale(1.06); }
         }
 
         .nav-fixed {

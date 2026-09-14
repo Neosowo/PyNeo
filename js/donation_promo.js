@@ -9,11 +9,14 @@ function initDonationPromo() {
     if (sessionStorage.getItem(DONATION_SESSION_HIDE)) return;
 
     
+    let attempts = 0;
     const checkDiscord = setInterval(() => {
+        attempts++;
         if (!document.getElementById('discord-promo')) {
             clearInterval(checkDiscord);
-            
             setTimeout(createDonationUI, 2000);
+        } else if (attempts >= 10) {
+            clearInterval(checkDiscord);
         }
     }, 1000);
 }
@@ -26,16 +29,15 @@ function createDonationUI() {
     promo.className = 'fixed bottom-6 left-6 z-[150] max-w-[320px] md:max-w-sm animate-fade-in-up';
 
     promo.innerHTML = `
-        <div class="bg-[#18181b]/95 border border-yellow-500/30 rounded-2xl p-5 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
-            <!-- Glow Effect -->
-            <div class="absolute -right-10 -top-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl group-hover:bg-yellow-500/20 transition-all duration-700"></div>
+        <div class="bg-[#18181b]/95 border border-yellow-500/30 rounded-2xl p-5 shadow-2xl relative overflow-hidden group">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl group-hover:bg-yellow-500/20 transition-all duration-700"></div>
             
             <div class="flex items-start gap-4 relative z-10">
                 <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-yellow-500/20 shrink-0 transform group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-heart text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h4 class="text-white font-black text-lg leading-tight mb-1">¡Apoya a PyNeo! ❤️</h4>
+                    <h4 class="text-white font-black text-lg leading-tight mb-1">Apoya a PyNeo</h4>
                     <p class="text-gray-400 text-[11px] leading-relaxed mb-4">
                         Tu apoyo me ayuda a mantener el proyecto <span class="text-yellow-400/90 font-bold">libre de anuncios</span> y seguir creando contenido gratuito para todos.
                     </p>

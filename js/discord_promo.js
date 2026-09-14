@@ -22,17 +22,16 @@ function createDiscordUI() {
     promo.className = 'fixed bottom-6 left-6 z-[150] max-w-[320px] md:max-w-sm animate-fade-in-up';
 
     promo.innerHTML = `
-        <div class="bg-[#1e1f22]/95 border border-[#5865f2]/30 rounded-2xl p-5 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
-            <!-- Discord-like glow -->
-            <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#5865f2]/10 rounded-full blur-3xl group-hover:bg-[#5865f2]/20 transition-all duration-700"></div>
+        <div class="bg-[#1e1f22]/95 border border-[#5865f2]/30 rounded-2xl p-5 shadow-2xl relative overflow-hidden group">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#5865f2]/10 rounded-full blur-2xl group-hover:bg-[#5865f2]/20 transition-all duration-700"></div>
             
             <div class="flex items-start gap-4 relative z-10">
                 <div class="w-12 h-12 bg-[#5865f2] rounded-2xl flex items-center justify-center shadow-lg shadow-[#5865f2]/20 shrink-0 transform group-hover:scale-110 transition-transform duration-300">
                     <i class="fab fa-discord text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h4 class="text-white font-black text-lg leading-tight mb-1">¡Comunidad Discord! 🚀</h4>
-                    <p class="text-gray-400 text-[11px] leading-relaxed mb-4">Únete para resolver dudas, compartir tus códigos y conocer a otros estudiantes de PyNeo.</p>
+                    <h4 class="text-white font-black text-lg leading-tight mb-1">Comunidad Discord</h4>
+                    <p class="text-gray-400 text-[11px] leading-relaxed mb-4">Unete para resolver dudas, compartir tus codigos y conocer a otros estudiantes de PyNeo.</p>
                     
                     <div class="flex flex-col gap-2">
                         <a href="${DISCORD_LINK}" target="_blank" onclick="handleDiscordAction('join')" 
@@ -53,7 +52,6 @@ function createDiscordUI() {
                 </div>
             </div>
             
-            <!-- Close icon small -->
             <button onclick="handleDiscordAction('later')" class="absolute top-3 right-3 text-gray-600 hover:text-white transition-colors">
                 <i class="fas fa-times text-xs"></i>
             </button>
