@@ -92,10 +92,12 @@ function initFirebase() {
 
 function verifyAndTestConnection() {
     if (!db) return;
-    
     updateFirebaseSettingsUI();
-    
-    
+
+    if (!window.location.pathname.includes('colab.html')) {
+        return;
+    }
+
     db.collection('codespaces').limit(1).get().then(() => {
         sessionStorage.setItem('pyneo_firebase_rotation_count', '0');
     }).catch(err => {

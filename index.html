@@ -45,7 +45,7 @@
     <script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
     <meta name="google-adsense-account" content="ca-pub-8771484945698756">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8771484945698756"
+    <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8771484945698756"
         crossorigin="anonymous"></script>
 
     <script src="js/perf-optimizer.js"></script>
@@ -2250,10 +2250,17 @@
 
         (function() {
             const glowEl = document.getElementById('cursor-glow');
-            if (!glowEl || window.matchMedia('(pointer: coarse)').matches) return;
+            if (!glowEl) return;
+            if (window.matchMedia('(pointer: coarse)').matches ||
+                (typeof navigator !== 'undefined' && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+                localStorage.getItem('pyneo_perf_mode') === 'low') {
+                glowEl.remove();
+                return;
+            }
             let scheduled = false;
             let mouseX = -1000, mouseY = -1000;
             window.addEventListener('mousemove', (e) => {
+                if (document.documentElement.classList.contains('low-spec-mode')) return;
                 mouseX = e.clientX;
                 mouseY = e.clientY;
                 if (!scheduled) {
@@ -2342,7 +2349,7 @@
         let isRunning = false;
 
         function initHeroTerminal() {
-            renderSnippetCode(0, true);
+            renderSnippetCode(0, false);
         }
 
         function selectSnippet(idx) {

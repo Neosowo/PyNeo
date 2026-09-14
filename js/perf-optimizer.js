@@ -54,23 +54,28 @@
         const style = document.createElement('style');
         style.id = 'pyneo-perf-styles';
         style.textContent = `
-            /* Reglas globales de ultra bajo consumo */
-            .low-spec-mode *,
-            .low-spec-mode *::before,
-            .low-spec-mode *::after {
-                animation-duration: 0.001ms !important;
-                animation-iteration-count: 1 !important;
+            /* Desactivar animaciones continuas especificas */
+            .low-spec-mode .marquee-inner-py,
+            .low-spec-mode .animate-pulse,
+            .low-spec-mode .animate-bounce,
+            .low-spec-mode .animate-flame,
+            .low-spec-mode .glitch-text {
+                animation: none !important;
             }
 
-            /* Mantener funcionales indicadores esenciales de carga */
+            /* Mantener funcionales spinners esenciales */
             .low-spec-mode .animate-spin,
             .low-spec-mode [style*="animation:spin"],
             .low-spec-mode [style*="animation: spin"] {
                 animation: spin 1s linear infinite !important;
             }
 
-            /* Desactivar backdrop-filter (blur) costoso en GPU integrada */
-            .low-spec-mode * {
+            /* Desactivar backdrop-filter solo en modales y overlays */
+            .low-spec-mode .nav-fixed,
+            .low-spec-mode header,
+            .low-spec-mode #main-nav,
+            .low-spec-mode .modal-card,
+            .low-spec-mode [id*="modal"] {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
             }
@@ -87,23 +92,23 @@
             .low-spec-mode .neon-box,
             .low-spec-mode .stat-pill,
             .low-spec-mode .code-terminal,
-            .low-spec-mode .modal-card,
-            .low-spec-mode .bg-black\\/80,
-            .low-spec-mode .bg-black\\/90,
-            .low-spec-mode [class*="bg-black/"] {
+            .low-spec-mode .modal-card {
                 background: #121216 !important;
                 box-shadow: none !important;
                 filter: none !important;
                 border: 1px solid rgba(255, 255, 255, 0.1) !important;
             }
 
-            /* Ocultar capas decorativas pesadas y gradientes radiales continuos */
+            /* Ocultar capas decorativas pesadas, blobs y halo del cursor */
             .low-spec-mode #hero-blobs,
             .low-spec-mode .glow-blob,
-            .low-spec-mode .blob-1,
-            .low-spec-mode .blob-2,
-            .low-spec-mode .blob-3,
-            .low-spec-mode [class*="blob-drift"],
+            .low-spec-mode .gm-blob,
+            .low-spec-mode .gm-blob-1,
+            .low-spec-mode .gm-blob-2,
+            .low-spec-mode .gm-blob-3,
+            .low-spec-mode .glow-mesh,
+            .low-spec-mode .cursor-glow,
+            .low-spec-mode #cursor-glow,
             .low-spec-mode .ambient-glow {
                 display: none !important;
             }
@@ -114,14 +119,8 @@
                 display: none !important;
             }
 
-            .low-spec-mode .glitch-text {
-                animation: none !important;
-                text-shadow: none !important;
-            }
-
             /* Detener desplazamiento de marquesina */
             .low-spec-mode .marquee-inner-py {
-                animation: none !important;
                 transform: none !important;
                 white-space: normal !important;
             }
@@ -133,11 +132,6 @@
             .low-spec-mode h3 {
                 filter: none !important;
                 text-shadow: none !important;
-            }
-
-            /* Transiciones inmediatas para eliminar retraso visual */
-            .low-spec-mode * {
-                transition-duration: 0.05s !important;
             }
 
             /* Boton selector de rendimiento en navbar */
@@ -393,18 +387,6 @@
                     r.unregister();
                 }
             }).catch(() => {});
-        }
-
-        if (!observerAttached && typeof MutationObserver !== 'undefined' && document.documentElement) {
-            try {
-                observerAttached = true;
-                const obs = new MutationObserver(() => {
-                    if (document.body && document.body.classList.contains('cinematic-mode')) {
-                        document.body.classList.remove('cinematic-mode');
-                    }
-                });
-                obs.observe(document.documentElement, { attributes: true, subtree: true, attributeFilter: ['class'] });
-            } catch (e) {}
         }
     }
 

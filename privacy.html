@@ -263,16 +263,21 @@
     <script>
         (function() {
             const g = document.getElementById('cursor-glow');
-            if (!g) return;
-            let tx = innerWidth/2, ty = innerHeight/2, cx = tx, cy = ty;
-            const lerp = (a,b,t) => a+(b-a)*t;
-            const loop = () => {
-                cx = lerp(cx,tx,.1); cy = lerp(cy,ty,.1);
-                g.style.left = cx+'px'; g.style.top = cy+'px';
-                requestAnimationFrame(loop);
-            };
-            addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; });
-            loop();
+            if (!g || window.matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)) {
+                if (g) g.remove();
+                return;
+            }
+            let scheduled = false, mx = -1000, my = -1000;
+            window.addEventListener('mousemove', (e) => {
+                mx = e.clientX; my = e.clientY;
+                if (!scheduled) {
+                    scheduled = true;
+                    requestAnimationFrame(() => {
+                        g.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+                        scheduled = false;
+                    });
+                }
+            }, { passive: true });
         })();
     </script>
 </body>
