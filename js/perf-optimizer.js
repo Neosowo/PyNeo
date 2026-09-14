@@ -34,10 +34,9 @@
         }
 
         const isLowEnd = (
-            hardwareSpecs.cores <= 4 ||
-            hardwareSpecs.memory <= 4 ||
+            hardwareSpecs.cores <= 2 ||
+            (hardwareSpecs.cores <= 4 && hardwareSpecs.memory <= 2) ||
             hardwareSpecs.isSoftwareGPU ||
-            hardwareSpecs.prefersReducedMotion ||
             hardwareSpecs.saveData
         );
 
@@ -179,7 +178,22 @@
                 background: #818cf8;
             }
 
-            /* Neutralizacion definitiva contra cualquier remanente del modo cinematico */
+            /* Blindaje inmutable contra escalado o crecimiento en la palabra Python */
+            .text-gradient-anim,
+            #hero-section h1 span,
+            .hero-badge {
+                transform: none !important;
+                max-width: 100% !important;
+            }
+
+            .text-gradient-anim {
+                font-size: inherit !important;
+                display: inline-block !important;
+                line-height: 0.92 !important;
+                animation: none !important;
+                transition: none !important;
+            }
+
             .cinematic-mode,
             body.cinematic-mode {
                 background: #09090b !important;
@@ -198,14 +212,6 @@
                 transform: none !important;
                 visibility: visible !important;
                 display: inline-block !important;
-            }
-
-            body.cinematic-mode .text-gradient-anim {
-                font-size: inherit !important;
-                transform: none !important;
-                filter: none !important;
-                white-space: normal !important;
-                line-height: inherit !important;
             }
 
             body.cinematic-mode #hero-section {
@@ -254,7 +260,15 @@
         const isLowEnd = probeHardware();
         applyState(isLowEnd);
 
-        runFrameRateBenchmark();
+        if (typeof window !== 'undefined') {
+            if (document.readyState === 'complete') {
+                setTimeout(runFrameRateBenchmark, 1500);
+            } else {
+                window.addEventListener('load', () => {
+                    setTimeout(runFrameRateBenchmark, 1500);
+                }, { once: true });
+            }
+        }
     }
 
     function runFrameRateBenchmark() {
@@ -270,13 +284,14 @@
             frameDeltas.push(delta);
             frameCount++;
 
-            if (frameCount < 15) {
+            if (frameCount < 30) {
                 requestAnimationFrame(measureFrame);
             } else {
-                const avgDelta = frameDeltas.slice(1).reduce((a, b) => a + b, 0) / (frameDeltas.length - 1);
+                const stableDeltas = frameDeltas.slice(5);
+                const avgDelta = stableDeltas.reduce((a, b) => a + b, 0) / stableDeltas.length;
                 hardwareSpecs.fpsAverage = Math.round(1000 / avgDelta);
 
-                if (avgDelta > 28) {
+                if (avgDelta > 32) {
                     applyState(true);
                 }
             }
@@ -387,7 +402,7 @@
         if (typeof window !== 'undefined' && 'caches' in window) {
             window.caches.keys().then(keys => {
                 keys.forEach(key => {
-                    if (key !== 'pyneo-v3') {
+                    if (key !== 'pyneo-v4') {
                         window.caches.delete(key);
                     }
                 });

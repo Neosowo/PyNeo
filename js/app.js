@@ -12,7 +12,10 @@ let lessonProgress = JSON.parse(localStorage.getItem('PyNeo-lesson-progress')) |
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    let checkAuth = setInterval(() => {
+    let attempts = 0;
+    const maxAttempts = 30;
+    const checkAuth = setInterval(() => {
+        attempts++;
         if (typeof firebase !== 'undefined' && firebase.auth) {
             clearInterval(checkAuth);
             firebase.auth().onAuthStateChanged(async (user) => {
@@ -40,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     } catch (e) { console.error("Error syncing progress down:", e); }
                 }
             });
+        } else if (attempts >= maxAttempts) {
+            clearInterval(checkAuth);
         }
     }, 500);
 });
