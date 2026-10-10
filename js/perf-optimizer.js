@@ -56,7 +56,6 @@
         style.id = 'pyneo-perf-styles';
         style.textContent = `
             /* Desactivar animaciones continuas especificas */
-            .low-spec-mode .marquee-inner-py,
             .low-spec-mode .animate-pulse,
             .low-spec-mode .animate-bounce,
             .low-spec-mode .animate-flame,
@@ -118,12 +117,6 @@
             .low-spec-mode .glitch-text::before,
             .low-spec-mode .glitch-text::after {
                 display: none !important;
-            }
-
-            /* Detener desplazamiento de marquesina */
-            .low-spec-mode .marquee-inner-py {
-                transform: none !important;
-                white-space: normal !important;
             }
 
             /* Eliminar sombras difusas y filtros de texto */

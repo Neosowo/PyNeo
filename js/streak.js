@@ -82,7 +82,7 @@ function handleDailyChallengeClick() {
     if (challenge.lastUpdate === today) {
         
         showRanking();
-        showNotification('¡Ya completaste tu reto de hoy! 🎯', 'info');
+        showNotification('Ya completaste tu reto de hoy.', 'info');
         return;
     }
 
@@ -119,7 +119,7 @@ function startRandomDailyExercise() {
         }
     }
 
-    showNotification(`Reto del día: ${todayChallenge.title} ✨`, 'success');
+    showNotification(`Reto del día: ${todayChallenge.title}`, 'success');
 
     if (typeof startEvaluation === 'function') {
         startEvaluation(todayChallenge.id, false); 
@@ -148,9 +148,7 @@ function updateStreak() {
 
     localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
     updateDailyChallengeUI();
-    syncDailyChallengeWithFirestore(true); 
-
-    showNotification('¡Desafío diario completado! 🔥', 'success');
+    syncDailyChallengeWithFirestore(true);
 }
 
 function getStreakColor(count) {
@@ -431,7 +429,7 @@ function watchAdForFreeze() {
 
     if (lastView && (now - lastView < COOLDOWN)) {
         const timeLeft = Math.ceil((COOLDOWN - (now - lastView)) / (60 * 60 * 1000));
-        showNotification(`Vuelve en ${timeLeft} horas para otro protector ❄️`, 'info');
+        showNotification(`Vuelve en ${timeLeft} horas para otro protector.`, 'info');
         return;
     }
 
@@ -444,7 +442,7 @@ function watchAdForFreeze() {
     adBlockTest.remove();
 
     if (isAdBlockActive) {
-        showNotification('Desactiva el AdBlock para ganar protecciones gratis 🛡️', 'error');
+        showNotification('Desactiva el AdBlock para ganar protecciones gratis.', 'error');
         return;
     }
 
@@ -469,7 +467,7 @@ function watchAdForFreeze() {
     const handleVisibilityChange = () => {
         if (document.hidden) {
             isPaused = true;
-            if (countdownEl) countdownEl.innerHTML = '<span style="color:#f87171">⏳ Pausado</span>';
+            if (countdownEl) countdownEl.innerHTML = '<span style="color:#f87171">Pausado</span>';
         } else {
             isPaused = false;
         }
