@@ -135,49 +135,6 @@
                 text-shadow: none !important;
             }
 
-            /* Boton selector de rendimiento en navbar */
-            .perf-toggle-btn {
-                font-family: inherit;
-                font-size: 11px;
-                letter-spacing: 0.05em;
-                font-weight: 700;
-                padding: 6px 12px;
-                border-radius: 9999px;
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                background: rgba(255, 255, 255, 0.04);
-                color: #94a3b8;
-                user-select: none;
-            }
-
-            .perf-toggle-btn:hover {
-                background: rgba(255, 255, 255, 0.08);
-                color: #e2e8f0;
-                border-color: rgba(255, 255, 255, 0.25);
-            }
-
-            .perf-toggle-btn.active-low {
-                background: rgba(99, 102, 241, 0.15);
-                color: #a5b4fc;
-                border-color: rgba(99, 102, 241, 0.4);
-            }
-
-            .perf-toggle-btn .perf-dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: #64748b;
-                display: inline-block;
-            }
-
-            .perf-toggle-btn.active-low .perf-dot {
-                background: #818cf8;
-            }
-
             /* Blindaje inmutable contra escalado o crecimiento en la palabra Python */
             .text-gradient-anim,
             #hero-section h1 span,
@@ -221,12 +178,6 @@
                 border-color: rgba(255, 255, 255, 0.25) !important;
             }
 
-            /* Optimizacion low-spec para evitar sobrecarga de GPU */
-            .low-spec-mode * {
-                box-shadow: none !important;
-                text-shadow: none !important;
-            }
-
             .low-spec-mode body,
             .low-spec-mode html {
                 background-color: #09090b !important;
@@ -254,8 +205,6 @@
                 window.gsap.ticker.fps(60);
             }
         }
-
-        updateButtonsUI();
     }
 
     function evaluateAndApply() {
@@ -317,14 +266,6 @@
         currentMode = mode;
         localStorage.setItem(STORAGE_KEY, mode);
         evaluateAndApply();
-
-        const message = mode === 'low'
-            ? 'Modo de bajo consumo activado'
-            : (mode === 'high' ? 'Modo de alto rendimiento activado' : 'Modo automatico por capacidad activado');
-
-        if (window.showNotification) {
-            window.showNotification(message, 'info');
-        }
     }
 
     function toggleMode() {
@@ -337,35 +278,6 @@
         }
     }
 
-    function updateButtonsUI() {
-        const buttons = document.querySelectorAll('.perf-toggle-btn');
-        buttons.forEach(btn => {
-            const textEl = btn.querySelector('.perf-label');
-            if (isLowSpecActive) {
-                btn.classList.add('active-low');
-                if (textEl) {
-                    textEl.textContent = currentMode === 'low' ? 'Bajo Consumo: Forzado' : 'Bajo Consumo: Auto';
-                }
-                btn.title = 'Modo de ultra bajo consumo activado para maximizar fluidez. Clic para cambiar.';
-            } else {
-                btn.classList.remove('active-low');
-                if (textEl) {
-                    textEl.textContent = currentMode === 'high' ? 'Rendimiento: Alto' : 'Rendimiento: Estandar';
-                }
-                btn.title = 'Modo estandar. Clic para alternar a modo de bajo consumo.';
-            }
-        });
-    }
-
-    function createNavbarButton() {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'perf-toggle-btn';
-        btn.innerHTML = '<span class="perf-dot"></span><span class="perf-label">Rendimiento</span>';
-        btn.onclick = toggleMode;
-        return btn;
-    }
-
     function optimizeAceEditorIfPresent() {
         if (window.aceEditor && typeof window.aceEditor.setAnimatedScroll === 'function') {
             if (isLowSpecActive) {
@@ -376,25 +288,7 @@
     }
 
     function attachToNavbars() {
-        updateButtonsUI();
-
-        const selectors = [
-            '#main-nav .container > div > div:last-child',
-            '#main-nav div.flex.items-center.justify-between > div.flex.items-center:last-child',
-            '#main-nav > div.flex.items-center.gap-4',
-            'header .flex.items-center:last-child'
-        ];
-
-        selectors.forEach(sel => {
-            const target = document.querySelector(sel);
-            if (target && !target.querySelector('.perf-toggle-btn')) {
-                const btn = createNavbarButton();
-                target.insertBefore(btn, target.firstChild);
-            }
-        });
-
         optimizeAceEditorIfPresent();
-        updateButtonsUI();
     }
 
     function neutralizeIdleRemnants() {
