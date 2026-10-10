@@ -212,11 +212,17 @@ function startEvaluation(id, useTimer) {
     }
 
 
-    document.getElementById('exercises-section').classList.add('hidden');
-    document.getElementById('hero-section').classList.add('hidden');
-    document.getElementById('modules-section').classList.add('hidden');
-    document.getElementById('evaluation-content').classList.remove('hidden');
+    document.getElementById('exercises-section')?.classList.add('hidden');
+    document.getElementById('hero-section')?.classList.add('hidden');
+    document.getElementById('modules-section')?.classList.add('hidden');
 
+    const marquee = document.getElementById('hero-marquee-band');
+    if (marquee) marquee.classList.add('hidden');
+
+    const footer = document.getElementById('main-footer');
+    if (footer) footer.classList.add('hidden');
+
+    document.getElementById('evaluation-content')?.classList.remove('hidden');
 
     const nav = document.getElementById('main-nav');
     if (nav) nav.style.display = 'none';
@@ -242,14 +248,19 @@ function closeEvaluation() {
     stopTimer();
     currentEval = null;
 
-
     const nav = document.getElementById('main-nav');
     if (nav) nav.style.display = 'block';
 
-    document.getElementById('evaluation-content').classList.add('hidden');
-    document.getElementById('exercises-section').classList.remove('hidden');
-    document.getElementById('hero-section').classList.remove('hidden');
-    document.getElementById('modules-section').classList.remove('hidden');
+    const marquee = document.getElementById('hero-marquee-band');
+    if (marquee) marquee.classList.remove('hidden');
+
+    const footer = document.getElementById('main-footer');
+    if (footer) footer.classList.remove('hidden');
+
+    document.getElementById('evaluation-content')?.classList.add('hidden');
+    document.getElementById('exercises-section')?.classList.remove('hidden');
+    document.getElementById('hero-section')?.classList.remove('hidden');
+    document.getElementById('modules-section')?.classList.remove('hidden');
 }
 
 function loadQuestion() {
