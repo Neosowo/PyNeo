@@ -23,7 +23,7 @@
                 const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
                 if (debugInfo) {
                     const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL).toLowerCase();
-                    if (/swiftshader|llvmpipe|softpipe|software|mesa|microsoft basic render|intel hd graphics 2|intel hd graphics 3|intel hd graphics 400|intel hd graphics 500|intel hd graphics 600|mali-400|mali-450|adreno 300/i.test(renderer)) {
+                    if (/swiftshader|llvmpipe|softpipe|software|mesa|microsoft basic render|intel hd|intel uhd|intel iris|intel graphics|mali|adreno|powervr|radeon vega/i.test(renderer)) {
                         hardwareSpecs.isSoftwareGPU = true;
                     }
                 }
@@ -39,10 +39,11 @@
         }
 
         const isLowEnd = (
-            hardwareSpecs.cores <= 2 ||
-            (hardwareSpecs.cores <= 4 && hardwareSpecs.memory <= 2) ||
+            hardwareSpecs.cores <= 4 ||
+            hardwareSpecs.memory <= 4 ||
             hardwareSpecs.isSoftwareGPU ||
-            hardwareSpecs.saveData
+            hardwareSpecs.saveData ||
+            hardwareSpecs.prefersReducedMotion
         );
 
         return isLowEnd;
@@ -192,6 +193,43 @@
                 line-height: 1 !important;
                 animation: none !important;
                 transition: none !important;
+            }
+
+            /* Estilo universal y posicionamiento para el boton de cerrar en modales */
+            .login-modal-close {
+                position: absolute !important;
+                top: 1.25rem !important;
+                right: 1.25rem !important;
+                width: 32px !important;
+                height: 32px !important;
+                background: rgba(255, 255, 255, 0.05) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                border-radius: 8px !important;
+                color: #94a3b8 !important;
+                font-size: 1rem !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+                transition: all 0.2s ease !important;
+                z-index: 50 !important;
+            }
+
+            .login-modal-close:hover {
+                background: rgba(255, 255, 255, 0.15) !important;
+                color: #ffffff !important;
+                border-color: rgba(255, 255, 255, 0.25) !important;
+            }
+
+            /* Optimizacion low-spec para evitar sobrecarga de GPU */
+            .low-spec-mode * {
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            .low-spec-mode body,
+            .low-spec-mode html {
+                background-color: #09090b !important;
             }
         `;
         document.head.appendChild(style);

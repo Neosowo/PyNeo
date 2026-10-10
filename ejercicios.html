@@ -113,6 +113,28 @@ tailwind.config = {
         padding: 3rem 2.5rem; max-width: 420px; width: 100%; text-align: center;
         box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(99,102,241,0.1); position: relative;
     }
+    .login-modal-close {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: #94a3b8;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .login-modal-close:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.25);
+    }
     .btn-google-login {
         display: flex; align-items: center; justify-content: center; gap: 0.75rem;
         width: 100%; padding: 0.95rem; background: white; color: #1a1a2e;
@@ -148,7 +170,7 @@ tailwind.config = {
 
 <div id="login-modal-overlay">
     <div id="login-modal-card">
-        <button class="login-modal-close" onclick="window.location.href='index.html'">✕</button>
+        <button class="login-modal-close" onclick="window.location.href='index.html'" aria-label="Volver al inicio" title="Volver al inicio">&#10005;</button>
         <div class="flex items-center justify-center gap-3 mb-8">
             <img src="js/media/favicon.png" width="42" height="42">
             <span class="text-2xl font-black text-white tracking-tighter">PyNeo</span>
