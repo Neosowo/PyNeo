@@ -2,6 +2,7 @@ const DAILY_CHALLENGE_KEY = 'PyNeo-daily-challenge';
 const DB_USERS_STATS = 'leaderboard';
 const STREAK_FREEZE_KEY = 'PyNeo-streak-freeze';
 const LAST_AD_VIEW_KEY = 'PyNeo-last-ad-view';
+const LAST_SYNC_TIME_KEY = 'PyNeo-last-sync-time';
 
 function initStreak() {
     checkStreakLoss();
@@ -19,11 +20,11 @@ function getFreezes() {
 function addFreeze() {
     let current = getFreezes();
     if (current >= 1) {
-        showNotification('Ya tienes el máximo de protectores (1) ❄️', 'info');
+        showNotification('Ya tienes el maximo de protectores (1)', 'info');
         return false;
     }
     localStorage.setItem(STREAK_FREEZE_KEY, current + 1);
-    showNotification('¡Has ganado un Protector de Racha! ❄️', 'success');
+    showNotification('Has ganado un Protector de Racha.', 'success');
     updateDailyChallengeUI();
     return true;
 }
@@ -45,7 +46,7 @@ function checkStreakLoss() {
             localStorage.setItem(STREAK_FREEZE_KEY, freezes - 1);
             challenge.lastUpdate = yesterdayStr; 
             localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
-            showNotification('¡Tu Protector de Racha te ha salvado hoy! ❄️', 'info');
+            showNotification('Tu Protector de Racha te ha salvado hoy.', 'info');
         } else {
             challenge.count = 0;
             localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
@@ -63,68 +64,66 @@ function getDailyChallenge() {
     }
 }
 
-
-function handleDailyChallengeClick() {
-    if (typeof firebase !== 'undefined' && firebase.auth && !firebase.auth().currentUser) {
-        if (typeof openLoginModal === 'function') {
-            openLoginModal();
-            return;
-        }
-    }
-
-    const now = new Date();
-    const today = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'America/Guayaquil'
-    }).format(now);
-
-    const challenge = getDailyChallenge();
-
-    if (challenge.lastUpdate === today) {
-        
-        showRanking();
-        showNotification('Ya completaste tu reto de hoy.', 'info');
-        return;
-    }
-
-    startRandomDailyExercise();
+function handleStreakClick() {
+    showStreakModal();
 }
 
-function startRandomDailyExercise() {
-    if (typeof window.dailyChallenges === 'undefined' || window.dailyChallenges.length === 0) {
-        showNotification('Cargando reto del día...', 'info');
-        setTimeout(startRandomDailyExercise, 1000);
-        return;
-    }
+function handleDailyChallengeClick() {
+    handleStreakClick();
+}
 
-    
+function showStreakModal() {
+    const modal = document.getElementById('streak-modal') || document.getElementById('ranking-modal');
+    if (!modal) return;
+
+    const challenge = getDailyChallenge();
+    const countEl = document.getElementById('modal-streak-count');
+    if (countEl) countEl.innerText = challenge.count;
+
     const now = new Date();
-    const dateStr = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'America/Guayaquil'
-    }).format(now); 
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Guayaquil' }).format(now);
+    const statusEl = document.getElementById('modal-streak-status');
 
-    
-    let hash = 0;
-    for (let i = 0; i < dateStr.length; i++) {
-        hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
-        hash |= 0;
-    }
-
-    const index = Math.abs(hash) % window.dailyChallenges.length;
-    const todayChallenge = window.dailyChallenges[index];
-
-    
-    if (typeof window.evaluations !== 'undefined') {
-        if (!window.evaluations.find(e => e.id === todayChallenge.id)) {
-            window.evaluations.push(todayChallenge);
+    if (statusEl) {
+        if (challenge.lastUpdate === today) {
+            statusEl.className = 'p-3.5 rounded-xl border border-neon-green/30 bg-neon-green/5 text-neon-green text-xs font-semibold flex items-center gap-2.5';
+            statusEl.innerHTML = '<i class="fas fa-check-circle text-sm"></i><span>Racha de hoy asegurada. Continua con tus lecciones en el curso.</span>';
+        } else {
+            statusEl.className = 'p-3.5 rounded-xl border border-orange-500/30 bg-orange-500/5 text-orange-300 text-xs font-semibold flex items-center gap-2.5';
+            statusEl.innerHTML = '<i class="fas fa-clock text-sm"></i><span>Aun no has practicado hoy. Completa una leccion o ejercicio del curso para sumar tu racha.</span>';
         }
     }
 
-    showNotification(`Reto del día: ${todayChallenge.title}`, 'success');
+    const freezes = getFreezes();
+    const modalFreezeCount = document.getElementById('modal-freeze-count');
+    if (modalFreezeCount) modalFreezeCount.innerText = `${freezes}/1`;
 
-    if (typeof startEvaluation === 'function') {
-        startEvaluation(todayChallenge.id, false); 
-    } else {
-        console.error("startEvaluation not found");
+    modal.classList.remove('hidden');
+}
+
+function closeStreakModal() {
+    const modal = document.getElementById('streak-modal') || document.getElementById('ranking-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function closeRanking() {
+    closeStreakModal();
+}
+
+function showRanking() {
+    showStreakModal();
+}
+
+function goToCourse() {
+    closeStreakModal();
+    const moduleContent = document.getElementById('module-content');
+    if (moduleContent && !moduleContent.classList.contains('hidden')) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+    const modulesSec = document.getElementById('modules-section');
+    if (modulesSec) {
+        modulesSec.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
@@ -141,7 +140,6 @@ function updateStreak() {
     challenge.count++;
     challenge.lastUpdate = today;
 
-    
     if (challenge.count % 7 === 0) {
         addFreeze();
     }
@@ -149,6 +147,7 @@ function updateStreak() {
     localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify(challenge));
     updateDailyChallengeUI();
     syncDailyChallengeWithFirestore(true);
+    showNotification(`Racha de hoy sumada: ${challenge.count} ${challenge.count === 1 ? 'dia' : 'dias'}. Buen trabajo en el curso.`, 'success');
 }
 
 function getStreakColor(count) {
@@ -178,7 +177,6 @@ function updateDailyChallengeUI() {
         const icon = container.querySelector('i');
         const color = getStreakColor(challenge.count);
 
-        
         const modalCount = document.getElementById('modal-freeze-count');
         if (modalCount) modalCount.innerText = `${freezes}/1`;
 
@@ -211,21 +209,18 @@ function updateDailyChallengeUI() {
 async function syncDailyChallengeWithFirestore(isNewCompletion = false, force = false) {
     if (typeof db === 'undefined' || !db) return;
 
-    // Prefer authenticated Firebase user, fall back to guest name
     let currentUser = null;
     let currentUID  = null;
     if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
         const authUser = firebase.auth().currentUser;
         currentUID  = authUser.uid;
         currentUser = (authUser.displayName || authUser.email || 'Usuario').split(' ')[0];
-        // Keep pyneo_chat_user in sync with the real name
         localStorage.setItem('pyneo_chat_user', currentUser);
     } else {
         currentUser = localStorage.getItem('pyneo_chat_user');
     }
     if (!currentUser) return;
 
-    // Document key: use UID when available (stable), else the chat username
     const docKey = currentUID || currentUser;
 
     const challenge = getDailyChallenge();
@@ -233,12 +228,10 @@ async function syncDailyChallengeWithFirestore(isNewCompletion = false, force = 
     const userProgress = progressEl ? progressEl.innerText : '0%';
     const userColor = typeof getUserColor === 'function' ? getUserColor(currentUser) : (localStorage.getItem('PyNeo-user-color') || '#ffffff');
 
-    
     const lastSync = localStorage.getItem(LAST_SYNC_TIME_KEY);
     const lastSyncedStreak = localStorage.getItem('PyNeo-last-synced-count');
     const now = Date.now();
 
-    
     if (!force && !isNewCompletion && lastSync && (now - parseInt(lastSync) < 2 * 60 * 1000) && lastSyncedStreak == challenge.count) {
         return;
     }
@@ -262,164 +255,9 @@ async function syncDailyChallengeWithFirestore(isNewCompletion = false, force = 
 
         localStorage.setItem(LAST_SYNC_TIME_KEY, now.toString());
         localStorage.setItem('PyNeo-last-synced-count', challenge.count.toString());
-
-        
-        sessionStorage.removeItem(RANKING_CACHE_KEY);
     } catch (e) {
         console.warn("Firestore sync error:", e);
     }
-}
-
-const LAST_SYNC_TIME_KEY = 'PyNeo-last-sync-time';
-const RANKING_CACHE_KEY = 'PyNeo-ranking-cache';
-const CACHE_DURATION = 1 * 60 * 1000; 
-
-async function showRanking() {
-    
-    await syncDailyChallengeWithFirestore(false, true);
-
-    const modal = document.getElementById('ranking-modal');
-    const list = document.getElementById('ranking-list');
-    if (!modal || !list) return;
-
-    modal.classList.remove('hidden');
-
-    
-    const cached = sessionStorage.getItem(RANKING_CACHE_KEY);
-    if (cached) {
-        const { timestamp, html } = JSON.parse(cached);
-        if (Date.now() - timestamp < CACHE_DURATION) {
-            list.innerHTML = html;
-            return;
-        }
-    }
-
-    list.innerHTML = '<div class="flex justify-center p-8"><i class="fas fa-spinner fa-spin text-neon-green text-3xl"></i></div>';
-
-    if (typeof db === 'undefined' || !db) {
-        setTimeout(showRanking, 1000);
-        return;
-    }
-
-    executeRankingFetch(list);
-}
-
-async function executeRankingFetch(list) {
-    try {
-        
-        const now = new Date();
-        const today = new Intl.DateTimeFormat('en-CA', {
-            timeZone: 'America/Guayaquil'
-        }).format(now);
-        const yesterday = new Date(now);
-        yesterday.setDate(now.getDate() - 1);
-        const yesterdayStr = new Intl.DateTimeFormat('en-CA', {
-            timeZone: 'America/Guayaquil'
-        }).format(yesterday);
-
-        
-        const querySnapshot = await db.collection(DB_USERS_STATS)
-            .where('lastUpdate', 'in', [today, yesterdayStr])
-            .limit(50)
-            .get();
-
-        let users = [];
-        querySnapshot.forEach(doc => {
-            const data = doc.data();
-            users.push({ id: doc.id, ...data });
-        });
-
-        
-        users.sort((a, b) => {
-            const streakA = parseInt(a.streak || 0);
-            const streakB = parseInt(b.streak || 0);
-
-            if (streakA !== streakB) {
-                return Math.max(0, streakB) - Math.max(0, streakA); 
-            }
-
-            const getMillis = (ts) => {
-                if (!ts) return 0;
-                if (typeof ts.toDate === 'function') return ts.toDate().getTime();
-                if (ts.seconds) return ts.seconds * 1000;
-                if (ts instanceof Date) return ts.getTime();
-                return 0;
-            };
-            return getMillis(a.streakTimestamp) - getMillis(b.streakTimestamp);
-        });
-
-        const top10 = users.slice(0, 10);
-
-        list.innerHTML = '';
-        let rank = 1;
-        if (top10.length === 0) {
-            list.innerHTML = '<p class="text-center text-gray-500 py-8">No hay datos aún.</p>';
-            return;
-        }
-
-        top10.forEach(userData => {
-            const data = userData;
-            const _authUser = (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) ? firebase.auth().currentUser : null;
-            const _myName   = localStorage.getItem('pyneo_chat_user');
-            const isMe = (data.user === _myName) || (_authUser && data.uid === _authUser.uid);
-            const item = document.createElement('div');
-            item.className = `flex items-center justify-between p-4 rounded-xl mb-2 border transition-all ${isMe ? 'bg-primary/20 border-primary/50' : 'bg-white/5 border-white/5'}`;
-
-            let isActive = false;
-            if (data.lastActive && typeof data.lastActive.toDate === 'function') {
-                const lastActiveTime = data.lastActive.toDate().getTime();
-                isActive = (Date.now() - lastActiveTime) < 5 * 60 * 1000;
-            }
-
-            let rankIcon = rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : `<span class="text-gray-500 w-8 text-center font-bold">${rank}</span>`;
-            const color = typeof getStreakColor === 'function' ? getStreakColor(data.streak || 0) : '#f97316';
-
-            item.innerHTML = `
-                <div class="flex items-center gap-4">
-                    <div class="text-xl w-8 flex justify-center">${rankIcon}</div>
-                    <div class="relative">
-                        <div class="flex flex-col">
-                            <span class="font-bold text-sm ${data.color === 'glitch-effect' ? 'glitch-text text-white' : ''}" data-text="${data.user}" style="${data.color && data.color !== 'glitch-effect' ? 'color:' + data.color : ''}">${data.user || 'Anon'}</span>
-                            <div class="flex items-center gap-2">
-                                <div class="w-12 h-1 bg-white/5 rounded-full overflow-hidden">
-                                    <div class="h-full bg-neon-green/50" style="width: ${data.progress || '0%'}"></div>
-                                </div>
-                                <span class="text-[8px] text-gray-600">${data.progress || '0%'}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5">
-                    <span class="text-sm font-black text-white">${data.streak || 0}</span>
-                    <i class="fas fa-fire text-[10px]" style="color: ${color}"></i>
-                </div>
-            `;
-            list.appendChild(item);
-            rank++;
-        });
-
-        
-        sessionStorage.setItem(RANKING_CACHE_KEY, JSON.stringify({
-            timestamp: Date.now(),
-            html: list.innerHTML
-        }));
-
-    } catch (error) {
-        console.error("Ranking Error Details:", error);
-        list.innerHTML = `
-            <div class="text-center py-8">
-                <p class="text-red-400 mb-2">Error al cargar ranking.</p>
-                <p class="text-[10px] text-gray-600 px-4">${error.message || "Error desconocido"}</p>
-                <button onclick="executeRankingFetch(document.getElementById('ranking-list'))" class="mt-4 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-[10px] text-gray-400 uppercase tracking-widest border border-white/10 transition-all">Reintentar</button>
-            </div>
-        `;
-    }
-}
-
-
-function closeRanking() {
-    const modal = document.getElementById('ranking-modal');
-    if (modal) modal.classList.add('hidden');
 }
 
 function watchAdForFreeze() {
@@ -433,7 +271,6 @@ function watchAdForFreeze() {
         return;
     }
 
-    
     const adBlockTest = document.createElement('div');
     adBlockTest.innerHTML = '&nbsp;';
     adBlockTest.className = 'adsbox';
@@ -453,7 +290,6 @@ function watchAdForFreeze() {
     if (!modal) return;
     modal.classList.remove('hidden');
 
-    
     try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
@@ -463,7 +299,6 @@ function watchAdForFreeze() {
     let seconds = 15;
     let isPaused = false;
 
-    
     const handleVisibilityChange = () => {
         if (document.hidden) {
             isPaused = true;
@@ -483,7 +318,7 @@ function watchAdForFreeze() {
         if (seconds <= 0) {
             clearInterval(interval);
             document.removeEventListener('visibilitychange', handleVisibilityChange);
-            if (countdownEl) countdownEl.innerHTML = '<span style="color:#4ade80;font-weight:bold">¡LISTO!</span>';
+            if (countdownEl) countdownEl.innerHTML = '<span style="color:#4ade80;font-weight:bold">Listo</span>';
             if (closeBtn) {
                 closeBtn.disabled = false;
                 closeBtn.classList.remove('text-gray-700', 'cursor-not-allowed');
@@ -500,7 +335,6 @@ function closeAdWithReward() {
     addFreeze();
     localStorage.setItem(LAST_AD_VIEW_KEY, Date.now().toString());
 
-    
     const closeBtn = document.getElementById('btn-close-ad');
     if (closeBtn) {
         closeBtn.disabled = true;

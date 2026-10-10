@@ -348,6 +348,7 @@ function checkLessonValidation(code, output, outputId) {
     if (isValid) {
         el.innerHTML += `<div class="mt-4 p-2 bg-green-500/10 text-neon-green text-[10px] font-black uppercase text-center rounded"><i class="fas fa-check-circle mr-2"></i> Reto Superado</div>`;
         enableNextBtn(true);
+        if (typeof updateStreak === 'function') updateStreak();
     } else {
         el.innerHTML += `<div class="mt-4 p-2 bg-orange-500/5 text-orange-300 text-xs italic rounded">${hint}</div>`;
         enableNextBtn(false);
